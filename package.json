@@ -9,13 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-pdf-viewer/core": "3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@types/dropzone": "^5.7.4",
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "dropzone": "^6.0.0-beta.2",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.10.111",
     "postcss": "8.4.29",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
@@ -23,6 +29,10 @@
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "binary-loader": "^0.0.1"
   }
 }
