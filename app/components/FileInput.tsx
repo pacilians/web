@@ -16,8 +16,8 @@ export default function FileInput() {
   }, []);
 
   return (
-      <form id="fileInput" className="dropzone">
-        <div className="dz-message">Drop files here or click to upload.</div>
-      </form>
+    <form id="fileInput" className="dropzone">
+      <div className="dz-message">Drop files here or click to upload.</div>
+    </form>
   );
 }
