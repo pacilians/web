@@ -21,7 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${plus_jakarta_sans.variable} flex font-sans`}>
+      <body
+        className={`${plus_jakarta_sans.variable} flex h-screen items-stretch bg-gray-100 font-sans`}
+      >
         <Sidebar />
         {children}
       </body>
