@@ -20,7 +20,7 @@ export default function Sidebar() {
         }`}
       >
         <Image
-          src="/logo-bni.svg"
+          src="/logo-bni-full.svg"
           alt=""
           width={175}
           height={57}
@@ -29,15 +29,12 @@ export default function Sidebar() {
       </div>
       <div className="mt-12 flex w-full grow flex-col">
         <button className="nav-item">
-          <Iconify icon="solar:chart-bold-duotone" className="text-2xl" />
-          {isButtonToggled ? null : "Dashboard"}
+          <Iconify icon="solar:home-angle-2-bold-duotone" className="text-2xl" />
+          {isButtonToggled ? null : "Home"}
         </button>
         <button className="nav-item">
-          <Iconify
-            icon="solar:document-add-bold-duotone"
-            className="text-2xl"
-          />
-          {isButtonToggled ? null : "Documents"}
+          <Iconify icon="solar:database-bold-duotone" className="text-2xl" />
+          {isButtonToggled ? null : "Database"}
         </button>
         <button className="nav-item">
           <Iconify icon="solar:bell-bold-duotone" className="text-2xl" />
