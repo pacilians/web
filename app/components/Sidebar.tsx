@@ -29,7 +29,10 @@ export default function Sidebar() {
       </div>
       <div className="mt-12 flex w-full grow flex-col">
         <button className="nav-item">
-          <Iconify icon="solar:home-angle-2-bold-duotone" className="text-2xl" />
+          <Iconify
+            icon="solar:home-angle-2-bold-duotone"
+            className="text-2xl"
+          />
           {isButtonToggled ? null : "Home"}
         </button>
         <button className="nav-item">
@@ -46,12 +49,12 @@ export default function Sidebar() {
         </button>
 
         <button
-          className="mt-auto flex h-12 w-full items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 active:scale-95"
+          className="mt-auto flex h-12 w-full items-center justify-center rounded-full bg-base-300 hover:bg-base-400 active:scale-95"
           onClick={() => setIsButtonToggled(!isButtonToggled)}
         >
           <Iconify
             icon="solar:arrow-left-outline"
-            className={`text-2xl transition-transform duration-500 ${
+            className={`text-2xl text-base-content-300 transition-transform duration-500 ${
               isButtonToggled ? "rotate-180" : "rotate-0"
             }`}
           />

@@ -61,13 +61,13 @@ export default function ThemeSwitcher() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-base-300 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
               <Menu.Item>
                 <button
                   onClick={() => setTheme("light")}
                   data-headlessui-state={theme === "light" ? "active" : ""}
-                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-gray-900"
+                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-base-content-300"
                 >
                   <Iconify
                     icon="solar:sun-bold"
@@ -80,7 +80,7 @@ export default function ThemeSwitcher() {
                 <button
                   onClick={() => setTheme("dark")}
                   data-headlessui-state={theme === "dark" ? "active" : ""}
-                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-gray-900"
+                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-base-content-300"
                 >
                   <Iconify
                     icon="solar:moon-bold"
@@ -93,9 +93,9 @@ export default function ThemeSwitcher() {
               </Menu.Item>
               <Menu.Item>
                 <button
-                  onClick={() => setTheme("cupcake")}
-                  data-headlessui-state={theme === "cupcake" ? "active" : ""}
-                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-gray-900"
+                  onClick={() => setTheme("bni")}
+                  data-headlessui-state={theme === "bni" ? "active" : ""}
+                  className="ui-active:bg-orange-500 ui-active:text-white group flex w-full items-center rounded-md px-4 py-3 text-sm text-base-content-300"
                 >
                   <Image
                     src="/logo-bni-icon.svg"
