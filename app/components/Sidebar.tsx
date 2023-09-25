@@ -1,12 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import Iconify from "./Iconify";
 
 export default function Sidebar() {
   const [isButtonToggled, setIsButtonToggled] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname === "/auth") {
+    return null;
+  }
 
   return (
     <nav
