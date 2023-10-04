@@ -34,9 +34,9 @@ export default function Login() {
     if (response.status === 401) {
       alert('Wrong Password');
     } else if (response.status === 200) {
-      const data = await response.json();
-      console.log(data.status);
-      document.cookie = `token=${data.token}`;
+      const res = await response.json();
+      document.cookie = `token=${res.data.token}`;
+      window.location.href = '/';
     }
   }
   return (
