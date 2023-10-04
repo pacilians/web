@@ -1,20 +1,50 @@
+"use client";
 import { Metadata } from "next";
 import Image from "next/image";
+import { useState } from "react"
 
 import BniLogo from "../components/BniLogo";
 
-export const metadata: Metadata = {
-  title: "Login | BNI Custody Database",
-  description: "",
-};
+// export const metadata: Metadata = {
+//   title: "Login | BNI Custody Database",
+//   description: "",
+// };
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleEmailChange = (e:any) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e: any) => {
+    setPassword(e.target.value);
+  };
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    const response = await fetch('http://127.0.0.1:8000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    });
+    if (response.status === 401) {
+      alert('Wrong Password');
+    } else if (response.status === 200) {
+      const res = await response.json();
+      document.cookie = `token=${res.data.token}`;
+      window.location.href = '/';
+    }
+  }
   return (
     <section className="flex h-[calc(100%-5rem)] px-40 pb-20 pt-10">
       <div className="flex w-full overflow-hidden rounded-2xl bg-base-50 shadow-xl">
         <form
-          action="POST"
           className="flex w-1/2 flex-col items-center justify-between px-24 py-10"
+          onSubmit={handleLogin}
         >
           <div className="flex flex-col items-center text-lg text-base-content-200">
             {/* <BniLogo
@@ -38,6 +68,7 @@ export default function Login() {
                 type="email"
                 className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="johndoe@bni.co.id"
+                onChange={handleEmailChange}
               />
             </label>
             <label className="w-full">
@@ -46,13 +77,15 @@ export default function Login() {
                 type="password"
                 className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="••••••••••••"
+                onChange={handlePasswordChange}
               />
             </label>
           </div>
-          <button className="btn w-full">Login</button>
+          <button type="submit" className="btn w-full">Login</button>
         </form>
         <div className="w-1/2 bg-[url('/images/bg-auth.svg')] object-cover" />
       </div>
     </section>
   );
 }
+
