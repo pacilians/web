@@ -1,6 +1,5 @@
 "use client";
 import { Metadata } from "next";
-import Image from "next/image";
 import { useState } from "react"
 
 import BniLogo from "../components/BniLogo";
@@ -46,18 +45,8 @@ export default function Login() {
           className="flex w-1/2 flex-col items-center justify-between px-24 py-10"
           onSubmit={handleLogin}
         >
-          <div className="flex flex-col items-center text-lg text-base-content-200">
-            {/* <BniLogo
-              wordmark
-              className="h-16"
-            /> */}
-            <Image
-              src="/logo-bni-full.svg"
-              width={175}
-              height={57}
-              alt=""
-              className="h-16"
-            />
+          <div className="flex flex-col items-center text-lg text-base-content-400">
+            <BniLogo showWordmark className="h-16" />
             <p className="font-bold">International Division</p>
             <p className="">Custody Form Database</p>
           </div>
