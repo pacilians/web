@@ -35,7 +35,7 @@ export default function Form() {
 
   return (
     <form
-      className="flex w-1/2 flex-col items-center justify-between px-24 py-10"
+      className="flex w-1/2 flex-col items-center justify-center gap-10 px-24 py-10"
       onSubmit={handleLogin}
     >
       <div className="flex flex-col items-center text-lg text-base-content-400">
