@@ -25,11 +25,7 @@ export default function RootLayout({
       <body
         className={`${plus_jakarta_sans.variable} flex h-screen items-stretch bg-base-100 font-sans transition-colors`}
       >
-        <Sidebar />
-        <div className="flex h-full grow flex-col">
-          <Navbar />
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

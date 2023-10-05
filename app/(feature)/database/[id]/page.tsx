@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function DetailUser({ params }: { params: { id: string } }) {
-    return (
-        <section>
-            
-        </section>
-    );
+export default function DetailUser({ params }: { params: { fileId: string } }) {
+  return (
+    <main className="w-full grow rounded-tl-3xl bg-base-50 p-10 shadow-2xl">
+      file nasabah
+    </main>
+  );
 }
