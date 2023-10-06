@@ -34,6 +34,10 @@
   }
 
   .nav-item {
-    @apply inline-flex h-16 items-center gap-3 overflow-hidden rounded-md px-5 font-semibold text-base-content-300 hover:bg-base-300 active:scale-95;
+    @apply inline-flex h-16 items-center justify-center gap-3 overflow-hidden rounded-xl px-5 font-semibold text-base-content-300 hover:bg-base-300 active:scale-95;
+  }
+
+  .nav-item-active {
+    @apply inline-flex h-16 items-center justify-center gap-3 overflow-hidden rounded-xl bg-orange-200 px-5 font-semibold text-orange-700;
   }
 }

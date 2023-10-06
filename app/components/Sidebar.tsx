@@ -2,7 +2,7 @@
 
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import BniLogo from "./BniLogo";
@@ -10,7 +10,7 @@ import Iconify from "./Iconify";
 
 export default function Sidebar() {
   const [isButtonToggled, setIsButtonToggled] = useState(false);
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <nav
@@ -19,74 +19,97 @@ export default function Sidebar() {
       }`}
     >
       <div
-        className={`overflow-hidden h-10 px-3 transition-[width] duration-500 ${
+        className={`h-10 overflow-hidden px-3 transition-[width] duration-500 ${
           isButtonToggled ? "w-12" : "w-full"
         }`}
       >
-        <BniLogo
-          showWordmark
-          className="h-full object-left"
-        />
+        <BniLogo showWordmark className="h-full object-left" />
       </div>
       <div className="mt-12 flex w-full grow flex-col">
-        <Link className="nav-item" href="/announcement">
+        <Link
+          className={`nav-item${
+            pathname.startsWith("/announcement") ? "-active" : ""
+          }`}
+          href="/announcement"
+        >
           <Iconify icon="solar:flag-2-bold-duotone" className="text-2xl" />
           <Transition
-            className="line-clamp-1 text-clip"
+            className="mr-auto line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
-            enter="transition ease-in-out duration-300 transform"
+            enter="transition ease-in-out duration-500 transform"
             enterFrom="-translate-x-2 opacity-0 scale-90"
             enterTo="translate-x-0 opacity-100 scale-100"
-            leave="transition ease-in-out duration-300 transform"
+            leave="transition ease-in-out duration-500 transform"
             leaveFrom="translate-x-0 opacity-100 scale-100"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
             Announcements
           </Transition>
         </Link>
-        <Link className="nav-item" href="/database">
+        <Link
+          className={`nav-item${
+            pathname.startsWith("/database") ? "-active" : ""
+          }`}
+          href="/database"
+        >
           <Iconify icon="solar:database-bold-duotone" className="text-2xl" />
           <Transition
-            className="line-clamp-1 text-clip"
+            className="mr-auto line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
-            enter="transition ease-in-out duration-300 transform"
+            enter="transition ease-in-out duration-500 transform"
             enterFrom="-translate-x-2 opacity-0 scale-90"
             enterTo="translate-x-0"
-            leave="transition ease-in-out duration-300 transform"
+            leave="transition ease-in-out duration-500 transform"
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
             Database
           </Transition>
         </Link>
-        <Link className="nav-item" href="/master-data">
-          <Iconify icon="solar:inbox-archive-bold-duotone" className="text-2xl" />
+        <Link
+          className={`nav-item${
+            pathname.startsWith("/master-data") ? "-active" : ""
+          }`}
+          href="/master-data"
+        >
+          <Iconify
+            icon="solar:inbox-archive-bold-duotone"
+            className="text-2xl"
+          />
           <Transition
-            className="line-clamp-1 text-clip"
+            className="mr-auto line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
-            enter="transition ease-in-out duration-300 transform"
+            enter="transition ease-in-out duration-500 transform"
             enterFrom="-translate-x-2 opacity-0 scale-90"
             enterTo="translate-x-0"
-            leave="transition ease-in-out duration-300 transform"
+            leave="transition ease-in-out duration-500 transform"
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
             Master Data
           </Transition>
         </Link>
-        <Link className="nav-item" href="/user-management">
-          <Iconify icon="solar:users-group-two-rounded-bold-duotone" className="text-2xl" />
+        <Link
+          className={`nav-item${
+            pathname.startsWith("/user-management") ? "-active" : ""
+          }`}
+          href="/user-management"
+        >
+          <Iconify
+            icon="solar:users-group-two-rounded-bold-duotone"
+            className="text-2xl"
+          />
           <Transition
-            className="line-clamp-1 text-clip"
+            className="mr-auto line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
-            enter="transition ease-in-out duration-300 transform"
+            enter="transition ease-in-out duration-500 transform"
             enterFrom="-translate-x-2 opacity-0 scale-90"
             enterTo="translate-x-0"
-            leave="transition ease-in-out duration-300 transform"
+            leave="transition ease-in-out duration-500 transform"
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
