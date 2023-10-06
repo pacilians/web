@@ -1,20 +1,50 @@
 "use client";
 
 import BniLogo from "@/app/components/BniLogo";
-import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+// import { useState } from "react";
 
 export default function Form() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const handleEmailChange = (e: any) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
-  };
-  const handleLogin = async (e: any) => {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // const handleEmailChange = (e: any) => {
+  //   setEmail(e.target.value);
+  // };
+  // const handlePasswordChange = (e: any) => {
+  //   setPassword(e.target.value);
+  // };
+  // const handleLogin = async (e: any) => {
+  //   e.preventDefault();
+  //   const response = await fetch(
+  //     "https://bnicstdy-b41ad9b84aff.herokuapp.com/",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         email: email,
+  //         password: password,
+  //       }),
+  //     },
+  //   );
+  //   if (response.status === 401) {
+  //     alert("Wrong Password");
+  //   } else if (response.status === 200) {
+  //     const res = await response.json();
+  //     document.cookie = `token=${res.data.token}`;
+  //     window.location.href = "/";
+  //   }
+  // };
+
+  const handleLogin = (e: any) => {
     e.preventDefault();
-    const response = await fetch("http://127.0.0.1:8000/login", {
+
+    const email = e.target.elements[0].value;
+    const password = e.target.elements[1].value;
+
+    const loginRequest = fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,14 +53,21 @@ export default function Form() {
         email: email,
         password: password,
       }),
+    }).then(async (response) => {
+      if (response.status === 401) {
+        throw new Error("Wrong Password");
+      } else if (response.status === 200) {
+        const res = await response.json();
+        document.cookie = `token=${res.data.token}`;
+        window.location.href = "/";
+      }
     });
-    if (response.status === 401) {
-      alert("Wrong Password");
-    } else if (response.status === 200) {
-      const res = await response.json();
-      document.cookie = `token=${res.data.token}`;
-      window.location.href = "/";
-    }
+
+    toast.promise(loginRequest, {
+      loading: "Logging in...",
+      success: "Logged in successfully",
+      error: "Login failed",
+    });
   };
 
   return (
@@ -41,7 +78,7 @@ export default function Form() {
       <div className="flex flex-col items-center text-lg text-base-content-400">
         <BniLogo showWordmark className="h-16" />
         <p className="font-bold">International Division</p>
-        <p className="">Custody Form Database</p>
+        <p className="">Custody System</p>
       </div>
       <div className="mb-4 flex w-full flex-col gap-4">
         <label className="w-full">
@@ -50,7 +87,6 @@ export default function Form() {
             type="email"
             className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="johndoe@bni.co.id"
-            onChange={handleEmailChange}
           />
         </label>
         <label className="w-full">
@@ -59,13 +95,13 @@ export default function Form() {
             type="password"
             className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="••••••••••••"
-            onChange={handlePasswordChange}
           />
         </label>
       </div>
       <button type="submit" className="btn w-full">
         Login
       </button>
+      <Toaster />
     </form>
   );
 }
