@@ -11,10 +11,6 @@ type MasterDataItem = {
   name: string;
 };
 
-// export const metadata = {
-//   title: "Master Data Management | BNI Custody System",
-//   description: "",
-// };
 
 const MasterData: React.FC = () => {
   const data: MasterDataItem[] = [
@@ -42,10 +38,11 @@ const MasterData: React.FC = () => {
   return (
     <main className="flex grow rounded-tl-3xl bg-base-50 p-10 p-4 shadow-2xl gap-4">
       <div className="basis-1/2">
-        <div className="shadow-2x1 inline-flex h-full w-full grow flex-col rounded rounded-3xl bg-base-100 p-4">
-          <h1 className="mb-4 text-xl font-bold text-blue-400">
-            Mandatory File
-          </h1>
+        <div className="w-full h-full rounded-3xl bg-base-200 p-10 shadow-2xl">
+          <div className="flex items-center justify-between">
+        <h1 className="mb-4 text-xl font-bold text-blue-400">Mandatory File</h1>
+        <button className="bg-blue-400 text-white px-3 py-1 rounded-full">+</button>
+      </div>
           <ul>
             {data.map((item) => (
               <li key={item.id} className="mb-2 flex items-center">
@@ -59,22 +56,15 @@ const MasterData: React.FC = () => {
                 >
                   {item.name}
                 </span>
-                <label
-                  htmlFor={`file-${item.id}`}
-                  className="mr-2 cursor-pointer text-blue-500"
-                >
-                  ✏️
-                </label>
-                <input
-                  type="file"
-                  id={`file-${item.id}`}
-                  style={{ display: "none" }}
-                  accept="application/pdf"
-                />
-                <button
-                  id={`delete-${item.id}`}
-                  className="text-red-500"
-                ></button>
+                <div className="flex items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={openModal}
+                      className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                    >
+                      ✏️
+                    </button>
+                  </div>
                 <>
                   <div className="flex items-center justify-center">
                     <button
