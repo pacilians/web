@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${font_sans.variable} flex h-screen items-stretch bg-base-100 font-sans transition-colors`}
+        className={`${font_sans.variable} flex h-screen items-stretch bg-base-backdrop font-sans transition-colors`}
       >
         {children}
       </body>

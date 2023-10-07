@@ -15,7 +15,7 @@ export default function Sidebar() {
   return (
     <nav
       className={`flex flex-col px-5 py-5 transition-[width] duration-500 ${
-        isButtonToggled ? "w-28" : "w-64"
+        isButtonToggled ? "w-[6.5rem]" : "w-64"
       }`}
     >
       <div
@@ -34,7 +34,7 @@ export default function Sidebar() {
         >
           <Iconify icon="solar:flag-2-bold-duotone" className="text-2xl" />
           <Transition
-            className="mr-auto line-clamp-1 text-clip"
+            className="line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
             enter="transition ease-in-out duration-500 transform"
@@ -55,7 +55,7 @@ export default function Sidebar() {
         >
           <Iconify icon="solar:database-bold-duotone" className="text-2xl" />
           <Transition
-            className="mr-auto line-clamp-1 text-clip"
+            className="line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
             enter="transition ease-in-out duration-500 transform"
@@ -79,7 +79,7 @@ export default function Sidebar() {
             className="text-2xl"
           />
           <Transition
-            className="mr-auto line-clamp-1 text-clip"
+            className="line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
             enter="transition ease-in-out duration-500 transform"
@@ -103,7 +103,7 @@ export default function Sidebar() {
             className="text-2xl"
           />
           <Transition
-            className="mr-auto line-clamp-1 text-clip"
+            className="line-clamp-1 text-clip"
             as="p"
             show={!isButtonToggled}
             enter="transition ease-in-out duration-500 transform"
