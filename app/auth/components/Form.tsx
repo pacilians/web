@@ -58,7 +58,12 @@ export default function Form() {
         throw new Error("Wrong Password");
       } else if (response.status === 200) {
         const res = await response.json();
-        document.cookie = `token=${res.data.token}`;
+        const token = res.data.token;
+        const user = res.data.user;
+        const expirationTime = new Date(Date.now() + 2 * 60 * 60 * 1000).toUTCString();   // 2 Hours
+        document.cookie = `token=${token}; expires=${expirationTime}`;
+        document.cookie = `name=${user.name}; expires=${expirationTime}`;
+        document.cookie = `role=${user.role}; expires=${expirationTime}`;
         window.location.href = "/";
       }
     });
