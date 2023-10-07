@@ -22,7 +22,7 @@ const config: Config = {
         "logo-wordmark": "rgb(var(--logo-wordmark) / <alpha-value>)",
       },
       fontFamily: {
-        sans: ["var(--font-plus-jakarta-sans)"],
+        sans: ["var(--font-sans)"],
       },
     },
   },
