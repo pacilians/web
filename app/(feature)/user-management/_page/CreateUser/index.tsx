@@ -24,7 +24,7 @@ export default function CreateUser() {
             Name
           </label>
           <input
-            className="focus:shadow-outline appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
+            className="focus:shadow-outline appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none bg-transparent"
             id="name"
             type="text"
             value={name}
@@ -37,7 +37,7 @@ export default function CreateUser() {
               NPWP
             </label>
             <input
-              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none"
+              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none bg-transparent"
               id="npwp"
               type="text"
               value={npwp}
@@ -49,7 +49,7 @@ export default function CreateUser() {
               Role
             </label>
             <select
-              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none"
+              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none bg-transparent"
               id="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
@@ -67,7 +67,7 @@ export default function CreateUser() {
             Description
           </label>
           <input
-            className="focus:shadow-outline h-20 appearance-none rounded border px-2  py-1 leading-tight shadow focus:outline-none"
+            className="focus:shadow-outline h-20 appearance-none rounded border px-2  py-1 leading-tight shadow focus:outline-none bg-transparent"
             id="desc"
             type="text"
             value={desc}
@@ -80,7 +80,7 @@ export default function CreateUser() {
               Email
             </label>
             <input
-              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none"
+              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none bg-transparent"
               id="email"
               type="email"
               value={email}
@@ -92,7 +92,7 @@ export default function CreateUser() {
               Password
             </label>
             <input
-              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none"
+              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none bg-transparent"
               id="password"
               type="password"
               value={password}
@@ -105,21 +105,18 @@ export default function CreateUser() {
             <label className="mb-2  block font-bold" htmlFor="customer">
               Customer
             </label>
-            <select
-              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none"
+            <input
+              className="focus:shadow-outline appearance-none rounded border px-3 py-2  leading-tight shadow focus:outline-none bg-transparent"
               id="customer"
+              type="text"
               value={customer}
               onChange={(e) => setCustomer(e.target.value)}
-            >
-              <option value="CUSTOMER_1">Customer 1</option>
-              <option value="CUSTOMER_2">Customer 2</option>
-              <option value="CUSTOMER_3">Customer 3</option>
-            </select>
+            />
           </div>
         )}
         <div className="flex justify-center">
           <button
-            className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
+            className="focus:shadow-outline rounded border bg-transparent px-4 py-2 font-bold hover:bg-blue focus:outline-none"
             type="submit"
           >
             Add User
