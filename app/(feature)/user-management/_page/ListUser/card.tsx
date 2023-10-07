@@ -1,29 +1,26 @@
 "use client";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-interface Props{
-    id: any,
-    picture: any,
-    name: any,
-    role: any,
-    npp: any
+interface Props {
+  id: any;
+  picture: any;
+  name: any;
+  role: any;
+  npp: any;
 }
 
-export default function UserCard({
-    id,
-    picture,
-    name,
-    role,
-    npp
-}: Props) {
+export default function UserCard({ id, picture, name, role, npp }: Props) {
   const router = useRouter();
   const handleClick = () => {
-    router.push('/user-management/');
-  }
+    router.push(`/user-management/detail/${id}`);
+  };
   return (
-    <div className="flex w-1/4 rounded-lg p-4 shadow-lg cursor-pointer" onClick={handleClick}>
+    <div
+      className="flex w-1/4 cursor-pointer rounded-lg p-4 shadow-lg"
+      onClick={handleClick}
+    >
       <img
         src={"https://via.placeholder.com/100"}
         alt="user"
