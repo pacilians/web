@@ -2,44 +2,14 @@
 
 import BniLogo from "@/app/components/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
+import { useStoreNavbar } from "../../store/store-context"
 // import { useState } from "react";
 
 export default function Form() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const handleEmailChange = (e: any) => {
-  //   setEmail(e.target.value);
-  // };
-  // const handlePasswordChange = (e: any) => {
-  //   setPassword(e.target.value);
-  // };
-  // const handleLogin = async (e: any) => {
-  //   e.preventDefault();
-  //   const response = await fetch(
-  //     "https://bnicstdy-b41ad9b84aff.herokuapp.com/",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     },
-  //   );
-  //   if (response.status === 401) {
-  //     alert("Wrong Password");
-  //   } else if (response.status === 200) {
-  //     const res = await response.json();
-  //     document.cookie = `token=${res.data.token}`;
-  //     window.location.href = "/";
-  //   }
-  // };
-
   const handleLogin = (e: any) => {
     e.preventDefault();
+
+    // const { setHeadline } = useStoreNavbar;
 
     const email = e.target.elements[0].value;
     const password = e.target.elements[1].value;
@@ -64,7 +34,10 @@ export default function Form() {
         document.cookie = `token=${token}; expires=${expirationTime}`;
         document.cookie = `name=${user.name}; expires=${expirationTime}`;
         document.cookie = `role=${user.role}; expires=${expirationTime}`;
-        window.location.href = "/";
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
       }
     });
 

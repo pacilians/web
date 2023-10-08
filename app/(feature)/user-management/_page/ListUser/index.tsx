@@ -1,11 +1,43 @@
 "use client";
 import toast, { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserCard from "./card";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 
 export default function ListUser() {
   const router = useRouter();
+  const [user, setUser] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(
+        "https://bnicstdy-b41ad9b84aff.herokuapp.com/user/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.token,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error("Error fetching user:", "Network response was not ok");
+      }
+
+      const data = await response.json();
+      const user = data.data.users;
+
+      setUser(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
   return (
     <div className="flex flex-col">
       <div className="mb-6 flex justify-between rounded-lg">
@@ -20,10 +52,16 @@ export default function ListUser() {
         </button>
       </div>
       <div className="flex flex-row flex-wrap justify-center gap-10">
-        <UserCard id={"1"} name={null} picture={null} role={null} npp={null} />
-        <UserCard id={null} name={null} picture={null} role={null} npp={null} />
-        <UserCard id={null} name={null} picture={null} role={null} npp={null} />
-        <UserCard id={null} name={null} picture={null} role={null} npp={null} />
+        {user.map((data: any , key: any) => (
+          <UserCard
+            id={data.id}
+            key={key}
+            name={data.name}
+            picture={data.photo}
+            role={data.role}
+            npp={data.npp}
+          />
+        ))}
       </div>
     </div>
   );
