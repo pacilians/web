@@ -43,7 +43,7 @@ export default function ListAnnouncement() {
     }
   };
   return (
-    <main className="w-full grow rounded-tl-3xl bg-base-50 p-10 shadow-2xl">
+    <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <div className="space-y-4">
         <AnnouncementComp />
         <AnnouncementComp />
@@ -57,7 +57,6 @@ export default function ListAnnouncement() {
         </button>
         <CreateAnnouncement isVisible={showModal} onClose={() => setShowModal(false)}/> */}
       <>
-        <form onSubmit={handlePost}>
           <div className="absolute bottom-5 right-5">
             <button
               type="button"
@@ -67,7 +66,7 @@ export default function ListAnnouncement() {
               <span className="text-2xl flex items-center justify-center">+</span>
             </button>
           </div>
-
+        <form onSubmit={handlePost}>
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
               <Transition.Child
@@ -117,8 +116,8 @@ export default function ListAnnouncement() {
                           id="announcementDesc"
                           className="w-full h-40 p-2 border rounded-md"
                           placeholder="Enter your announcement"
-                          value={desc} 
-                          onChange={(e) => setDesc(e.target.value)} 
+                          value={desc}
+                          onChange={(e) => setDesc(e.target.value)}
                         ></textarea>
                       </div>
 
@@ -137,8 +136,7 @@ export default function ListAnnouncement() {
               </div>
             </Dialog>
           </Transition>
-        </form>
-
+          </form>
       </>
     </main>
 
