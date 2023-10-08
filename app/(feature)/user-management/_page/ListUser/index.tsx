@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import UserCard from "./card";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
+import Loading from "@/Loading";
 
 export default function ListUser() {
   const router = useRouter();
   const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies();
   const fetchUser = async () => {
     try {
@@ -30,6 +32,7 @@ export default function ListUser() {
       const user = data.data.users;
 
       setUser(user);
+      setLoading(!loading)
     } catch (error) {
       console.error("Error fetching user:", error);
     }
@@ -38,6 +41,9 @@ export default function ListUser() {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  if(!loading)
+    return <Loading/>
   return (
     <div className="flex flex-col">
       <div className="mb-6 flex justify-between rounded-lg">

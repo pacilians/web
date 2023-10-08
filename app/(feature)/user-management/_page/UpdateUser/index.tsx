@@ -3,9 +3,15 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Loading from "@/Loading";
 
 export default function CreateUser() {
   const router = useRouter();
+  const pathname = usePathname();
+  const segment = pathname.split("/");
+  const id = segment[segment.length - 1];
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
     name: "",
     npp: "",
@@ -28,10 +34,10 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      "https://bnicstdy-b41ad9b84aff.herokuapp.com/user/",
+      `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
       // "http://127.0.0.1:8000/user/",
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: cookies.token,
@@ -82,12 +88,47 @@ export default function CreateUser() {
     }
   };
 
-  useEffect(() => {
-    fetchCustomer();
-  }, []);
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(
+        `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.token,
+          },
+        },
+      );
 
+      if (!response.ok) {
+        console.error("Error fetching user:", "Network response was not ok");
+      }
+
+      const res = await response.json();
+      const user = res.data.user;
+
+      setForm(user);
+      setLoading(!loading);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  const handleFetch = async () => {
+    await fetchCustomer();
+    await fetchUser();
+    setLoading(!loading)
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, []);
+  
+  if(loading)
+    return <Loading/>
   return (
-    <main className="w-full grow rounded-tl-3xl bg-base-50 p-1">
+    <main className="w-full grow rounded-tl-3xl p-1">
       <form onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col">
           <label className="mb-2 block font-bold" htmlFor="name">
@@ -184,7 +225,7 @@ export default function CreateUser() {
             className="focus:shadow-outline hover:bg-blue rounded border bg-transparent px-4 py-2 font-bold focus:outline-none"
             type="submit"
           >
-            Add User
+            Update User
           </button>
         </div>
       </form>

@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { usePathname } from "next/navigation";
+import Loading from "@/Loading";
 
 export default function ListUser() {
   const router = useRouter();
   const pathname = usePathname();
+  const segment = pathname.split("/");
+  const id = segment[segment.length - 1];
+  const [loading, setLoading] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [user, setUser] = useState({
     name: "",
@@ -20,8 +24,6 @@ export default function ListUser() {
 
   const fetchUser = async () => {
     try {
-      const segment = pathname.split("/");
-      const id = segment[segment.length - 1];
       const response = await fetch(
         `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
         {
@@ -41,6 +43,30 @@ export default function ListUser() {
       const user = res.data.user;
 
       setUser(user);
+      setLoading(!loading);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      const response = await fetch(
+        `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.token,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error("Error fetching user:", "Network response was not ok");
+      }
+
+      router.push(`/user-management`);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
@@ -49,15 +75,36 @@ export default function ListUser() {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  if (!loading) return <Loading />;
   return (
     <div className="flex flex-col">
       <div className="flex flex-col">
         <div className="flex flex-row">
           <div className="container">
-            <h1 className="mb-2 text-2xl font-bold">{user.name}</h1>
+            <div className="flex flex-row justify-between">
+              <h1 className="mb-2 text-4xl font-bold">{user.name}</h1>
+              <div className="flex flex-row">
+                <button
+                  className="py-auto hover:text-white-400 rounded px-4 font-bold hover:bg-blue-600"
+                  onClick={() => {
+                    router.push(`/user-management/edit/${id}`);
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="py-auto rounded px-4 font-bold hover:bg-red-600"
+                  onClick={handleDeleteUser}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
             <div className="flex flex-row">
               <div className="flex w-1/4">
-                <div className="h-30 w-30 overflow-hidden rounded-lg">
+                <div className="overflow-hidden rounded-lg">
                   <img
                     src="https://cdn.discordapp.com/attachments/1102768794629328929/1160548612477038662/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg?ex=6535101f&is=65229b1f&hm=e984805478569f1476be2a807bff520e359dcc33d6a2e8e28e1284dffc1cc1f8&"
                     alt="user"
@@ -65,7 +112,7 @@ export default function ListUser() {
                   />
                 </div>
               </div>
-              <div className="left w-1/2 flex-row">
+              <div className="left ml-4 w-1/2 flex-row">
                 <div className="mb-2  block font-bold">Email</div>
                 <div className="mb-2">{user.email}</div>
                 <div className="mb-2  block font-bold">NPP</div>

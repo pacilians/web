@@ -87,7 +87,7 @@ export default function CreateUser() {
   }, []);
 
   return (
-    <main className="w-full grow rounded-tl-3xl bg-base-50 p-1">
+    <main className="w-full grow rounded-tl-3xl p-1">
       <form onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col">
           <label className="mb-2 block font-bold" htmlFor="name">
