@@ -18,7 +18,8 @@ const config: Config = {
         "base-content-300": "rgb(var(--base-content-300) / <alpha-value>)",
         "base-content-400": "rgb(var(--base-content-400) / <alpha-value>)",
         "base-content-500": "rgb(var(--base-content-500) / <alpha-value>)",
-        "base-backdrop": "rgb(var(--base-backdrop) / <alpha-value>)",
+        "base-backdrop-100": "rgb(var(--base-backdrop-100) / <alpha-value>)",
+        "base-backdrop-200": "rgb(var(--base-backdrop-200) / <alpha-value>)",
         "logo-pictogram": "rgb(var(--logo-pictogram) / <alpha-value>)",
         "logo-wordmark": "rgb(var(--logo-wordmark) / <alpha-value>)",
       },
@@ -48,7 +49,8 @@ const config: Config = {
           "--base-content-300": "30 41 59", // slate-800
           "--base-content-400": "51 65 85", // slate-700
           "--base-content-500": "71 85 105", // slate-600
-          "--base-backdrop": "241 245 249", // slate-100
+          "--base-backdrop-100": "226 232 240", // slate-200
+          "--base-backdrop-200": "255 255 255", // white
           "--logo-pictogram": "241 90 35", // #F15A23
           "--logo-wordmark": "0 94 106", // #005E6A
         },
@@ -64,7 +66,8 @@ const config: Config = {
           "--base-content-300": "226 232 240", // slate-200
           "--base-content-400": "203 213 225", // slate-300
           "--base-content-500": "148 163 184", // slate-400
-          "--base-backdrop": "15 23 42", // slate-900
+          "--base-backdrop-100": "2 6 23", // slate-950
+          "--base-backdrop-200": "15 23 42", // slate-900
           "--logo-pictogram": "241 90 35", // #F15A23
           "--logo-wordmark": "255 255 255", // #FFFFFF
         },
@@ -79,7 +82,7 @@ const config: Config = {
           "--base-content-300": "154 52 18", // orange-800
           "--base-content-400": "203 213 225", // slate-300
           "--base-content-500": "148 163 184", // slate-400
-          "--base-backdrop": "71 85 105", // slate-600
+          "--base-backdrop-100": "71 85 105", // slate-600
           "--logo-pictogram": "241 90 35", // #F15A23
           "--logo-wordmark": "255 255 255", // #FFFFFF
         },

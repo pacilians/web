@@ -118,7 +118,7 @@ export default function Sidebar() {
         </Link>
 
         <button
-          className="mt-auto flex h-12 w-full items-center justify-center rounded-full bg-base-300 hover:bg-base-400 active:scale-95"
+          className="mt-auto flex h-12 w-full items-center justify-center rounded-full border border-base-400 active:scale-95"
           onClick={() => setIsButtonToggled(!isButtonToggled)}
         >
           <Iconify

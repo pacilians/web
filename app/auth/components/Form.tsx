@@ -1,6 +1,6 @@
 "use client";
 
-import BniLogo from "@/app/components/BniLogo";
+import BniLogo from "@/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
 // import { useState } from "react";
 

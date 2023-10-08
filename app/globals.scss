@@ -34,7 +34,7 @@
   }
 
   .nav-item {
-    @apply inline-flex h-16 items-center gap-3 overflow-hidden rounded-xl px-5 font-semibold text-base-content-300 hover:bg-base-300 active:scale-95;
+    @apply inline-flex h-16 items-center gap-3 overflow-hidden rounded-xl px-5 font-semibold text-base-content-300 hover:bg-slate-300 active:scale-95 dark:hover:bg-slate-900;
   }
 
   .nav-item-active {
