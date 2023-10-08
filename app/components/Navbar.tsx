@@ -10,7 +10,7 @@ export default function Navbar() {
   const segments = pathname.split("/").filter((segment) => segment !== "");
 
   return (
-    <nav className="flex h-20 items-center justify-between px-10">
+    <nav className="flex h-20 shrink-0 items-center justify-between px-10">
       <div className="flex items-center">
         {segments.map((segment, index) => (
           <Fragment key={segment}>
