@@ -3,6 +3,8 @@
 import { Fragment, useState } from "react";
 import AnnouncementComp from "./components/announcementComp";
 import { Dialog, Transition } from '@headlessui/react'
+import { useCookies } from "react-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 // export const metadata: Metadata = {
 //   title: "Announcement | BNI Custody System",
@@ -15,33 +17,72 @@ export default function ListAnnouncement() {
   const [desc, setDesc] = useState("");
   let [isOpen, setIsOpen] = useState(false)
 
-  async function closeModal() {
-    await handlePost()
+  const [form, setForm] = useState({
+    title: "",
+    content: "",
+  });
+  const [cookies, setCookie, removeCookie] = useCookies();
+
+function closeModal() {
+    // handleSubmit()
     setIsOpen(false)
   }
+  const handleSubmit = async (e: any) => {
+    console.log("masuk")
+    e.preventDefault();
+
+    const payload = JSON.stringify({
+      title: form.title,
+      content: form.content,
+    });
+    const postForm = fetch(
+      "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
+      // "http://127.0.0.1:8000/user/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+        body: payload,
+      },
+    ).then(async (response) => {
+      if (response.status === 200) {
+        closeModal
+      } else {
+        throw new Error("Failed Create Announcement");
+      }
+    });
+
+    toast.promise(postForm, {
+      loading: "Creating announcement...",
+      success: "Announement has been created",
+      error: "Failed creating announement",
+    });
+  };
 
   function openModal() {
     setIsOpen(true)
   }
-  const handlePost = async () => {
-    const response = await fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `${document.cookie}`
-      },
-      body: JSON.stringify({
-        title: title,
-        desc: desc,
-      }),
-    });
-    if (response.status === 401) {
-      alert("Fail to post announcement");
-    } else if (response.status === 200) {
-      // const res = await response.json();
-      // document.cookie = `token=${res.data.token}`;
-    }
-  };
+  // const handlePost = async () => {
+  //   const response = await fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": `${document.cookie}`
+  //     },
+  //     body: JSON.stringify({
+  //       title: title,
+  //       desc: desc,
+  //     }),
+  //   });
+  //   if (response.status === 401) {
+  //     alert("Fail to post announcement");
+  //   } else if (response.status === 200) {
+  //     // const res = await response.json();
+  //     // document.cookie = `token=${res.data.token}`;
+  //   }
+  // };
   return (
     <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <div className="space-y-4">
@@ -66,7 +107,7 @@ export default function ListAnnouncement() {
               <span className="text-2xl flex items-center justify-center">+</span>
             </button>
           </div>
-        <form onSubmit={handlePost}>
+        <form onSubmit={handleSubmit}>
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
               <Transition.Child
@@ -106,8 +147,8 @@ export default function ListAnnouncement() {
                           type="text"
                           className="w-full p-2 border rounded-md"
                           placeholder="Enter your tile"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
+                          value={form.title}
+                          onChange={(e) => setForm({ ...form, title: e.target.value })}
                         />
                       </div>
                       <div className="mt-4">
@@ -116,8 +157,8 @@ export default function ListAnnouncement() {
                           id="announcementDesc"
                           className="w-full h-40 p-2 border rounded-md"
                           placeholder="Enter your announcement"
-                          value={desc}
-                          onChange={(e) => setDesc(e.target.value)}
+                          value={form.content}
+                          onChange={(e) => setForm({ ...form, content: e.target.value })}
                         ></textarea>
                       </div>
 
@@ -125,7 +166,7 @@ export default function ListAnnouncement() {
                         <button
                           type="submit"
                           className="rounded-md bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200"
-                          onClick={closeModal}
+                          // onClick={closeModal}
                         >
                           Post Announcement
                         </button>
