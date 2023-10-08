@@ -14,7 +14,7 @@ export default function Form() {
   };
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    const response = await fetch("http://127.0.0.1:8000/login", {
+    const response = await fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
