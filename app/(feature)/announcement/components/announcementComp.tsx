@@ -2,7 +2,7 @@
 // import { Metadata } from "next";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from '@headlessui/react'
-import Iconify from "@/app/components/Iconify";
+import Iconify from "@/Iconify";
 
 export default function AnnouncementComp() {
     let [isOpen, setIsOpen] = useState(false)
