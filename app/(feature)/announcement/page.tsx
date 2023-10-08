@@ -1,10 +1,12 @@
 "use client";
 // import { Metadata } from "next";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import AnnouncementComp from "./components/announcementComp";
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition } from "@headlessui/react";
 import { useCookies } from "react-cookie";
 import toast, { Toaster } from "react-hot-toast";
+import Loading from "@/Loading";
+import { create } from "domain";
 
 // export const metadata: Metadata = {
 //   title: "Announcement | BNI Custody System",
@@ -13,24 +15,27 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function ListAnnouncement() {
   // const [showModal, setShowModal] = useState(false)
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  let [isOpen, setIsOpen] = useState(false)
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [load, setLoad] = useState(true);
+  const [loader, setLoader] = useState({
+    init: true,
+    create: false,
+  });
+  const [announcement, setAnnouncement] = useState({
+    pinned: [],
+    unpinned: [],
+    announcements: [],
+  });
   const [form, setForm] = useState({
     title: "",
     content: "",
   });
   const [cookies, setCookie, removeCookie] = useCookies();
 
-function closeModal() {
-    // handleSubmit()
-    setIsOpen(false)
+  function closeModal() {
+    setIsOpen(false);
   }
-  const handleSubmit = async (e: any) => {
-    console.log("masuk")
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     const payload = JSON.stringify({
       title: form.title,
       content: form.content,
@@ -48,7 +53,9 @@ function closeModal() {
       },
     ).then(async (response) => {
       if (response.status === 200) {
-        closeModal
+        setLoad(!load)
+        closeModal();
+        setForm({ content: "", title: "" });
       } else {
         throw new Error("Failed Create Announcement");
       }
@@ -62,52 +69,67 @@ function closeModal() {
   };
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
-  // const handlePost = async () => {
-  //   const response = await fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `${document.cookie}`
-  //     },
-  //     body: JSON.stringify({
-  //       title: title,
-  //       desc: desc,
-  //     }),
-  //   });
-  //   if (response.status === 401) {
-  //     alert("Fail to post announcement");
-  //   } else if (response.status === 200) {
-  //     // const res = await response.json();
-  //     // document.cookie = `token=${res.data.token}`;
-  //   }
-  // };
-  return (
-    <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
-      <div className="space-y-4">
-        <AnnouncementComp />
-        <AnnouncementComp />
-        <AnnouncementComp />
 
+  const fetchAnnouncement = async () => {
+    try {
+      const response = await fetch(
+        `https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.token,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        console.error(
+          "Error fetching announcement:",
+          "Network response was not ok",
+        );
+      }
+
+      const res = await response.json();
+      const ann = res.data.announcements;
+      setAnnouncement(ann);
+      setLoader({ ...loader, init: false });
+    } catch (error) {
+      console.error("Error fetching announcement:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAnnouncement();
+  }, [load]);
+
+  if (loader.init) return <Loading />;
+
+  return (
+    <main className="bg-base-backdrop-200 w-full grow rounded-tl-3xl p-10 shadow-2xl">
+      <div className="space-y-4">
+        {announcement.announcements.map((data: any, key: any) => (
+          <AnnouncementComp
+            key={key}
+            title={data.title}
+            content={data.content}
+          />
+        ))}
       </div>
 
-      {/* <button className="text-white bg-[#E55300] focus:outline-none font-large text-sm rounded-lg px-5 py-2.5 text-center mr-5"
-          onClick={() => setShowModal(true)}>
-          +
-        </button>
-        <CreateAnnouncement isVisible={showModal} onClose={() => setShowModal(false)}/> */}
       <>
-          <div className="absolute bottom-5 right-5">
-            <button
-              type="button"
-              onClick={openModal}
-              className="rounded-full w-12 h-12 bg-[#E55300] flex items-center justify-center text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-            >
-              <span className="text-2xl flex items-center justify-center">+</span>
-            </button>
-          </div>
-        <form onSubmit={handleSubmit}>
+        <div className="absolute bottom-5 right-5">
+          <button
+            type="button"
+            onClick={openModal}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E55300] text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          >
+            <span className="flex items-center justify-center text-2xl">+</span>
+          </button>
+        </div>
+        <form>
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
               <Transition.Child
@@ -136,29 +158,43 @@ function closeModal() {
                     <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
-                        className="font-bold text-lg leading-6 text-gray-900"
+                        className="text-lg font-bold leading-6 text-gray-900"
                       >
                         Add New Announcement
                       </Dialog.Title>
                       <div className="mt-4">
-                        <label className="block text-sm font-semibold mb-2" htmlFor="announcement">Title</label>
+                        <label
+                          className="mb-2 block text-sm font-semibold"
+                          htmlFor="announcement"
+                        >
+                          Title
+                        </label>
                         <input
                           id="announcement"
                           type="text"
-                          className="w-full p-2 border rounded-md"
+                          className="w-full rounded-md border p-2"
                           placeholder="Enter your tile"
                           value={form.title}
-                          onChange={(e) => setForm({ ...form, title: e.target.value })}
+                          onChange={(e) =>
+                            setForm({ ...form, title: e.target.value })
+                          }
                         />
                       </div>
                       <div className="mt-4">
-                        <label className="block text-sm font-semibold mb-2" htmlFor="announcement">Description</label>
+                        <label
+                          className="mb-2 block text-sm font-semibold"
+                          htmlFor="announcement"
+                        >
+                          Description
+                        </label>
                         <textarea
                           id="announcementDesc"
-                          className="w-full h-40 p-2 border rounded-md"
+                          className="h-40 w-full rounded-md border p-2"
                           placeholder="Enter your announcement"
                           value={form.content}
-                          onChange={(e) => setForm({ ...form, content: e.target.value })}
+                          onChange={(e) =>
+                            setForm({ ...form, content: e.target.value })
+                          }
                         ></textarea>
                       </div>
 
@@ -166,7 +202,9 @@ function closeModal() {
                         <button
                           type="submit"
                           className="rounded-md bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200"
-                          // onClick={closeModal}
+                          onClick={() => {
+                            handleSubmit();
+                          }}
                         >
                           Post Announcement
                         </button>
@@ -177,10 +215,8 @@ function closeModal() {
               </div>
             </Dialog>
           </Transition>
-          </form>
+        </form>
       </>
     </main>
-
-
   );
 }
