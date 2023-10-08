@@ -19,7 +19,7 @@ export default function UserCard({ id, picture, name, role, npp }: Props) {
   };
   return (
     <div
-      className="flex w-1/4 cursor-pointer rounded-lg p-4 shadow-lg"
+      className="flex w-1/4 cursor-pointer rounded-lg p-4 shadow-lg bg-base-200"
       onClick={handleClick}
     >
       <div className="image-container w-20 h-20 overflow-hidden">
