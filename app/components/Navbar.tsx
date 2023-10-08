@@ -21,7 +21,7 @@ export default function Navbar() {
               />
             )}
             <span
-              className={`text-3xl ${
+              className={`text-2xl ${
                 index === segments.length - 1
                   ? "text-base-content-100"
                   : "text-base-content-500"
