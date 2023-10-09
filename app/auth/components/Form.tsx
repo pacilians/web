@@ -2,49 +2,20 @@
 
 import BniLogo from "@/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
-// import { useState } from "react";
+import { useStoreNavbar } from "../../store/store-context";
 
 export default function Form() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const handleEmailChange = (e: any) => {
-  //   setEmail(e.target.value);
-  // };
-  // const handlePasswordChange = (e: any) => {
-  //   setPassword(e.target.value);
-  // };
-  // const handleLogin = async (e: any) => {
-  //   e.preventDefault();
-  //   const response = await fetch(
-  //     "https://bnicstdy-b41ad9b84aff.herokuapp.com/",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     },
-  //   );
-  //   if (response.status === 401) {
-  //     alert("Wrong Password");
-  //   } else if (response.status === 200) {
-  //     const res = await response.json();
-  //     document.cookie = `token=${res.data.token}`;
-  //     window.location.href = "/";
-  //   }
-  // };
-
   const handleLogin = (e: any) => {
     e.preventDefault();
+
+    // const { setHeadline } = useStoreNavbar;
 
     const email = e.target.elements[0].value;
     const password = e.target.elements[1].value;
 
-    const loginRequest = fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
+    const toastId = toast.loading("Logging in...");
+
+    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,26 +24,28 @@ export default function Form() {
         email: email,
         password: password,
       }),
-    }).then(async (response) => {
-      if (response.status === 401) {
-        throw new Error("Wrong Password");
-      } else if (response.status === 200) {
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message);
+        }
+
         const res = await response.json();
         const token = res.data.token;
         const user = res.data.user;
-        const expirationTime = new Date(Date.now() + 2 * 60 * 60 * 1000).toUTCString();   // 2 Hours
+        const expirationTime = new Date(
+          Date.now() + 2 * 60 * 60 * 1000,
+        ).toUTCString(); // 2 Hours
         document.cookie = `token=${token}; expires=${expirationTime}`;
         document.cookie = `name=${user.name}; expires=${expirationTime}`;
         document.cookie = `role=${user.role}; expires=${expirationTime}`;
         window.location.href = "/";
-      }
-    });
-
-    toast.promise(loginRequest, {
-      loading: "Logging in...",
-      success: "Logged in successfully",
-      error: "Login failed",
-    });
+        toast.success("Logged in successfully", { id: toastId });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
   };
 
   return (
