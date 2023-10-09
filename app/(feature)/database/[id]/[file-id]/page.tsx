@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function ViewFile({ params }: { params: { id: string } }) {
+export default function ViewFile({ params }: { params: { fileId: string } }) {
     return (
         <section>
             
