@@ -39,6 +39,8 @@ export default function Service() {
         Security
         <button className="absolute inset-0 border border-red-500 text-red-500 rounded-2xl w-full h-full text-xs opacity-0 group-hover:opacity-100 flex items-center justify-center">x</button>
       </div>
+
+      
     </section>
   );
 }
