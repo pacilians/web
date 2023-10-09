@@ -55,6 +55,7 @@ export default function ListAnnouncement() {
       if (response.status === 200) {
         setLoad(!load)
         closeModal();
+        setLoader({...loader, create: true})
         setForm({ content: "", title: "" });
       } else {
         throw new Error("Failed Create Announcement");
@@ -95,7 +96,7 @@ export default function ListAnnouncement() {
       const res = await response.json();
       const ann = res.data.announcements;
       setAnnouncement(ann);
-      setLoader({ ...loader, init: false });
+      setLoader({ create: false, init: false });
     } catch (error) {
       console.error("Error fetching announcement:", error);
     }
@@ -106,6 +107,7 @@ export default function ListAnnouncement() {
   }, [load]);
 
   if (loader.init) return <Loading />;
+  if (loader.create) return <Loading/>
 
   return (
     <main className="bg-base-backdrop-200 w-full grow rounded-tl-3xl p-10 shadow-2xl">
@@ -116,6 +118,8 @@ export default function ListAnnouncement() {
             title={data.title}
             content={data.content}
             id={data.id}
+            announcement={announcement}
+            setAnnouncement={setAnnouncement}
           />
         ))}
       </div>
