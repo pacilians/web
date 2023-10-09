@@ -115,6 +115,7 @@ export default function ListAnnouncement() {
             key={key}
             title={data.title}
             content={data.content}
+            id={data.id}
           />
         ))}
       </div>
