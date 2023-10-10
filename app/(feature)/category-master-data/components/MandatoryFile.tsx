@@ -18,15 +18,100 @@ export default function MandatoryFile({ initialData }: iProps) {
   });
 
   const initialSelectedMandatory: iMandatoryFile = { id: 0, name: "" };
-  const [selectedMandatory, setSelectedMandatory] = useState(
-    initialSelectedMandatory,
-  );
+  const [selectedData, setSelectedData] = useState(initialSelectedMandatory);
+  const [form, setForm] = useState("");
 
-  // const longestName = data.reduce(
-  //   (longest, item: any) =>
-  //     item.name.length > longest.length ? item.name : longest,
-  //   "",
-  // );
+  /**
+   * Functional
+   */
+
+  const handleAdd = async () => {
+    const toastId = toast.loading("Creating...");
+
+    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/mandatory", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form,
+      }),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          toast.error("Failed add mandatory", { id: toastId });
+        }
+
+        toast.success("Success add mandatory", { id: toastId });
+        const res = await response.json();
+        const ids = res.data.id;
+        console.log(ids);
+        setData([...data, { id: ids.id, name: form }]);
+        setForm("");
+        setModal({ ...modal, add: false });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
+  };
+
+  const handleDelete = async () => {
+    const toastId = toast.loading("Deleting...");
+    const selected = await selectedData;
+    fetch(
+      `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/mandatory/${selected.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          toast.error("Failed delete mandatory", { id: toastId });
+        }
+
+        toast.success("Success delete mandatory", { id: toastId });
+        let now = data.filter((ctx) => ctx.id !== selected.id);
+        setData(now);
+        setModal({ ...modal, delete: false });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
+  };
+
+
+  const handleEdit = async () => {
+    // const toastId = toast.loading("Deleting...");
+    // const selected = await selectedData;
+    // fetch(
+    //   `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/mandatory/${selected.id}`,
+    //   {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   },
+    // )
+    //   .then(async (response) => {
+    //     if (!response.ok) {
+    //       const error = await response.json();
+    //       toast.error("Failed delete mandatory", { id: toastId });
+    //     }
+
+    //     toast.success("Success delete mandatory", { id: toastId });
+    //     let now = data.filter((ctx) => ctx.id !== selected.id);
+    //     setData(now);
+    //     setModal({ ...modal, delete: false });
+    //   })
+    //   .catch((error) => {
+    //     toast.error(error.message, { id: toastId });
+    //   });
+  };
 
   return (
     <div className="basis-1/2">
@@ -60,7 +145,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                   type="button"
                   onClick={() => {
                     setModal({ ...modal, edit: true });
-                    setSelectedMandatory(item);
+                    setSelectedData(item);
                   }}
                   className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                 >
@@ -71,7 +156,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                   type="button"
                   onClick={() => {
                     setModal({ ...modal, delete: true });
-                    setSelectedMandatory(item);
+                    setSelectedData(item);
                   }}
                   className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                 >
@@ -121,7 +206,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Delete {selectedMandatory.name}
+                    Delete {selectedData.name}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
@@ -133,10 +218,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                     <button
                       type="button"
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => {
-                        setModal({ ...modal, delete: false });
-                        window.alert("Berhasil menghapus mandatory file!");
-                      }}
+                      onClick={handleDelete}
                     >
                       Yes
                     </button>
@@ -194,7 +276,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Edit {selectedMandatory.name}
+                    Edit {selectedData.name}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
@@ -207,6 +289,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                             type="text"
                             className="w-full rounded border p-2 text-sm"
                             placeholder="Enter mandatory file name"
+                            onChange={(e)=>{setForm(e.target.value)}}
                           />
                         </div>
                       </form>
@@ -291,6 +374,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                             type="text"
                             className="w-full rounded border p-2 text-sm"
                             placeholder="Enter mandatory file name"
+                            onChange={(e)=>{setForm(e.target.value)}}
                           />
                         </div>
                       </form>
@@ -301,10 +385,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                     <button
                       type="button"
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => {
-                        setModal({ ...modal, add: false });
-                        window.alert("Berhasil menambahkan mandatory file!");
-                      }}
+                      onClick={handleAdd}
                     >
                       Add
                     </button>

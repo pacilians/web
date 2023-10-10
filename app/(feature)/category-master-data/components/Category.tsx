@@ -4,13 +4,78 @@ import React, { Fragment, useState } from "react";
 // import { iListMandatoryFile, iMandatoryFile } from "./interface";
 import { Dialog, Transition } from "@headlessui/react";
 import { iBusiness } from "../interface";
+import toast, { Toaster } from "react-hot-toast";
 
 interface iProps {
   initialData: iBusiness[];
 }
 
-export default function Category({}: iProps) {
+export default function Category({ initialData }: iProps) {
   const [showForm, setShowForm] = useState(false);
+  const [data, setData] = useState<iBusiness[]>(initialData);
+  const [form, setForm] = useState("");
+  const [selectedData, setSelectedData] = useState<iBusiness>({
+    id: 0,
+    name: "",
+  });
+
+  const handleAdd = async () => {
+    const toastId = toast.loading("Creating...");
+
+    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/business", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form,
+      }),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          toast.error("Failed add business category", { id: toastId });
+        }
+
+        toast.success("Success add business category", { id: toastId });
+        const res = await response.json();
+        const ids = res.data.id;
+        setData([...data, { id: ids, name: form }]);
+        setForm("");
+        setModal({ ...modal, add: false });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
+  };
+
+  const handleDelete = async () => {
+    const toastId = toast.loading("Deleting...");
+    const selected = await selectedData;
+    fetch(
+      `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/business/${selected.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          toast.error("Failed delete business category", { id: toastId });
+        }
+
+        toast.success("Success delete business category", { id: toastId });
+        let now = data.filter((ctx) => ctx.id !== selected.id);
+        setData(now);
+        setModal({ ...modal, delete: false });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
+  };
 
   const [modal, setModal] = useState({
     delete: false,
@@ -32,53 +97,26 @@ export default function Category({}: iProps) {
           +
         </button>
       </div>
-      {/* {showForm && (
-        
-      )} */}
-      <div className="group badge badge-outline relative hover:text-transparent">
-        Government Agency
-        <button
-          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-300 text-xs text-gray-600 opacity-0 group-hover:opacity-100"
-          onClick={() => {
-            setModal({ ...modal, delete: true });
-          }}
-        >
-          x
-        </button>
-      </div>
-      <div className="group badge badge-primary badge-outline relative hover:text-transparent">
-        Fund Service
-        <button
-          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-blue-500 text-xs text-blue-500 opacity-0 group-hover:opacity-100"
-          onClick={() => {
-            setModal({ ...modal, delete: true });
-          }}
-        >
-          x
-        </button>
-      </div>
-      <div className="group badge badge-secondary badge-outline relative hover:text-transparent">
-        Core
-        <button
-          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-500 text-xs text-gray-500 opacity-0 group-hover:opacity-100"
-          onClick={() => {
-            setModal({ ...modal, delete: true });
-          }}
-        >
-          x
-        </button>
-      </div>
-      <div className="group badge badge-accent badge-outline relative hover:text-transparent">
-        Custody
-        <button
-          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-red-500 text-xs text-red-500 opacity-0 group-hover:opacity-100"
-          onClick={() => {
-            setModal({ ...modal, delete: true });
-          }}
-        >
-          x
-        </button>
-      </div>
+
+      {data.map((ctx: iBusiness, index: number) => {
+        return (
+          <div
+            className="group badge badge-outline relative hover:text-transparent"
+            key={index}
+          >
+            {ctx.name}
+            <button
+              className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-300 text-xs text-gray-600 opacity-0 group-hover:opacity-100"
+              onClick={() => {
+                setModal({ ...modal, delete: true });
+                setSelectedData(ctx);
+              }}
+            >
+              x
+            </button>
+          </div>
+        );
+      })}
 
       {/* Add Modal */}
       <Transition appear show={modal.add} as={Fragment}>
@@ -130,6 +168,9 @@ export default function Category({}: iProps) {
                             type="text"
                             className="w-full rounded border p-2 text-sm"
                             placeholder="Enter business category name"
+                            onChange={(e) => {
+                              setForm(e.target.value);
+                            }}
                           />
                         </div>
                       </form>
@@ -140,10 +181,7 @@ export default function Category({}: iProps) {
                     <button
                       type="button"
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => {
-                        setModal({ ...modal, add: false });
-                        window.alert("Berhasil menambahkan business category!");
-                      }}
+                      onClick={handleAdd}
                     >
                       Add
                     </button>
@@ -213,10 +251,7 @@ export default function Category({}: iProps) {
                     <button
                       type="button"
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => {
-                        setModal({ ...modal, delete: false });
-                        window.alert("Berhasil menghapus business category!");
-                      }}
+                      onClick={handleDelete}
                     >
                       Yes
                     </button>

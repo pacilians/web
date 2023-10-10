@@ -1,3 +1,5 @@
+// "use client "
+
 import React from "react";
 import MandtoryFile from "./components/MandatoryFile";
 import Service from "./components/Service";
@@ -23,7 +25,7 @@ const fetchInitialData = async () => {
     }
 
     const res = await response.json();
-    const data = res.data;
+    const data = res.data.data;
     return data;
   } catch (error) {
     return {
@@ -35,10 +37,9 @@ const fetchInitialData = async () => {
 };
 
 
-const MasterData: React.FC = async () => {
+export default async function CategoryMasterData({}){
 
   const data = await fetchInitialData();
-  console.log(data);
 
   return (
     <main className="flex grow gap-4 rounded-tl-3xl bg-base-50 p-4 shadow-2xl">
@@ -55,5 +56,3 @@ const MasterData: React.FC = async () => {
     </main>
   );
 };
-
-export default MasterData;
