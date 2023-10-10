@@ -55,7 +55,7 @@ export default function ListAnnouncement() {
       if (response.status === 200) {
         setLoad(!load)
         closeModal();
-        setLoader({...loader, create: true})
+        setLoader({ ...loader, create: true })
         setForm({ content: "", title: "" });
       } else {
         throw new Error("Failed Create Announcement");
@@ -107,19 +107,36 @@ export default function ListAnnouncement() {
   }, [load]);
 
   if (loader.init) return <Loading />;
-  if (loader.create) return <Loading/>
-
+  if (loader.create) return <Loading />
   return (
     <main className="bg-base-backdrop-200 w-full grow rounded-tl-3xl p-10 shadow-2xl">
       <div className="space-y-4">
-        {announcement.announcements.map((data: any, key: any) => (
+        {announcement.pinned.map((data: any, key: any) => (
           <AnnouncementComp
             key={key}
             title={data.title}
             content={data.content}
             id={data.id}
+            is_pinned={data.is_pinned}
             announcement={announcement}
             setAnnouncement={setAnnouncement}
+            created_at={data.created_at}
+          // load={load}
+          // setLoad={setLoad}
+          />
+        ))}
+        {announcement.unpinned.map((data: any, key: any) => (
+          <AnnouncementComp
+            key={key}
+            title={data.title}
+            content={data.content}
+            id={data.id}
+            is_pinned={data.is_pinned}
+            announcement={announcement}
+            setAnnouncement={setAnnouncement}
+            created_at={data.created_at}
+          // load={load}
+          // setLoad={setLoad}
           />
         ))}
       </div>
@@ -129,9 +146,9 @@ export default function ListAnnouncement() {
           <button
             type="button"
             onClick={openModal}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E55300] text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="flex justify-center items-center h-12 w-12 rounded-full bg-[#E55300] text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            <span className="flex items-center justify-center text-2xl">+</span>
+            <span className="text-2xl pb-[5px]">+</span>
           </button>
         </div>
         <form>
@@ -160,16 +177,16 @@ export default function ListAnnouncement() {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-base-100 p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg font-bold leading-6 text-gray-900"
+                        className="text-lg font-bold leading-6 text-base "
                       >
                         Add New Announcement
                       </Dialog.Title>
                       <div className="mt-4">
                         <label
-                          className="mb-2 block text-sm font-semibold"
+                          className="mb-2 block text-sm font-semibold text-base"
                           htmlFor="announcement"
                         >
                           Title
@@ -177,7 +194,7 @@ export default function ListAnnouncement() {
                         <input
                           id="announcement"
                           type="text"
-                          className="w-full rounded-md border p-2"
+                          className="w-full rounded-md border p-2 bg-base-100"
                           placeholder="Enter your tile"
                           value={form.title}
                           onChange={(e) =>
@@ -187,14 +204,14 @@ export default function ListAnnouncement() {
                       </div>
                       <div className="mt-4">
                         <label
-                          className="mb-2 block text-sm font-semibold"
+                          className="mb-2 block text-sm font-semibold text-base"
                           htmlFor="announcement"
                         >
                           Description
                         </label>
                         <textarea
                           id="announcementDesc"
-                          className="h-40 w-full rounded-md border p-2"
+                          className="h-40 w-full rounded-md border p-2 bg-base-100"
                           placeholder="Enter your announcement"
                           value={form.content}
                           onChange={(e) =>
