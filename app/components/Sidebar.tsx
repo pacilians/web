@@ -15,7 +15,7 @@ export default function Sidebar() {
   return (
     <nav
       className={`flex flex-col px-5 py-5 transition-[width] duration-500 ${
-        isButtonToggled ? "w-[6.5rem]" : "w-64"
+        isButtonToggled ? "w-28" : "w-80"
       }`}
     >
       <div
@@ -70,9 +70,9 @@ export default function Sidebar() {
         </Link>
         <Link
           className={`nav-item${
-            pathname.startsWith("/master-data") ? "-active" : ""
+            pathname.startsWith("/category-master-data") ? "-active" : ""
           }`}
-          href="/master-data"
+          href="/category-master-data"
         >
           <Iconify
             icon="solar:inbox-archive-bold-duotone"
@@ -89,7 +89,7 @@ export default function Sidebar() {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
-            Master Data
+             Category Master Data
           </Transition>
         </Link>
         <Link
