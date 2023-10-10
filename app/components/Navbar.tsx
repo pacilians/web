@@ -1,4 +1,5 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 
@@ -21,13 +22,13 @@ export default function Navbar() {
               />
             )}
             <span
-              className={`text-2xl ${
+              className={`truncate text-2xl capitalize ${
                 index === segments.length - 1
                   ? "text-base-content-100"
                   : "text-base-content-500"
               }`}
             >
-              {segment.charAt(0).toUpperCase() + segment.slice(1)}
+              {segment.replace(/-/g, " ")}
             </span>
           </Fragment>
         ))}

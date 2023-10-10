@@ -2,8 +2,7 @@
 
 import BniLogo from "@/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
-import { useStoreNavbar } from "../../store/store-context"
-// import { useState } from "react";
+import { useStoreNavbar } from "../../store/store-context";
 
 export default function Form() {
   const handleLogin = (e: any) => {
@@ -14,7 +13,9 @@ export default function Form() {
     const email = e.target.elements[0].value;
     const password = e.target.elements[1].value;
 
-    const loginRequest = fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
+    const toastId = toast.loading("Logging in...");
+
+    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,29 +24,28 @@ export default function Form() {
         email: email,
         password: password,
       }),
-    }).then(async (response) => {
-      if (response.status === 401) {
-        throw new Error("Wrong Password");
-      } else if (response.status === 200) {
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message);
+        }
+
         const res = await response.json();
         const token = res.data.token;
         const user = res.data.user;
-        const expirationTime = new Date(Date.now() + 2 * 60 * 60 * 1000).toUTCString();   // 2 Hours
+        const expirationTime = new Date(
+          Date.now() + 2 * 60 * 60 * 1000,
+        ).toUTCString(); // 2 Hours
         document.cookie = `token=${token}; expires=${expirationTime}`;
         document.cookie = `name=${user.name}; expires=${expirationTime}`;
         document.cookie = `role=${user.role}; expires=${expirationTime}`;
-
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1000);
-      }
-    });
-
-    toast.promise(loginRequest, {
-      loading: "Logging in...",
-      success: "Logged in successfully",
-      error: "Login failed",
-    });
+        window.location.href = "/";
+        toast.success("Logged in successfully", { id: toastId });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
   };
 
   return (
