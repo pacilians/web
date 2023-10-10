@@ -31,32 +31,36 @@ const MasterData: React.FC = () => {
   );
 
   return (
-    <main className="flex grow gap-4 rounded-tl-3xl bg-base-50 p-10 p-4 shadow-2xl">
+    <main className="flex grow gap-4 rounded-tl-3xl bg-base-50 p-4 shadow-2xl">
       {/* Mandatory File */}
       <div className="basis-1/2">
         <div className="h-full w-full rounded-3xl bg-base-200 p-10 shadow-2xl">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pb-2">
             <h1 className="mb-4 text-xl font-bold text-blue-400">
               Mandatory File
             </h1>
-            <button className="rounded-full bg-blue-400 px-3 py-1 text-white">
+            <button 
+              type="button"
+              onClick={() => {
+                setModal({...modal, add:true });
+              }}
+              className="rounded-full bg-blue-400 px-3 py-1 text-white">
               +
             </button>
           </div>
           <ul>
             {data.map((item) => (
-              <li key={item.id} className="mb-2 flex items-center">
+              <li key={item.id} className="w-full justify-between mb-2 flex items-center">
+                <div className="flex">
                 <span className="mr-2">📄</span> {}
                 <span
-                  style={{
-                    width: `${longestName.length}ch`,
-                    display: "inline-block",
-                  }}
-                  className="mr-4"
+                  
+                  className="flex justify-start mr-4"
                 >
                   {item.name}
                 </span>
-                <div className="flex items-center justify-center">
+                </div>
+                <div className="flex items-end justify-center gap-2">
                   <button
                     type="button"
                     onClick={() => {
@@ -67,10 +71,8 @@ const MasterData: React.FC = () => {
                   >
                     ✏️
                   </button>
-                </div>
-                <>
-                  <div className="flex items-center justify-center">
-                    <button
+
+                  <button
                       type="button"
                       onClick={() => {
                         setModal({ ...modal, delete: true });
@@ -80,7 +82,8 @@ const MasterData: React.FC = () => {
                     >
                       ❌
                     </button>
-                  </div>
+                </div>
+                <>
                 </>
               </li>
             ))}
@@ -138,6 +141,7 @@ const MasterData: React.FC = () => {
                         className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setModal({ ...modal, delete: false });
+                          window.alert("Berhasil menghapus mandatory file!");
                         }}
                       >
                         Yes
@@ -199,9 +203,21 @@ const MasterData: React.FC = () => {
                       Edit {selectedMandatory.name}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Are you sure want to delete this file?
-                      </p>
+                    <p className="text-sm text-gray-500">
+                      <form className="mt-4">
+                        <div className="mb-3">
+                          <label className="mb-2 block text-sm font-bold">
+                            Mandatory File Name:
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full rounded border p-2 text-sm"
+                            placeholder="Enter mandatory file name"
+                          />
+                        </div>
+                        
+                      </form>
+                    </p>
                     </div>
 
                     <div className="mt-4 flex w-full gap-4">
@@ -210,9 +226,10 @@ const MasterData: React.FC = () => {
                         className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setModal({ ...modal, edit: false });
+                          window.alert("Berhasil mengubah mandatory file!");
                         }}
                       >
-                        Yes
+                        Done
                       </button>
                       <button
                         type="button"
@@ -221,7 +238,7 @@ const MasterData: React.FC = () => {
                           setModal({ ...modal, edit: false });
                         }}
                       >
-                        No
+                        Cancel
                       </button>
                     </div>
                   </Dialog.Panel>
@@ -268,12 +285,24 @@ const MasterData: React.FC = () => {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Add Modal
+                      Add Mandatory File
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Are you sure want to delete this file?
-                      </p>
+                    <p className="text-sm text-gray-500">
+                      <form className="mt-4">
+                        <div className="mb-3">
+                          <label className="mb-2 block text-sm font-bold">
+                            Mandatory File Name:
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full rounded border p-2 text-sm"
+                            placeholder="Enter mandatory file name"
+                          />
+                        </div>
+                        
+                      </form>
+                    </p>
                     </div>
 
                     <div className="mt-4 flex w-full gap-4">
@@ -282,9 +311,10 @@ const MasterData: React.FC = () => {
                         className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setModal({ ...modal, add: false });
+                          window.alert("Berhasil menambahkan mandatory file!");
                         }}
                       >
-                        Yes
+                        Add
                       </button>
                       <button
                         type="button"
@@ -293,7 +323,7 @@ const MasterData: React.FC = () => {
                           setModal({ ...modal, add: false });
                         }}
                       >
-                        No
+                        Cancel
                       </button>
                     </div>
                   </Dialog.Panel>
