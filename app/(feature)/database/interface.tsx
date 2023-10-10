@@ -22,6 +22,7 @@ export interface iCustomer {
   key_person_name: string;
   key_person_dob: string;
   key_person_hp: string;
+  email: string
   board_of_director: iDOB[];
   bank_account: iBankAccount[];
 }

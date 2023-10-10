@@ -12,7 +12,19 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function Form() {
+interface iProps{
+  loader: any
+  setLoader: any
+  customer: iCustomer[],
+  setCutomer: any
+}
+
+export default function Form({
+  loader,
+  setLoader,
+  customer,
+  setCutomer
+}: iProps) {
   let [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [form, setForm] = useState<iCustomer>({
@@ -39,7 +51,6 @@ export default function Form() {
   }
 
   const handleSubmit = async () => {
-    console.log(form);
     const payload = JSON.stringify(form)
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
@@ -55,6 +66,9 @@ export default function Form() {
       },
     ).then(async (response) => {
       if (response.status === 200 || response.status == 201) {
+        const res = await response.json();
+        const newCustomer = res.data.customer;
+        setCutomer([...customer, newCustomer])
         toast.success("Created!", { id: toastId });
         closeModal()
       } else {
