@@ -14,7 +14,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`relative transition-[width] duration-500 ${
+      className={`relative shrink-0 transition-[width] duration-500 ${
         isButtonToggled ? "w-[6.5rem]" : "w-64"
       }`}
     >
