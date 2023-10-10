@@ -15,7 +15,7 @@ export default function Sidebar() {
   return (
     <nav
       className={`flex flex-col px-5 py-5 transition-[width] duration-500 ${
-        isButtonToggled ? "w-28" : "w-64"
+        isButtonToggled ? "w-28" : "w-80"
       }`}
     >
       <div
@@ -89,7 +89,7 @@ export default function Sidebar() {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-2 opacity-0 scale-90"
           >
-            Master Data
+             Category Master Data
           </Transition>
         </Link>
         <Link

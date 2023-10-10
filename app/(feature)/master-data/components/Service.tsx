@@ -15,7 +15,7 @@ export default function Service() {
     <section className="basis-1/2 rounded-3xl bg-base-200 p-10 shadow-2xl">
       <div className="flex items-center justify-between pb-2">
         <h1 className="mb-4 text-xl font-bold text-blue-400">
-          Service
+          Service Category
         </h1>
         <button
           className="rounded-full bg-blue-400 px-3 py-1 text-white"
