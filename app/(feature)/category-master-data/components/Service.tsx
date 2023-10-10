@@ -2,20 +2,25 @@ import React, { Fragment, useState } from "react";
 // import { Fragment, useState } from "react";
 // import { iListMandatoryFile, iMandatoryFile } from "./interface";
 import { Dialog, Transition } from "@headlessui/react";
+import { iService } from "../interface";
 
-export default function Category() {
+interface iProps {
+  initialData: iService[];
+}
+
+export default function Service({initialData}:iProps) {
   const [showForm, setShowForm] = useState(false);
 
   const [modal, setModal] = useState({
     delete: false,
     add: false,
   });
-
+  
   return (
     <section className="basis-1/2 rounded-3xl bg-base-200 p-10 shadow-2xl">
       <div className="flex items-center justify-between pb-2">
         <h1 className="mb-4 text-xl font-bold text-blue-400">
-          Business Category
+          Service Category
         </h1>
         <button
           className="rounded-full bg-blue-400 px-3 py-1 text-white"
@@ -30,7 +35,7 @@ export default function Category() {
         
       )} */}
       <div className="group badge badge-outline relative hover:text-transparent">
-        Government Agency
+        Insurance
         <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-300 text-xs text-gray-600 opacity-0 group-hover:opacity-100"
         onClick={() => {
           setModal({ ...modal, delete: true });
@@ -39,7 +44,7 @@ export default function Category() {
         </button>
       </div>
       <div className="group badge badge-primary badge-outline relative hover:text-transparent">
-        Fund Service
+        Asset
         <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-blue-500 text-xs text-blue-500 opacity-0 group-hover:opacity-100"
         onClick={() => {
           setModal({ ...modal, delete: true });
@@ -48,7 +53,7 @@ export default function Category() {
         </button>
       </div>
       <div className="group badge badge-secondary badge-outline relative hover:text-transparent">
-        Core
+        Management
         <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-500 text-xs text-gray-500 opacity-0 group-hover:opacity-100"
         onClick={() => {
           setModal({ ...modal, delete: true });
@@ -57,7 +62,7 @@ export default function Category() {
         </button>
       </div>
       <div className="group badge badge-accent badge-outline relative hover:text-transparent">
-        Custody
+        Security
         <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-red-500 text-xs text-red-500 opacity-0 group-hover:opacity-100"
         onClick={() => {
           setModal({ ...modal, delete: true });
@@ -110,12 +115,12 @@ export default function Category() {
                       <form className="mt-4">
                         <div className="mb-3">
                           <label className="mb-2 block text-sm font-bold">
-                            Business Category Name:
+                            Service Name:
                           </label>
                           <input
                             type="text"
                             className="w-full rounded border p-2 text-sm"
-                            placeholder="Enter business category name"
+                            placeholder="Enter service name"
                           />
                         </div>
                         
@@ -129,7 +134,7 @@ export default function Category() {
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setModal({ ...modal, add: false });
-                        window.alert("Berhasil menambahkan business category!");
+                        window.alert("Berhasil menambahkan service!");
                       }}
                     >
                       Add
@@ -192,7 +197,7 @@ export default function Category() {
                   </Dialog.Title>
                   <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure want to delete this Category?
+                        Are you sure want to delete this Service?
                       </p>
                     </div>
 
@@ -202,7 +207,7 @@ export default function Category() {
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setModal({ ...modal, delete: false });
-                        window.alert("Berhasil menghapus business category!");
+                        window.alert("Berhasil menghapus service!");
                       }}
                     >
                       Yes

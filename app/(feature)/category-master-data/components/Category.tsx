@@ -2,20 +2,25 @@ import React, { Fragment, useState } from "react";
 // import { Fragment, useState } from "react";
 // import { iListMandatoryFile, iMandatoryFile } from "./interface";
 import { Dialog, Transition } from "@headlessui/react";
+import { iBusiness } from "../interface";
 
-export default function Service() {
+interface iProps {
+  initialData: iBusiness[];
+}
+
+export default function Category({}: iProps) {
   const [showForm, setShowForm] = useState(false);
 
   const [modal, setModal] = useState({
     delete: false,
     add: false,
   });
-  
+
   return (
     <section className="basis-1/2 rounded-3xl bg-base-200 p-10 shadow-2xl">
       <div className="flex items-center justify-between pb-2">
         <h1 className="mb-4 text-xl font-bold text-blue-400">
-          Service Category
+          Business Category
         </h1>
         <button
           className="rounded-full bg-blue-400 px-3 py-1 text-white"
@@ -30,38 +35,46 @@ export default function Service() {
         
       )} */}
       <div className="group badge badge-outline relative hover:text-transparent">
-        Insurance
-        <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-300 text-xs text-gray-600 opacity-0 group-hover:opacity-100"
-        onClick={() => {
-          setModal({ ...modal, delete: true });
-        }}>
+        Government Agency
+        <button
+          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-300 text-xs text-gray-600 opacity-0 group-hover:opacity-100"
+          onClick={() => {
+            setModal({ ...modal, delete: true });
+          }}
+        >
           x
         </button>
       </div>
       <div className="group badge badge-primary badge-outline relative hover:text-transparent">
-        Asset
-        <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-blue-500 text-xs text-blue-500 opacity-0 group-hover:opacity-100"
-        onClick={() => {
-          setModal({ ...modal, delete: true });
-        }}>
+        Fund Service
+        <button
+          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-blue-500 text-xs text-blue-500 opacity-0 group-hover:opacity-100"
+          onClick={() => {
+            setModal({ ...modal, delete: true });
+          }}
+        >
           x
         </button>
       </div>
       <div className="group badge badge-secondary badge-outline relative hover:text-transparent">
-        Management
-        <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-500 text-xs text-gray-500 opacity-0 group-hover:opacity-100"
-        onClick={() => {
-          setModal({ ...modal, delete: true });
-        }}>
+        Core
+        <button
+          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-gray-500 text-xs text-gray-500 opacity-0 group-hover:opacity-100"
+          onClick={() => {
+            setModal({ ...modal, delete: true });
+          }}
+        >
           x
         </button>
       </div>
       <div className="group badge badge-accent badge-outline relative hover:text-transparent">
-        Security
-        <button className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-red-500 text-xs text-red-500 opacity-0 group-hover:opacity-100"
-        onClick={() => {
-          setModal({ ...modal, delete: true });
-        }}>
+        Custody
+        <button
+          className="absolute inset-0 flex h-full w-full items-center justify-center rounded-2xl border border-red-500 text-xs text-red-500 opacity-0 group-hover:opacity-100"
+          onClick={() => {
+            setModal({ ...modal, delete: true });
+          }}
+        >
           x
         </button>
       </div>
@@ -110,15 +123,14 @@ export default function Service() {
                       <form className="mt-4">
                         <div className="mb-3">
                           <label className="mb-2 block text-sm font-bold">
-                            Service Name:
+                            Business Category Name:
                           </label>
                           <input
                             type="text"
                             className="w-full rounded border p-2 text-sm"
-                            placeholder="Enter service name"
+                            placeholder="Enter business category name"
                           />
                         </div>
-                        
                       </form>
                     </p>
                   </div>
@@ -129,7 +141,7 @@ export default function Service() {
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setModal({ ...modal, add: false });
-                        window.alert("Berhasil menambahkan service!");
+                        window.alert("Berhasil menambahkan business category!");
                       }}
                     >
                       Add
@@ -191,10 +203,10 @@ export default function Service() {
                     Delete
                   </Dialog.Title>
                   <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Are you sure want to delete this Service?
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-500">
+                      Are you sure want to delete this Category?
+                    </p>
+                  </div>
 
                   <div className="mt-4 flex w-full gap-4">
                     <button
@@ -202,7 +214,7 @@ export default function Service() {
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setModal({ ...modal, delete: false });
-                        window.alert("Berhasil menghapus service!");
+                        window.alert("Berhasil menghapus business category!");
                       }}
                     >
                       Yes
