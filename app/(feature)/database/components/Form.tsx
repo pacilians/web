@@ -35,6 +35,7 @@ export default function Form({
     expiry_date: null,
     business_category: "",
     service: "",
+    email: "",
     key_person_name: "",
     key_person_dob: "",
     key_person_hp: "",
