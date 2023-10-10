@@ -15,12 +15,12 @@ export default function Sidebar() {
   return (
     <aside
       className={`relative shrink-0 transition-[width] duration-500 ${
-        isButtonToggled ? "w-[6.5rem]" : "w-64"
+        isButtonToggled ? "w-[6.5rem]" : "w-80"
       }`}
     >
       <nav
         className={`fixed flex h-screen flex-col px-5 py-5 transition-[width] duration-500 ${
-          isButtonToggled ? "w-[6.5rem]" : "w-64"
+          isButtonToggled ? "w-[6.5rem]" : "w-80"
         }`}
       >
         <div
@@ -94,7 +94,7 @@ export default function Sidebar() {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-2 opacity-0 scale-90"
             >
-              Master Data
+              Category Master Data
             </Transition>
           </Link>
           <Link
