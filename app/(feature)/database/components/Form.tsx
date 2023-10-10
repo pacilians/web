@@ -1,7 +1,6 @@
 "use client";
 
 import { Metadata } from "next";
-import { AiOutlineSearch } from "react-icons/ai";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -59,28 +58,23 @@ export default function Form() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Payment successful
-                  </Dialog.Title>
-                  <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
-                    <div className="w-1/2 rounded-lg bg-[#D9D9D9] px-5 py-5">
+
+                  <main className="w-full grow rounded-3xl bg-base-backdrop-200 p-5 shadow-2xl">
+                    
                       <h2 className="text-center text-xl font-bold">
                         Add Nasabah
                       </h2>
                       <h3 className="p-5 text-lg font-bold">Company</h3>
 
-                      <div className="grid grid-cols-2 place-content-center gap-5">
+                      <div className="flex flex-row gap-2">
                         <div className="flex flex-row py-3">
                           <div className="flex items-center px-4">
                             Company Name
                           </div>
-                          <div className="flex items-center px-4">
+                          <div className="flex items-center px-4 flex-1">
                             <input
                               type="text"
-                              className="rounded-lg"
+                              className="rounded-lg flex"
                               placeholder=""
                             />
                           </div>
@@ -88,10 +82,10 @@ export default function Form() {
 
                         <div className="flex flex-row py-3">
                           <div className="flex items-center px-4">DOE</div>
-                          <div className="flex items-center px-4">
+                          <div className="flex items-center px-4 flex-1">
                             <input
                               type="text"
-                              className="rounded-lg"
+                              className="rounded-lg flex "
                               placeholder=""
                             />
                           </div>
@@ -109,7 +103,7 @@ export default function Form() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="flex flex-row  gap-2">
                         <div className="flex flex-row py-3">
                           <div className="flex items-center px-4">Service</div>
                           <div className="flex items-center px-4">
@@ -126,7 +120,7 @@ export default function Form() {
                           <div className="flex items-center px-4">
                             <input
                               type="text"
-                              className="rounded-lg"
+                              className="rounded-lg block"
                               placeholder=""
                             />
                           </div>
@@ -141,7 +135,7 @@ export default function Form() {
 
                       <h3 className="p-5 text-lg font-bold">Key Person</h3>
 
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="flex flex-row gap-2">
                         <div className="flex flex-row py-3">
                           <div className="flex items-center px-4">Name</div>
                           <div className="flex items-center px-4">
@@ -175,7 +169,7 @@ export default function Form() {
                           />
                         </div>
                       </div>
-                    </div>
+                    
                   </main>
 
                   <div className="mt-4">
@@ -184,7 +178,7 @@ export default function Form() {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
+                      Done
                     </button>
                   </div>
                 </Dialog.Panel>

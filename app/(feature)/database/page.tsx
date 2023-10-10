@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Fragment, useState } from 'react'
 import Form from "./components/Form";
+import Filter from "./components/Filter";
+import Iconify from "@/Iconify";
 
 export const metadata: Metadata = {
   title: "Database | BNI Custody System",
@@ -33,11 +35,20 @@ export default function Database() {
             />
           </div>
 
-          <div>
-            <button className="text-base-content">Filter</button>
+          <div className="flex flex-row">
+           <Iconify
+              icon="zondicons:filter"
+              className={`text-4xl text-base-content-300 transition-transform duration-500 pr-2`}
+            />
+            {/* <button className="text-base-content">Filter</button> */}
+            <Filter />
           </div>
 
-          <div>
+          <div className="flex flex-row">
+            <Iconify
+              icon="bx:sort"
+              className={`text-4xl text-base-content-300 transition-transform duration-500 pr-2`}
+            />
             <button className="text-base-content">Sort</button>
           </div>
 
@@ -87,9 +98,7 @@ export default function Database() {
       <br />
 
       <div>
-        <div>
-          <h2 className="text-xl font-bold">Filter By</h2>
-        </div>
+        
 
         
       </div>
