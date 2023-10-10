@@ -1,14 +1,60 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+
+import FileTabGroup from "./components/FileTabGroup";
+import Company from "./components/Company";
+import KeyPerson from "./components/KeyPerson";
+import BoardOfDirectors from "./components/BoardOfDirectors";
 
 export const metadata: Metadata = {
   title: "Detail Nasabah | BNI Custody System",
   description: "",
 };
 
-export default function DetailUser({ params }: { params: { fileId: string } }) {
+async function getData(id: string, token: string) {
+  const res = await fetch(
+    `https://bnicstdy-b41ad9b84aff.herokuapp.com/database/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data.customer;
+}
+
+export default async function DetailNasabah({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { id } = params;
+  const cookieStore = cookies();
+  const token = cookieStore.get("token")?.value ?? "";
+
+  const data = await getData(id, token);
+
   return (
-    <main className="w-full grow rounded-tl-3xl bg-base-200 p-10 shadow-2xl">
-      file nasabah
+    <main className="flex w-full grow flex-col gap-5 rounded-tl-3xl bg-base-backdrop-200 p-8 shadow-2xl">
+      <section className="flex gap-3">
+        <Company nasabah={data} />
+        <div className="flex basis-1/2 flex-col gap-3">
+          <KeyPerson keyPerson={data} />
+          <BoardOfDirectors bod={data.board_of_director} />
+        </div>
+      </section>
+      <FileTabGroup
+        mandatoryFile={data.mandatory_file}
+        additionalFile={data.additional_file}
+      />
     </main>
   );
 }

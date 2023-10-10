@@ -1,14 +1,43 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import List from "./components/List";
+import Loading from "@/Loading";
 
 export const metadata: Metadata = {
   title: "Database | BNI Custody System",
   description: "",
 };
 
-export default function Database() {
+async function getData(token: string) {
+  const res = await fetch(
+    `https://bnicstdy-b41ad9b84aff.herokuapp.com/database`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    },
+  );
+
+  console.log(res);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data.customer;
+}
+
+export default async function Database() {
+  const cookieStore = cookies();
+  const token = cookieStore.get("token")?.value ?? "";
+
+  // const data = await getData(token);
+
   return (
     <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
-      detail nasabah
+      <List initialData={null} />
     </main>
   );
 }
