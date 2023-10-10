@@ -47,11 +47,14 @@ export default async function DetailNasabah({
       <section className="flex gap-3">
         <Company nasabah={data} />
         <div className="flex basis-1/2 flex-col gap-3">
-          <KeyPerson nasabah={data} />
-          <BoardOfDirectors nasabah={data} />
+          <KeyPerson keyPerson={data} />
+          <BoardOfDirectors bod={data.board_of_director} />
         </div>
       </section>
-      <FileTabGroup />
+      <FileTabGroup
+        mandatoryFile={data.mandatory_file}
+        additionalFile={data.additional_file}
+      />
     </main>
   );
 }
