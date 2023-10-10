@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import { AiOutlineSearch } from "react-icons/ai";
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from "react";
 import Form from "./components/Form";
 import Filter from "./components/Filter";
 import Iconify from "@/Iconify";
+import toast, { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Database | BNI Custody System",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function Database() {
+  const [refresh, setRefresh] = useState(false)
   // let [isOpen, setIsOpen] = useState(true)
 
   // function closeModal() {
@@ -22,8 +23,6 @@ export default function Database() {
   // }
 
   return (
-
-    
     <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <div className=" ">
         <div className="mt-2 flex w-full flex-row items-center justify-between rounded-md pb-5 shadow-sm">
@@ -102,6 +101,7 @@ export default function Database() {
 
         
       </div>
+      <Toaster />
     </main>
   );
 }
