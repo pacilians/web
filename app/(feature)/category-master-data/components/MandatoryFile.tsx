@@ -3,13 +3,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { iListMandatoryFile, iMandatoryFile } from "../interface";
+import toast, { Toaster } from "react-hot-toast";
 
 interface iProps {
   initialData: iListMandatoryFile;
 }
 
 export default function MandatoryFile({ initialData }: iProps) {
-  const [data, setData] = useState<iListMandatoryFile>([]);
+  const [data, setData] = useState<iListMandatoryFile>(initialData || []);
   const [modal, setModal] = useState({
     edit: false,
     delete: false,
@@ -21,11 +22,11 @@ export default function MandatoryFile({ initialData }: iProps) {
     initialSelectedMandatory,
   );
 
-  const longestName = data.reduce(
-    (longest, item: any) =>
-      item.name.length > longest.length ? item.name : longest,
-    "",
-  );
+  // const longestName = data.reduce(
+  //   (longest, item: any) =>
+  //     item.name.length > longest.length ? item.name : longest,
+  //   "",
+  // );
 
   return (
     <div className="basis-1/2">

@@ -1,3 +1,4 @@
+"use client";
 import React, { Fragment, useState } from "react";
 // import { Fragment, useState } from "react";
 // import { iListMandatoryFile, iMandatoryFile } from "./interface";
