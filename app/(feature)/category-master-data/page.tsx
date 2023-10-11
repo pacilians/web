@@ -36,9 +36,7 @@ const fetchInitialData = async () => {
   }
 };
 
-
-export default async function CategoryMasterData({}){
-
+export default async function CategoryMasterData({}) {
   const data = await fetchInitialData();
 
   return (
@@ -52,7 +50,7 @@ export default async function CategoryMasterData({}){
 
         <Category initialData={data.business} />
       </div>
-      <Toaster/>
+      <Toaster />
     </main>
   );
-};
+}

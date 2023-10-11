@@ -53,9 +53,9 @@ export default function ListAnnouncement() {
       },
     ).then(async (response) => {
       if (response.status === 200) {
-        setLoad(!load)
+        setLoad(!load);
         closeModal();
-        setLoader({ ...loader, create: true })
+        setLoader({ ...loader, create: true });
         setForm({ content: "", title: "" });
       } else {
         throw new Error("Failed Create Announcement");
@@ -107,9 +107,9 @@ export default function ListAnnouncement() {
   }, [load]);
 
   if (loader.init) return <Loading />;
-  if (loader.create) return <Loading />
+  if (loader.create) return <Loading />;
   return (
-    <main className="bg-base-backdrop-200 w-full grow rounded-tl-3xl p-10 shadow-2xl">
+    <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <div className="space-y-4">
         {announcement.pinned.map((data: any, key: any) => (
           <AnnouncementComp
@@ -121,8 +121,8 @@ export default function ListAnnouncement() {
             announcement={announcement}
             setAnnouncement={setAnnouncement}
             created_at={data.created_at}
-          // load={load}
-          // setLoad={setLoad}
+            // load={load}
+            // setLoad={setLoad}
           />
         ))}
         {announcement.unpinned.map((data: any, key: any) => (
@@ -135,8 +135,8 @@ export default function ListAnnouncement() {
             announcement={announcement}
             setAnnouncement={setAnnouncement}
             created_at={data.created_at}
-          // load={load}
-          // setLoad={setLoad}
+            // load={load}
+            // setLoad={setLoad}
           />
         ))}
       </div>
@@ -146,9 +146,9 @@ export default function ListAnnouncement() {
           <button
             type="button"
             onClick={openModal}
-            className="flex justify-center items-center h-12 w-12 rounded-full bg-[#E55300] text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E55300] text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            <span className="text-2xl pb-[5px]">+</span>
+            <span className="pb-[5px] text-2xl">+</span>
           </button>
         </div>
         <form>
@@ -180,13 +180,13 @@ export default function ListAnnouncement() {
                     <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-base-100 p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg font-bold leading-6 text-base "
+                        className="text-base text-lg font-bold leading-6 "
                       >
                         Add New Announcement
                       </Dialog.Title>
                       <div className="mt-4">
                         <label
-                          className="mb-2 block text-sm font-semibold text-base"
+                          className="mb-2 block text-base text-sm font-semibold"
                           htmlFor="announcement"
                         >
                           Title
@@ -194,7 +194,7 @@ export default function ListAnnouncement() {
                         <input
                           id="announcement"
                           type="text"
-                          className="w-full rounded-md border p-2 bg-base-100"
+                          className="w-full rounded-md border bg-base-100 p-2"
                           placeholder="Enter your tile"
                           value={form.title}
                           onChange={(e) =>
@@ -204,14 +204,14 @@ export default function ListAnnouncement() {
                       </div>
                       <div className="mt-4">
                         <label
-                          className="mb-2 block text-sm font-semibold text-base"
+                          className="mb-2 block text-base text-sm font-semibold"
                           htmlFor="announcement"
                         >
                           Description
                         </label>
                         <textarea
                           id="announcementDesc"
-                          className="h-40 w-full rounded-md border p-2 bg-base-100"
+                          className="h-40 w-full rounded-md border bg-base-100 p-2"
                           placeholder="Enter your announcement"
                           value={form.content}
                           onChange={(e) =>

@@ -84,7 +84,6 @@ export default function MandatoryFile({ initialData }: iProps) {
       });
   };
 
-
   const handleEdit = async () => {
     // const toastId = toast.loading("Deleting...");
     // const selected = await selectedData;
@@ -102,7 +101,6 @@ export default function MandatoryFile({ initialData }: iProps) {
     //       const error = await response.json();
     //       toast.error("Failed delete mandatory", { id: toastId });
     //     }
-
     //     toast.success("Success delete mandatory", { id: toastId });
     //     let now = data.filter((ctx) => ctx.id !== selected.id);
     //     setData(now);
@@ -289,7 +287,9 @@ export default function MandatoryFile({ initialData }: iProps) {
                             type="text"
                             className="w-full rounded border p-2 text-sm"
                             placeholder="Enter mandatory file name"
-                            onChange={(e)=>{setForm(e.target.value)}}
+                            onChange={(e) => {
+                              setForm(e.target.value);
+                            }}
                           />
                         </div>
                       </form>
@@ -374,7 +374,9 @@ export default function MandatoryFile({ initialData }: iProps) {
                             type="text"
                             className="w-full rounded border p-2 text-sm"
                             placeholder="Enter mandatory file name"
-                            onChange={(e)=>{setForm(e.target.value)}}
+                            onChange={(e) => {
+                              setForm(e.target.value);
+                            }}
                           />
                         </div>
                       </form>
