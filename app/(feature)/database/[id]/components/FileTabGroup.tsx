@@ -13,6 +13,7 @@ type FileNasabah = {
   name: string;
   created_at: string;
   updated_at: string;
+  type: string;
 };
 
 export default function FileTabGroup({
@@ -30,7 +31,7 @@ export default function FileTabGroup({
             classNames(
               "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-base-content-300",
               selected
-                ? "border border-base-200 bg-base-100 shadow"
+                ? "border border-base-200 bg-base-backdrop-200 shadow"
                 : "hover:bg-base-100/60 hover:text-base-content-100",
             )
           }
@@ -42,7 +43,7 @@ export default function FileTabGroup({
             classNames(
               "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-base-content-300",
               selected
-                ? "border border-base-200 bg-base-100 shadow"
+                ? "border border-base-200 bg-base-backdrop-200 shadow"
                 : "hover:bg-base-100/60 hover:text-base-content-100",
             )
           }

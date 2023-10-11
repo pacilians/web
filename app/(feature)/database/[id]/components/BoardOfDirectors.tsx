@@ -13,7 +13,7 @@ export default function BoardOfDirectors({ bod }: { bod: Bod[] }) {
         Board of Directors
       </h3>
       {bod.map((person) => (
-        <div className="mb-2 flex flex-col gap-2" key={person.id}>
+        <div className="mb-2 flex flex-col" key={person.id}>
           <p className="font-bold">
             Name: <span className="font-normal">{person.name}</span>
           </p>
