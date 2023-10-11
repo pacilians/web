@@ -75,9 +75,9 @@ export default function Sidebar() {
           </Link>
           <Link
             className={`nav-item${
-              pathname.startsWith("/master-data") ? "-active" : ""
+              pathname.startsWith("/category-master-data") ? "-active" : ""
             }`}
-            href="/master-data"
+            href="/category-master-data"
           >
             <Iconify
               icon="solar:inbox-archive-bold-duotone"
