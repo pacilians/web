@@ -229,6 +229,7 @@ export default function CreateUser() {
           </button>
         </div>
       </form>
+      <Toaster/>
     </main>
   );
 }
