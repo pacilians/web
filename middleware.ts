@@ -1,14 +1,16 @@
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { useRouter } from "next/navigation";
+import { NextResponse, NextRequest } from "next/server";
 
-export default function authMiddleware(req: any) {
-  const cookieStore = cookies();
-  const isAuthenticated = cookieStore.get("token") !== null;
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const token = req.cookies.get("token");
 
-  console.log(isAuthenticated);
-  if (!isAuthenticated) {
-    return NextResponse.redirect("/auth");
+  // Ignore routes serving static assets
+  if (/\.[A-Za-z0-9]+$/.test(pathname)) {
+    return NextResponse.next();
+  }
+
+  if (!token && pathname !== "/auth") {
+    return NextResponse.redirect(new URL("/auth", req.url));
   }
 
   return NextResponse.next();
