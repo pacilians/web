@@ -118,7 +118,7 @@ export default function Sidebar() {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-2 opacity-0 scale-90"
             >
-              Users
+              User Management
             </Transition>
           </Link>
           <button

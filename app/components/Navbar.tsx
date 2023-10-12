@@ -1,6 +1,5 @@
 import NavMenu from "./NavMenu";
 import NavTitle from "./NavTitle";
-import ThemeSelector from "./ThemeSelector";
 
 export default function Navbar() {
   return (
@@ -8,7 +7,6 @@ export default function Navbar() {
       <div className="flex items-center">
         <NavTitle />
       </div>
-      <ThemeSelector />
       <NavMenu />
     </nav>
   );
