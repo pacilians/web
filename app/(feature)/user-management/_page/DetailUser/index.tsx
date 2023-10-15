@@ -1,6 +1,6 @@
 "use client";
 import toast, { Toaster } from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { usePathname } from "next/navigation";
@@ -20,6 +20,7 @@ export default function ListUser() {
     role: "",
     description: "",
     picture: "",
+    password: "",
   });
 
   const fetchUser = async () => {
@@ -85,6 +86,21 @@ export default function ListUser() {
             <div className="flex flex-row justify-between">
               <h1 className="mb-2 text-4xl font-bold">{user.name}</h1>
               <div className="flex flex-row">
+              <button
+                  className="py-auto hover:text-white-400 rounded px-4 font-bold hover:bg-blue-600"
+                  onClick={() => {
+                    const textField = document.createElement('textarea');
+                    const text = `Email : ${user.email} | Password: ${user.password}`
+                    textField.innerText = text;
+                    document.body.appendChild(textField);
+                    textField.select();
+                    document.execCommand('copy');
+                    textField.remove();
+                    toast.success("Credential has been copy")
+                  }}
+                >
+                  Copy Credential
+                </button>
                 <button
                   className="py-auto hover:text-white-400 rounded px-4 font-bold hover:bg-blue-600"
                   onClick={() => {
@@ -181,6 +197,8 @@ export default function ListUser() {
           </div>
         </div>
       </div>
+      <input type="text" className="hidden" readOnly />
+      <Toaster/>
     </div>
   );
 }
