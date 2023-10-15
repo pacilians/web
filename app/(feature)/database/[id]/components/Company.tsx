@@ -1,104 +1,145 @@
 "use client";
 
-import { useState } from "react";
+// apis
+import { fetchMasterData, updateNasabah } from "@api/api";
 
-import Iconify from "@/Iconify";
+// components
+import Iconify from "@components/Iconify";
+import CategoryCombobox from "./CategoryCombobox";
 
-interface Nasabah {
-  name: string;
-  address: string;
-  telephone: string;
-  expiry_date: string;
-  business_category: string;
-  service: string;
-}
+// libraries
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { Toaster } from "react-hot-toast";
+
+// types
+import { Nasabah } from "@customTypes/types";
 
 export default function Company({ nasabah }: { nasabah: Nasabah }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [data, setData] = useState(nasabah);
+  const [cookies] = useCookies();
+  const [masterData, setMasterData] = useState({
+    business: [],
+    service: [],
+    mandatory: [],
+  });
+
+  // using useEffect because await cannot be used in non async components
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchMasterData();
+      setMasterData(result || { business: [], service: [], mandatory: [] });
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const updatedNasabah = {
+      ...nasabah,
+      name: e.target.elements[0].value,
+      address: e.target.elements[1].value,
+      telephone: e.target.elements[2].value,
+      expiry_date: e.target.elements[3].value,
+      business_category: e.target.elements[5].value,
+      service: e.target.elements[8].value,
+    };
+    console.log(updatedNasabah);
+
+    try {
+      await updateNasabah(updatedNasabah, cookies.token);
+      setData(updatedNasabah);
+      setIsEditing(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <form className="group relative basis-1/2 overflow-hidden rounded-xl border border-base-300 px-8 py-5 text-base-content-400">
-      <h3 className="mb-2 text-xl font-semibold text-base-content-200">
+    <form
+      className="group relative flex basis-1/2 flex-col gap-2 overflow-hidden rounded-xl border border-base-300 py-5 pl-5 pr-3 text-base-content-400"
+      onSubmit={handleSubmit}
+    >
+      <h3 className="mb-4 text-xl font-semibold text-base-content-200">
         Company
       </h3>
-      <p className="flex items-center gap-2 font-bold">
-        Name:{" "}
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Name: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.name}</span>
+          <span className="font-normal">{data.name}</span>
         ) : (
           <input
             type="text"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.name}
-            value={nasabah.name}
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            placeholder={data.name}
+            defaultValue={data.name}
+            required
           />
         )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Address:{" "}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Address: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.address}</span>
+          <span className="font-normal">{data.address}</span>
         ) : (
           <input
             type="text"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.address}
-            value={nasabah.address}
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            placeholder={data.address}
+            defaultValue={data.address}
+            required
           />
         )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Phone:{" "}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Phone: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.telephone}</span>
+          <span className="font-normal">{data.telephone}</span>
         ) : (
           <input
             type="text"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.telephone}
-            value={nasabah.telephone}
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            placeholder={data.telephone}
+            defaultValue={data.telephone}
+            required
           />
         )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Expired Date:{" "}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Expired Date: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.expiry_date}</span>
+          <span className="font-normal">
+            {data.expiry_date}
+          </span>
         ) : (
           <input
-            type="datetime-local"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.expiry_date}
-            value={nasabah.expiry_date}
+            type="date"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            placeholder={data.expiry_date}
+            defaultValue={data.expiry_date}
+            required
           />
         )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Category:{" "}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Business: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.business_category}</span>
+          <span className="font-normal">{data.business_category}</span>
         ) : (
-          <input
-            type="text"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.business_category}
-            value={nasabah.business_category}
-          />
+          <CategoryCombobox items={masterData.business} name="business" />
         )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Service:{" "}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-24 shrink-0">Service: </p>
         {!isEditing ? (
-          <span className="font-normal">{nasabah.service}</span>
+          <span className="font-normal">{data.service}</span>
         ) : (
-          <input
-            type="text"
-            className="mt-1 block w-full rounded-md border-transparent bg-gray-100 font-normal focus:border-gray-500 focus:bg-white focus:ring-0"
-            placeholder={nasabah.service}
-            value={nasabah.service}
-          />
+          <CategoryCombobox items={masterData.service} name="service" />
         )}
-      </p>
+      </div>
       <div
         className={`absolute right-3 top-3 ${
           !isEditing
@@ -119,7 +160,7 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         ) : null}
         <button
           className="rounded-lg border border-base-200 bg-base-100 p-2 hover:border-base-300 hover:bg-base-200 group-hover:shadow-sm"
-          onClick={(event) => {
+          onClick={(event: React.MouseEvent) => {
             event.preventDefault();
             setIsEditing(!isEditing);
           }}
@@ -130,6 +171,7 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
           />
         </button>
       </div>
+      <Toaster />
     </form>
   );
 }

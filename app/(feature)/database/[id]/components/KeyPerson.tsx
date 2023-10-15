@@ -1,9 +1,21 @@
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 
 interface KeyPerson {
   key_person_name: string;
   key_person_dob: string;
   key_person_hp: string;
+}
+
+type DateInput = string | number | Date;
+
+function formatDate(dateString: DateInput): string {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-GB", options).format(date);
 }
 
 export default function KeyPerson({ keyPerson }: { keyPerson: KeyPerson }) {
@@ -17,7 +29,9 @@ export default function KeyPerson({ keyPerson }: { keyPerson: KeyPerson }) {
       </p>
       <p className="font-bold">
         Date of Birth:{" "}
-        <span className="font-normal">{keyPerson.key_person_dob}</span>
+        <span className="font-normal">
+          {formatDate(keyPerson.key_person_dob)}
+        </span>
       </p>
       <p className="font-bold">
         Phone: <span className="font-normal">{keyPerson.key_person_hp}</span>
