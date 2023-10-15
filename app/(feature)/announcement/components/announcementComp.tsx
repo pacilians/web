@@ -2,8 +2,8 @@
 // import { Metadata } from "next";
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import Iconify from "@/Iconify";
-import Loading from "@/Loading";
+import Iconify from "@components/Iconify";
+import Loading from "@components/Loading";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 

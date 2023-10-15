@@ -1,4 +1,4 @@
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 
 interface Bod {
   id: string;

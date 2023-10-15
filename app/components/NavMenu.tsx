@@ -2,73 +2,53 @@
 
 import { Popover, Tab, Transition } from "@headlessui/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useState, useEffect } from "react";
 
-import Iconify from "./Iconify";
 import BniLogo from "./BniLogo";
+import Iconify from "./Iconify";
 
 export default function NavMenu() {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
   const [theme, setTheme] = useState("");
 
-  let index;
-  if (theme === "light") {
-    index = 0;
-  } else if (theme === "dark") {
-    index = 1;
-  } else if (theme === "bni") {
-    index = 2;
-  } else {
-    index = 0; // Default value
-  }
-
   async function logout() {
     removeCookie("token");
     router.push("/auth");
   }
 
-  useEffect(() => {
-    let htmlElement = document.querySelector("html");
-    if (htmlElement) {
-      const currentTheme = getCurrentTheme();
-      htmlElement.setAttribute(
-        "data-theme",
-        theme === "" ? currentTheme : theme,
-      );
-
-      if (htmlElement.getAttribute("data-theme") === "dark") {
-        htmlElement.classList.add("dark");
-      } else {
-        htmlElement.classList.remove("dark");
-      }
-    }
-  }, [theme]);
-
-  function getCurrentTheme() {
-    if (typeof window !== "undefined" && window.matchMedia) {
-      // Check if the browser prefers dark mode
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-
-      // Return "dark" if the browser prefers dark mode, otherwise return "light"
-      return prefersDark ? "dark" : "light";
-    }
-
-    // Default to "light" if unable to determine the theme (e.g., SSR or non-browser environment)
-    return "light";
-  }
-
   function setThemeTab(index: number) {
     const selectedTheme = ["light", "dark", "bni"][index];
     setTheme(selectedTheme);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", selectedTheme);
+    }
   }
+
+  useEffect(() => {
+    let htmlElement = document.querySelector("html");
+    let storedTheme = "light";
+    if (typeof window !== "undefined") {
+      storedTheme = localStorage.getItem("theme") || "light";
+    }
+    const currentTheme = theme || storedTheme;
+    setTheme(currentTheme);
+    htmlElement?.setAttribute(
+      "data-theme",
+      theme === "" ? currentTheme : theme,
+    );
+
+    if (htmlElement?.getAttribute("data-theme") === "dark") {
+      htmlElement?.classList.add("dark");
+    } else {
+      htmlElement?.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
     <Popover>
-      <Popover.Button className="group flex h-12 w-12 items-center justify-center rounded-xl active:scale-95">
+      <Popover.Button className="group flex h-12 w-12 items-center justify-center rounded-xl border border-base-400 active:scale-95">
         <Iconify
           icon="solar:hamburger-menu-linear"
           className="text-2xl group-hover:text-base-content-100"
@@ -82,10 +62,18 @@ export default function NavMenu() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-50 opacity-0"
       >
-        <Popover.Panel className="absolute right-0 top-2 z-10 origin-top-right">
-          <div className="flex w-60 flex-col gap-2 rounded-xl border border-base-300 bg-base-backdrop-200 p-3 shadow-xl">
+        <Popover.Panel className="absolute right-0 top-2 origin-top-right">
+          <div className="z-40 flex w-60 flex-col gap-2 rounded-xl border border-base-300 bg-base-backdrop-200 p-3 shadow-xl">
             <Tab.Group
-              defaultIndex={index}
+              defaultIndex={
+                theme === "light"
+                  ? 0
+                  : theme === "dark"
+                  ? 1
+                  : theme === "bni"
+                  ? 2
+                  : 0
+              }
               onChange={(index) => {
                 setThemeTab(index);
               }}

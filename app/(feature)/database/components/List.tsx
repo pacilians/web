@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Fragment, useState, useEffect } from "react";
 import Form from "../components/Form";
 import Filter from "../components/Filter";
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 import toast, { Toaster } from "react-hot-toast";
 import { iCustomer } from "../interface";
 import { useCookies } from "react-cookie";
@@ -34,8 +34,7 @@ export default function Database({ initialData }: Props) {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        // "https://bnicstdy-b41ad9b84aff.herokuapp.com/database",
-        "http://127.0.0.1:8000/database",
+        "https://bnicstdy-b41ad9b84aff.herokuapp.com/database",
         {
           method: "GET",
           headers: {

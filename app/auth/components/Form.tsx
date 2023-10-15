@@ -1,6 +1,6 @@
 "use client";
 
-import BniLogo from "@/BniLogo";
+import BniLogo from "@components/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
 import { useStoreNavbar } from "../../store/store-context";
 
@@ -65,6 +65,7 @@ export default function Form() {
             type="email"
             className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="johndoe@bni.co.id"
+            required
           />
         </label>
         <label className="w-full">
@@ -73,6 +74,7 @@ export default function Form() {
             type="password"
             className="mt-1 w-full rounded-lg border-base-content-500 bg-transparent shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="••••••••••••"
+            required
           />
         </label>
       </div>

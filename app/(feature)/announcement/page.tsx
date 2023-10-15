@@ -5,7 +5,7 @@ import AnnouncementComp from "./components/announcementComp";
 import { Dialog, Transition } from "@headlessui/react";
 import { useCookies } from "react-cookie";
 import toast, { Toaster } from "react-hot-toast";
-import Loading from "@/Loading";
+import Loading from "@components/Loading";
 import { create } from "domain";
 
 // export const metadata: Metadata = {

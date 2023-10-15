@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 
 type FileNasabah = {
   id: string;

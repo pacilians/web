@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import Loading from "@/Loading";
+import Loading from "@components/Loading";
 
 export default function CreateUser() {
   const router = useRouter();

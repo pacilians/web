@@ -13,6 +13,7 @@ const config: Config = {
         "base-200": "rgb(var(--base-200) / <alpha-value>)",
         "base-300": "rgb(var(--base-300) / <alpha-value>)",
         "base-400": "rgb(var(--base-400) / <alpha-value>)",
+        "base-500": "rgb(var(--base-500) / <alpha-value>)",
         "base-content-100": "rgb(var(--base-content-100) / <alpha-value>)",
         "base-content-200": "rgb(var(--base-content-200) / <alpha-value>)",
         "base-content-300": "rgb(var(--base-content-300) / <alpha-value>)",
@@ -44,6 +45,7 @@ const config: Config = {
           "--base-200": "226 232 240", // slate-200
           "--base-300": "203 213 225", // slate-300
           "--base-400": "148 163 184", // slate-400
+          "--base-500": "100 116 139", // slate-500
           "--base-content-100": "2 6 23", // slate-950
           "--base-content-200": "15 23 42", // slate-900
           "--base-content-300": "30 41 59", // slate-800
@@ -61,6 +63,7 @@ const config: Config = {
           "--base-200": "30 41 59", // slate-800
           "--base-300": "51 65 85", // slate-700
           "--base-400": "71 85 105", // slate-600
+          "--base-500": "100 116 139", // slate-500
           "--base-content-100": "255 255 255", // white
           "--base-content-200": "241 245 249", // slate-100
           "--base-content-300": "226 232 240", // slate-200
