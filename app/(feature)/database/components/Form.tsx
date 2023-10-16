@@ -145,6 +145,7 @@ export default function Form({
                           <input
                             className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
                             id="npp"
+                            required
                             type="text"
                             value={form.name}
                             onChange={(e) =>
@@ -216,6 +217,26 @@ export default function Form({
                         </div>
                       </div>
                       <div className="mb-4 flex flex-row gap-5">
+                      <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Email
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.email}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                email: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
                         <div className="mr-2 flex w-1/2 flex-col">
                           <label
                             className="mb-2  block font-bold"
@@ -236,6 +257,33 @@ export default function Form({
                             }
                           />
                         </div>
+
+                      </div>
+
+                      <div className="mb-4 flex flex-row gap-5">
+                 
+
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Key Person - Phone
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.key_person_hp}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                key_person_hp: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+
                         <div className="mr-2 flex w-1/2 flex-col">
                           <label
                             className="mb-2  block font-bold"
@@ -256,29 +304,7 @@ export default function Form({
                             }
                           />
                         </div>
-                      </div>
-
-                      <div className="mb-4 flex flex-row">
-                        <div className="mr-2 flex w-full flex-col">
-                          <label
-                            className="mb-2  block font-bold"
-                            htmlFor="email"
-                          >
-                            Key Person - Phone
-                          </label>
-                          <input
-                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                            id="email"
-                            type="email"
-                            value={form.key_person_hp}
-                            onChange={(e) =>
-                              setForm({
-                                ...form,
-                                key_person_hp: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
+                        
                       </div>
 
                       {/* BOD */}
@@ -300,6 +326,7 @@ export default function Form({
                                   role: "",
                                   description: "",
                                   photo: null,
+                                  birth_date: null
                                 },
                               ],
                             });
@@ -389,6 +416,33 @@ export default function Form({
                                 />
                               </div>
                               <div className="mr-2 flex w-1/2 flex-col">
+                                <label
+                                  className="mb-2  block font-bold"
+                                  htmlFor="npp"
+                                >
+                                  Birthday
+                                </label>
+                                <input
+                                  className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                                  id="npp"
+                                  type="date"
+                                  value={ctx.birth_date}
+                                  onChange={(e) => {
+                                    let current = form.board_of_director;
+                                    let changed = current[key];
+                                    changed.birth_date = e.target.value;
+                                    current[key] = changed;
+                                    setForm({
+                                      ...form,
+                                      board_of_director: current,
+                                    });
+                                  }}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="mb-2 flex flex-row gap-5">
+                              <div className="mr-2 flex w-full flex-col">
                                 <label
                                   className="mb-2  block font-bold"
                                   htmlFor="npp"

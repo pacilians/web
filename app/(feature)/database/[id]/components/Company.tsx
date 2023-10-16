@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 
 interface Nasabah {
   name: string;

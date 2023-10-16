@@ -1,4 +1,4 @@
-import Iconify from "@/Iconify";
+import Iconify from "@components/Iconify";
 
 interface KeyPerson {
   key_person_name: string;
