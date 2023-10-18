@@ -4,6 +4,7 @@ export interface iDOB {
   role: string;
   description: string;
   photo: null | string;
+  birth_date: any;
 }
 
 export interface iBankAccount {

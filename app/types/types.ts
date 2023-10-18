@@ -19,10 +19,19 @@ export type MasterData = {
   mandatory: string[];
 }
 
-export type BoardOfDirector = {
+export type BankAccount = {
+  id: string;
+  id_customer: string;
+  number: string;
   name: string;
+}
+
+export type BoardOfDirector = {
+  id: string;
+  id_customer: string;
+  name: string;
+  photo: string | null;
   npp: string;
   role: string;
   description: string;
-  photo: string | null;
 }
