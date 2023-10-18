@@ -4,7 +4,7 @@ import { fetchNasabah } from "@api/api";
 // components
 import FileTabGroup from "./components/FileTabGroup";
 import Company from "./components/Company";
-import KeyPerson from "./components/KeyPerson";
+import BankAccount from "./components/BankAccount";
 import BoardOfDirectors from "./components/BoardOfDirectors";
 
 // libraries
@@ -32,7 +32,7 @@ export default async function DetailNasabah({
       <section className="flex gap-3">
         <Company nasabah={data} />
         <div className="flex basis-1/2 flex-col gap-3">
-          <KeyPerson keyPerson={data} />
+          <BankAccount keyPerson={data.bank_account} />
           <BoardOfDirectors bod={data.board_of_director} />
         </div>
       </section>

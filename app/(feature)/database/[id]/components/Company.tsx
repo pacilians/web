@@ -45,9 +45,11 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
       telephone: e.target.elements[2].value,
       expiry_date: e.target.elements[3].value,
       business_category: e.target.elements[5].value,
-      service: e.target.elements[8].value,
+      service: e.target.elements[9].value,
+      key_person_name: e.target.elements[12].value,
+      key_person_hp: e.target.elements[13].value,
+      key_person_dob: e.target.elements[14].value,
     };
-    console.log(updatedNasabah);
 
     try {
       await updateNasabah(updatedNasabah, cookies.token);
@@ -60,20 +62,20 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
 
   return (
     <form
-      className="group relative flex basis-1/2 flex-col gap-2 overflow-hidden rounded-xl border border-base-300 py-5 pl-5 pr-3 text-base-content-400"
+      className="group relative flex basis-1/2 flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 py-5 pl-5 pr-3 text-base-content-400"
       onSubmit={handleSubmit}
     >
       <h3 className="mb-4 text-xl font-semibold text-base-content-200">
         Company
       </h3>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Name: </p>
+        <p className="w-32 shrink-0">Name: </p>
         {!isEditing ? (
           <span className="font-normal">{data.name}</span>
         ) : (
           <input
             type="text"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
             placeholder={data.name}
             defaultValue={data.name}
             required
@@ -81,13 +83,13 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Address: </p>
+        <p className="w-32 shrink-0">Address: </p>
         {!isEditing ? (
           <span className="font-normal">{data.address}</span>
         ) : (
           <input
             type="text"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
             placeholder={data.address}
             defaultValue={data.address}
             required
@@ -95,13 +97,13 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Phone: </p>
+        <p className="w-32 shrink-0">Phone: </p>
         {!isEditing ? (
           <span className="font-normal">{data.telephone}</span>
         ) : (
           <input
-            type="text"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            type="tel"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
             placeholder={data.telephone}
             defaultValue={data.telephone}
             required
@@ -109,15 +111,13 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Expired Date: </p>
+        <p className="w-32 shrink-0">Expired Date: </p>
         {!isEditing ? (
-          <span className="font-normal">
-            {data.expiry_date}
-          </span>
+          <span className="font-normal">{data.expiry_date}</span>
         ) : (
           <input
             type="date"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-500 focus:ring-0"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
             placeholder={data.expiry_date}
             defaultValue={data.expiry_date}
             required
@@ -125,26 +125,78 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Business: </p>
+        <p className="w-32 shrink-0">Business: </p>
         {!isEditing ? (
           <span className="font-normal">{data.business_category}</span>
         ) : (
-          <CategoryCombobox items={masterData.business} name="business" />
+          <CategoryCombobox
+            items={masterData.business}
+            name="business"
+            defaultValue={data.business_category}
+          />
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-24 shrink-0">Service: </p>
+        <p className="w-32 shrink-0">Service: </p>
         {!isEditing ? (
           <span className="font-normal">{data.service}</span>
         ) : (
-          <CategoryCombobox items={masterData.service} name="service" />
+          <CategoryCombobox
+            items={masterData.service}
+            name="service"
+            defaultValue={data.service}
+          />
+        )}
+      </div>
+      <div className="my-4 h-0.5 w-full rounded-full bg-base-200 pr-2" />
+      <h3 className="mb-4 text-xl font-semibold text-base-content-200">
+        Key Person
+      </h3>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-32 shrink-0">Name: </p>
+        {!isEditing ? (
+          <span className="font-normal">{data.key_person_name}</span>
+        ) : (
+          <input
+            type="text"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
+            placeholder={data.key_person_name}
+            defaultValue={data.key_person_name}
+            required
+          />
+        )}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-32 shrink-0">Phone: </p>
+        {!isEditing ? (
+          <span className="font-normal">{data.key_person_hp}</span>
+        ) : (
+          <input
+            type="tel"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
+            placeholder={data.key_person_hp}
+            defaultValue={data.key_person_hp}
+            required
+          />
+        )}
+      </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-32 shrink-0">Date of Birth: </p>
+        {!isEditing ? (
+          <span className="font-normal">{data.key_person_dob}</span>
+        ) : (
+          <input
+            type="date"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
+            placeholder={data.key_person_dob}
+            defaultValue={data.key_person_dob}
+            required
+          />
         )}
       </div>
       <div
         className={`absolute right-3 top-3 ${
-          !isEditing
-            ? "translate-x-[calc(100%+0.75rem)] translate-y-[calc(-100%-0.75rem)] scale-0"
-            : ""
+          !isEditing ? "-translate-y-6 translate-x-6 scale-0" : ""
         } flex justify-end gap-1 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-100`}
       >
         {isEditing ? (
