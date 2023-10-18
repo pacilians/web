@@ -37,7 +37,7 @@ export async function fetchMasterData() {
 
 export async function fetchNasabah(id: string, token: string) {
   const res = await fetch(
-    `https://bnicstdy-b41ad9b84aff.herokuapp.com/database/${id}`,
+    `${BASE_URL}/database/${id}`,
     {
       method: "GET",
       headers: {
