@@ -1,9 +1,11 @@
 "use client";
 
+// components
+import Iconify from "./Iconify";
+
+// libraries
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
-
-import Iconify from "./Iconify";
 
 export default function NavTitle() {
   const pathname = usePathname();
