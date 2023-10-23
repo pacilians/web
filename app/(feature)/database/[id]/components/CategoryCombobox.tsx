@@ -21,7 +21,9 @@ export default function CategoryCombobox({
   name: string;
   defaultValue: string;
 }) {
-  const [selected, setSelected] = useState(items.find((item) => item.name === defaultValue) ?? "");
+  const [selected, setSelected] = useState(
+    items.find((item) => item.name === defaultValue) ?? "",
+  );
   const [query, setQuery] = useState("");
 
   const filteredItems =
@@ -59,46 +61,32 @@ export default function CategoryCombobox({
           leaveTo="transform scale-95 opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-base-300 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {filteredItems.length === 0 && query !== "" ? (
-              <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+              <div className="relative cursor-default select-none px-4 py-2 text-base-content-400">
                 Nothing found.
               </div>
             ) : (
               filteredItems.map((item) => (
                 <Combobox.Option
                   key={item.id}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-teal-600 text-white" : "text-gray-900"
-                    }`
-                  }
+                  className="relative cursor-default select-none py-2 pl-10 pr-4 text-base-content-200 ui-active:bg-cyan-800 ui-active:text-white"
                   value={item}
                 >
-                  {({ selected, active }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {item.name}
-                      </span>
-                      {selected ? (
-                        <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                            active ? "text-white" : "text-teal-600"
-                          }`}
-                        >
-                          <Iconify
-                            icon="ph:check-bold"
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
+                  <>
+                    <span
+                      className={`block truncate font-normal ui-selected:font-medium`}
+                    >
+                      {item.name}
+                    </span>
+                    <span className="absolute inset-y-0 left-0 hidden items-center pl-3 text-cyan-800 ui-selected:flex ui-active:text-white dark:text-cyan-600 dark:ui-active:text-white">
+                      <Iconify
+                        icon="ph:check-bold"
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </>
                 </Combobox.Option>
               ))
             )}

@@ -32,7 +32,7 @@ export default async function DetailNasabah({
       <section className="flex gap-3">
         <Company nasabah={data} />
         <div className="flex basis-1/2 flex-col gap-3">
-          <BankAccount keyPerson={data.bank_account} />
+          <BankAccount bankAccount={data.bank_account} />
           <BoardOfDirectors bod={data.board_of_director} />
         </div>
       </section>
