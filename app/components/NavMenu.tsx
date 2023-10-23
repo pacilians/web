@@ -30,7 +30,7 @@ export default function NavMenu() {
     let htmlElement = document.querySelector("html");
     let storedTheme = "light";
     if (typeof window !== "undefined") {
-      storedTheme = localStorage.getItem("theme") || "light";
+      storedTheme = localStorage.getItem("theme") ?? "light";
     }
     const currentTheme = theme || storedTheme;
     setTheme(currentTheme);
