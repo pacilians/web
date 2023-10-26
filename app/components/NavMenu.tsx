@@ -1,17 +1,18 @@
 "use client";
 
-import { Popover, Tab, Transition } from "@headlessui/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-
+// components
 import BniLogo from "./BniLogo";
 import Iconify from "./Iconify";
+
+// libraries
+import { Popover, Tab, Transition } from "@headlessui/react";
+import { useRouter } from "next/navigation";
+import { Fragment, useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 export default function NavMenu() {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
-  const [theme, setTheme] = useState("");
 
   async function logout() {
     removeCookie("token");
@@ -20,34 +21,44 @@ export default function NavMenu() {
 
   function setThemeTab(index: number) {
     const selectedTheme = ["light", "dark", "bni"][index];
-    setTheme(selectedTheme);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("theme", selectedTheme);
+
+    let htmlElement = document.querySelector("html");
+    if (htmlElement) {
+      htmlElement.setAttribute("data-theme", selectedTheme);
+      if (selectedTheme === "dark") {
+        htmlElement.classList.add("dark");
+      } else {
+        htmlElement.classList.remove("dark");
+      }
     }
   }
 
-  useEffect(() => {
-    let htmlElement = document.querySelector("html");
-    let storedTheme = "light";
-    if (typeof window !== "undefined") {
-      storedTheme = localStorage.getItem("theme") ?? "light";
-    }
-    const currentTheme = theme || storedTheme;
-    setTheme(currentTheme);
-    htmlElement?.setAttribute(
-      "data-theme",
-      theme === "" ? currentTheme : theme,
-    );
+  function getCurrentTheme() {
+    if (typeof window !== "undefined" && window.matchMedia) {
+      // Check if the browser prefers dark mode
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
 
-    if (htmlElement?.getAttribute("data-theme") === "dark") {
-      htmlElement?.classList.add("dark");
-    } else {
-      htmlElement?.classList.remove("dark");
+      // Return "dark" if the browser prefers dark mode, otherwise return "light"
+      return prefersDark ? "dark" : "light";
     }
-  }, [theme]);
+
+    // Default to "light" if unable to determine the theme (e.g., SSR or non-browser environment)
+    return "light";
+  }
+
+  useEffect(() => {
+    setThemeTab(getCurrentTheme() === "light" ? 0 : 1);
+    if (getCurrentTheme() === "dark") {
+      document.querySelector("html")?.classList.add("dark");
+    } else {
+      document.querySelector("html")?.classList.remove("dark");
+    }
+  }, []);
 
   return (
-    <Popover>
+    <Popover className="relative">
       <Popover.Button className="group flex h-12 w-12 items-center justify-center rounded-xl border border-base-400 active:scale-95">
         <Iconify
           icon="solar:hamburger-menu-linear"
@@ -55,6 +66,7 @@ export default function NavMenu() {
         />
       </Popover.Button>
       <Transition
+        as={Fragment}
         enter="transition duration-200"
         enterFrom="transform scale-50 opacity-0"
         enterTo="transform scale-100 opacity-100"
@@ -62,18 +74,13 @@ export default function NavMenu() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-50 opacity-0"
       >
-        <Popover.Panel className="absolute right-0 top-2 origin-top-right">
-          <div className="z-40 flex w-60 flex-col gap-2 rounded-xl border border-base-300 bg-base-backdrop-200 p-3 shadow-xl">
+        <Popover.Panel
+          className="absolute right-0 top-14 z-20 origin-top-right"
+          unmount={false}
+        >
+          <div className="flex w-60 flex-col gap-2 rounded-xl border border-base-300 bg-base-backdrop-200 p-3 shadow-xl">
             <Tab.Group
-              defaultIndex={
-                theme === "light"
-                  ? 0
-                  : theme === "dark"
-                  ? 1
-                  : theme === "bni"
-                  ? 2
-                  : 0
-              }
+              defaultIndex={getCurrentTheme() === "light" ? 0 : 1}
               onChange={(index) => {
                 setThemeTab(index);
               }}

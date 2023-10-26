@@ -13,6 +13,15 @@ export type Nasabah = {
   updated_at: string | null;
 }
 
+export type File = {
+  id: string;
+  id_customer: string | undefined;
+  name: string;
+  type: string | undefined;
+  created_at: string | undefined;
+  updated_at: string | undefined;
+};
+
 export type MasterData = {
   business: string[];
   service: string[];
