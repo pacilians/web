@@ -20,7 +20,7 @@ export default function BankAccount({
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="group relative flex basis-1/2 flex-col gap-4 overflow-y-clip rounded-xl border border-base-300 bg-base-200/40 px-5 pt-5 text-base-content-400">
+    <div className="group relative flex flex-col gap-4 overflow-y-auto rounded-xl border border-base-300 bg-base-200/40 px-5 pt-5 text-base-content-400">
       <h3 className="text-xl font-semibold text-base-content-200">
         Bank Account
       </h3>

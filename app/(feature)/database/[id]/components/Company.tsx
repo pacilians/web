@@ -62,7 +62,7 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
 
   return (
     <form
-      className="group relative flex basis-1/2 flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 py-5 pl-5 pr-3 text-base-content-400"
+      className="group relative row-span-2 flex flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 py-5 pl-5 pr-3 text-base-content-400"
       onSubmit={handleSubmit}
     >
       <h3 className="mb-4 text-xl font-semibold text-base-content-200">

@@ -13,7 +13,7 @@ export default function BoardOfDirectors({ bod }: { bod: BoardOfDirector[] }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="group relative flex basis-1/2 flex-col gap-2 overflow-y-clip rounded-xl border border-base-300 bg-base-200/40 p-5 text-base-content-400">
+    <div className="group relative flex basis-1/2 flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 p-5 text-base-content-400">
       <h3 className="text-xl font-semibold text-base-content-200">
         Board of Directors
       </h3>

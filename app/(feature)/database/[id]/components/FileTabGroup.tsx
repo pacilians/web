@@ -1,27 +1,24 @@
 "use client";
 
+// components
+import FileList from "./FileList";
+
+// libraries
 import { Tab } from "@headlessui/react";
 
-import FileList from "./FileList";
+// types
+import { File } from "@customTypes/types";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-type FileNasabah = {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  type: string;
-};
-
 export default function FileTabGroup({
   mandatoryFile,
   additionalFile,
 }: {
-  mandatoryFile: FileNasabah[];
-  additionalFile: FileNasabah[];
+  mandatoryFile: File[];
+  additionalFile: File[];
 }) {
   return (
     <Tab.Group>
@@ -53,7 +50,7 @@ export default function FileTabGroup({
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>
-          <FileList file={mandatoryFile} />
+          <FileList file={mandatoryFile} mandatory/>
         </Tab.Panel>
         <Tab.Panel>
           <FileList file={additionalFile} />

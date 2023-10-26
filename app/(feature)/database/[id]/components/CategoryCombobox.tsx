@@ -19,10 +19,10 @@ export default function CategoryCombobox({
 }: {
   items: Category[];
   name: string;
-  defaultValue: string;
+  defaultValue?: string;
 }) {
   const [selected, setSelected] = useState(
-    items.find((item) => item.name === defaultValue) ?? "",
+    items.find((item) => item.name === defaultValue) ?? items[0],
   );
   const [query, setQuery] = useState("");
 
