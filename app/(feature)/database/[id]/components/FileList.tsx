@@ -1,10 +1,6 @@
 "use client";
 
-// components
-import Iconify from "@components/Iconify";
-import CreateFileModal from "./CreateFileModal";
-
-// libraries
+import { useCookies } from "react-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
@@ -13,13 +9,10 @@ import { Toaster } from "react-hot-toast";
 import { File } from "@customTypes/types";
 import DeleteFileModal from "./DeleteFileModal";
 
-export default function FileList({
-  file,
-  mandatory,
-}: {
-  file: File[];
-  mandatory?: boolean;
-}) {
+// utils
+import { formatDate } from "@utils/utils";
+
+export default function FileList({ file }: { file: FileNasabah[] }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -79,12 +72,12 @@ export default function FileList({
                 {file.name}
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-base-content-500">
-                {file.created_at}
+                {formatDate(file.created_at, true)}
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-base-content-500">
-                {file.updated_at}
+                {formatDate(file.updated_at, true)}
               </td>
-              <td className="space-x-1">
+              <td className="flex items-center justify-end gap-1 px-6 py-4">
                 <button
                   className="translate-x-full scale-50 rounded-md border border-base-200 bg-base-100 p-2 opacity-0 transition delay-100 duration-300 hover:border-base-300 hover:bg-base-200 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100"
                   onClick={(event) => {
@@ -96,29 +89,29 @@ export default function FileList({
                     className="text-base-content-100"
                   />
                 </button>
-                {file.type === "ADDITIONAL" ? (
-                  <button
-                    type="button"
-                    className="translate-x-full scale-50 rounded-md border border-base-200 bg-base-100 p-2 opacity-0 transition delay-100 duration-300 hover:border-base-300 hover:bg-base-200 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setDeleteModal(true);
-                      setSelectedFile({
-                        id: file.id,
-                        id_customer: file.id_customer,
-                        name: file.name,
-                        type: file.type,
-                        created_at: file.created_at,
-                        updated_at: file.updated_at,
-                      });
-                    }}
-                  >
-                    <Iconify
-                      icon="solar:trash-bin-trash-bold-duotone"
-                      className="text-base-content-100"
-                    />
-                  </button>
-                ) : null}
+                {/* {file.type === "ADDITIONAL" ? ( */}
+                <button
+                  type="button"
+                  className="translate-x-full scale-50 rounded-md border border-base-200 bg-base-100 p-2 opacity-0 transition delay-100 duration-300 hover:border-base-300 hover:bg-base-200 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setDeleteModal(true);
+                    setSelectedFile({
+                      id: file.id,
+                      id_customer: file.id_customer,
+                      name: file.name,
+                      type: file.type,
+                      created_at: file.created_at,
+                      updated_at: file.updated_at,
+                    });
+                  }}
+                >
+                  <Iconify
+                    icon="solar:trash-bin-trash-bold-duotone"
+                    className="text-base-content-100"
+                  />
+                </button>
+                {/* ) : null} */}
               </td>
             </tr>
           ))}

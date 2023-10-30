@@ -29,10 +29,12 @@ export default async function DetailNasabah({
 
   return (
     <main className="flex w-full grow flex-col gap-5 rounded-tl-3xl bg-base-backdrop-200 p-8 shadow-2xl">
-      <section className="grid h-[552px] grid-cols-2 grid-rows-2 gap-3">
+      <section className="flex max-h-screen gap-3">
         <Company nasabah={data} />
-        <BankAccount bankAccount={data.bank_account} />
-        <BoardOfDirectors bod={data.board_of_director} />
+        <div className="flex basis-1/2 flex-col gap-3">
+          <BankAccount bankAccount={data.bank_account} />
+          <BoardOfDirectors bod={data.board_of_director} />
+        </div>
       </section>
       <FileTabGroup
         mandatoryFile={data.mandatory_file}

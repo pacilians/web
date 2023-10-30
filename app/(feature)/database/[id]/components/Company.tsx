@@ -12,8 +12,14 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 
+// stores
+import { useNasabahStore } from "@store/zustand";
+
 // types
 import { Nasabah } from "@customTypes/types";
+
+// utils
+import { formatDate } from "@utils/utils";
 
 export default function Company({ nasabah }: { nasabah: Nasabah }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,6 +30,9 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
     service: [],
     mandatory: [],
   });
+
+  const setNasabah = useNasabahStore((state) => state.setNasabah);
+  setNasabah(data);
 
   // using useEffect because await cannot be used in non async components
   useEffect(() => {
@@ -62,7 +71,7 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
 
   return (
     <form
-      className="group relative row-span-2 flex flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 py-5 pl-5 pr-3 text-base-content-400"
+      className="group relative row-span-2 flex basis-1/2 flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 py-5 pl-5 pr-3 text-base-content-400"
       onSubmit={handleSubmit}
     >
       <h3 className="mb-4 text-xl font-semibold text-base-content-200">
@@ -169,13 +178,14 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
       <div className="flex items-center gap-2 font-bold">
         <p className="w-32 shrink-0">Phone: </p>
         {!isEditing ? (
-          <span className="font-normal">{data.key_person_hp}</span>
+          <span className="font-normal">{formatDate(data.expiry_date)}</span>
         ) : (
           <input
-            type="tel"
+            type="date"
             className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
-            placeholder={data.key_person_hp}
-            defaultValue={data.key_person_hp}
+            defaultValue={
+              new Date(data.expiry_date).toISOString().split("T")[0]
+            }
             required
           />
         )}
@@ -193,7 +203,36 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
             required
           />
         )}
+      </p>
+      <p className="flex items-center gap-2 font-bold">
+        Service:{" "}
+        {!isEditing ? (
+          <span className="font-normal">{nasabah.service}</span>
+        ) : (
+          <input
+            type="tel"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
+            placeholder={data.key_person_hp}
+            defaultValue={data.key_person_hp}
+            required
+          />
+        )}
       </div>
+      <div className="flex items-center gap-2 font-bold">
+        <p className="w-32 shrink-0">Date of Birth: </p>
+        {!isEditing ? (
+          <span className="font-normal">{formatDate(data.key_person_dob)}</span>
+        ) : (
+          <input
+            type="date"
+            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
+            defaultValue={
+              new Date(data.key_person_dob).toISOString().split("T")[0]
+            }
+            required
+          />
+        )}
+      </p>
       <div
         className={`absolute right-3 top-3 ${
           !isEditing ? "-translate-y-6 translate-x-6 scale-0" : ""

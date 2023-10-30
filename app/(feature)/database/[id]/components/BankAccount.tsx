@@ -20,11 +20,11 @@ export default function BankAccount({
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="group relative flex flex-col gap-4 overflow-y-auto rounded-xl border border-base-300 bg-base-200/40 px-5 pt-5 text-base-content-400">
+    <div className="group relative flex basis-1/2 flex-col gap-4 overflow-y-auto rounded-xl border border-base-300 bg-base-200/40 px-5 pt-5 text-base-content-400">
       <h3 className="text-xl font-semibold text-base-content-200">
         Bank Account
       </h3>
-      <div className="relative -mx-5 flex snap-y flex-col gap-3 overflow-y-scroll overscroll-contain rounded-lg px-5 pb-5 text-slate-800">
+      <div className="relative -mx-5 flex h-10 grow snap-y snap-mandatory flex-col gap-3 overflow-y-scroll overscroll-contain rounded-lg pb-5 pl-5 pr-1 text-slate-800">
         {bankAccount.map((account) => (
           <div
             className={`flex aspect-[2/1] w-full shrink-0 snap-start flex-col justify-end gap-4 rounded-lg px-4 py-5 ${randomGradient()} shadow-xl`}

@@ -43,7 +43,7 @@ export default function DeleteFileModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-white/40 dark:bg-black/40 backdrop-blur" />
+          <div className="fixed inset-0 bg-white/40 backdrop-blur dark:bg-black/40" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -57,22 +57,31 @@ export default function DeleteFileModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex w-full max-w-md transform flex-col items-center gap-5 overflow-hidden rounded-2xl bg-base-backdrop-200 p-6 text-left align-middle shadow-xl">
-                <Iconify
-                  icon="solar:trash-bin-trash-bold-duotone"
-                  className="rounded-full bg-red-300 p-2 text-6xl text-red-700"
-                />
-                <div className="flex flex-col gap-2">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-center text-lg font-semibold leading-6 text-base-content-100"
-                  >
-                    Delete {selectedFile?.name}?
-                  </Dialog.Title>
-                  <p className="text-center text-sm text-base-content-400">
-                    Are you sure you want to delete this file? You won&apos;t be
-                    able to undo this action.
-                  </p>
+              <Dialog.Panel
+                as="form"
+                className="flex w-full max-w-md transform flex-col gap-5 overflow-hidden rounded-2xl bg-base-backdrop-200 p-6 text-left align-middle shadow-xl"
+              >
+                <div className="flex gap-4">
+                  <Iconify
+                    icon="solar:trash-bin-trash-bold-duotone"
+                    className="rounded-full bg-red-300 p-2 text-5xl text-red-700"
+                  />
+                  <div className="flex flex-col gap-2">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-semibold leading-6 text-base-content-100"
+                    >
+                      Delete{" "}
+                      <span className="font-bold text-red-500 underline">
+                        {selectedFile?.name}
+                      </span>
+                      ?
+                    </Dialog.Title>{" "}
+                    <p className="text-sm text-base-content-400">
+                      Are you sure you want to delete this file? You won&apos;t
+                      be able to undo this action.
+                    </p>
+                  </div>
                 </div>
                 <div className="mt-4 flex w-full gap-2">
                   <button
@@ -86,7 +95,7 @@ export default function DeleteFileModal({
                   </button>
                   <button
                     type="button"
-                    className="inline-flex grow justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-red-100 hover:bg-red-600"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-red-100 hover:bg-red-600"
                     onClick={() => {
                       deleteFile(
                         selectedFile!.id,
