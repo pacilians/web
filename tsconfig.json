@@ -19,9 +19,10 @@
       }
     ],
     "paths": {
-      "@components/*": ["./app/components/*"],
       "@api/*": ["./app/api/*"],
+      "@components/*": ["./app/components/*"],
       "@customTypes/*": ["./app/types/*"],
+      "@store/*": ["./app/store/*"],
       "@utils/*": ["./app/utils/*"],
     }
   },
