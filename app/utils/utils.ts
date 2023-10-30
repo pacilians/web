@@ -34,3 +34,32 @@ export function randomGradient() {
     direction[Math.floor(Math.random() * direction.length)],
   );
 }
+
+export function formatDate(
+  isoDateString: string | undefined,
+  time?: boolean,
+) {
+  if (!isoDateString) return "-";
+
+  let date = new Date(isoDateString.slice(0, -1));
+
+  let dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  let datePart = date.toLocaleDateString(undefined, dateOptions);
+
+  if (time) {
+    let timeOptions: Intl.DateTimeFormatOptions = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    let timePart = date.toLocaleTimeString(undefined, timeOptions);
+
+    return `${datePart}, ${timePart}`;
+  } else {
+    return datePart;
+  }
+}

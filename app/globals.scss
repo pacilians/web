@@ -45,3 +45,11 @@
     @apply inline-flex h-16 items-center gap-3 overflow-hidden rounded-xl bg-orange-200 px-5 font-semibold text-orange-700;
   }
 }
+
+::-webkit-scrollbar {
+  @apply w-4 bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply w-1 rounded-full border-[5px] border-solid border-transparent bg-base-300 bg-clip-content hover:w-3 hover:border-4 hover:bg-base-400;
+}

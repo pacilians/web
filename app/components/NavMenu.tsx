@@ -73,6 +73,7 @@ export default function NavMenu() {
         leave="transition duration-200"
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-50 opacity-0"
+        unmount={false}
       >
         <Popover.Panel
           className="absolute right-0 top-14 z-20 origin-top-right"
