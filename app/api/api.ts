@@ -36,16 +36,13 @@ export async function fetchMasterData() {
 }
 
 export async function fetchNasabah(id: string, token: string) {
-  const res = await fetch(
-    `${BASE_URL}/database/${id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
+  const res = await fetch(`${BASE_URL}/database/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
     },
-  );
+  });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -55,10 +52,26 @@ export async function fetchNasabah(id: string, token: string) {
   return data.data.customer;
 }
 
-export async function updateNasabah(data: Nasabah, token: string) {
+export async function updateNasabah(
+  data: Pick<
+    Nasabah,
+    | "name"
+    | "address"
+    | "telephone"
+    | "expiry_date"
+    | "business_category"
+    | "service"
+    | "key_person_name"
+    | "key_person_dob"
+    | "key_person_hp"
+  >,
+  id: string,
+  token: string,
+) {
   const toastId = toast.loading("Updating nasabah...");
+
   try {
-    const response = await fetch(`${BASE_URL}/database/${data.id}`, {
+    const response = await fetch(`${BASE_URL}/database/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -101,4 +114,21 @@ export async function deleteFile(id: string, name: string, token: string) {
         id: toastId,
       });
     });
-};
+}
+
+export async function fetchChecklist(token: string) {
+  const res = await fetch(`${BASE_URL}/database/checklist`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data;
+}
