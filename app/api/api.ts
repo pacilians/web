@@ -91,6 +91,23 @@ export async function updateNasabah(
   }
 }
 
+export async function fetchFile(id: string, token: string) {
+  const res = await fetch(`${BASE_URL}/database/file/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data;
+}
+
 export async function deleteFile(id: string, name: string, token: string) {
   const toastId = toast.loading(`Deleting ${name}...`);
 

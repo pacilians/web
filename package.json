@@ -17,6 +17,7 @@
     "@mantine/hooks": "^6.0.21",
     "@react-pdf-viewer/core": "3.12.0",
     "@react-pdf-viewer/default-layout": "3.12.0",
+    "@react-pdf-viewer/toolbar": "^3.12.0",
     "@tabler/icons-react": "2.40.0",
     "@types/node": "20.8.10",
     "@types/react": "18.2.36",
