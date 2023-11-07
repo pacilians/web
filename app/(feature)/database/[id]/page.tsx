@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 
 export default async function DetailNasabah({
   params,
-}: {
+}: Readonly<{
   params: { id: string };
-}) {
+}>) {
   const { id } = params;
   const cookieStore = cookies();
   const token = cookieStore.get("token")?.value ?? "";

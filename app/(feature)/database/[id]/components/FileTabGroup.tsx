@@ -9,13 +9,25 @@ import { Tab } from "@headlessui/react";
 // types
 import { File } from "@customTypes/types";
 
+function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+type FileNasabah = {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+  type: string;
+};
+
 export default function FileTabGroup({
   mandatoryFile,
   additionalFile,
-}: {
+}: Readonly<{
   mandatoryFile: File[];
   additionalFile: File[];
-}) {
+}>) {
   return (
     <Tab.Group>
       <Tab.List className="flex gap-1 rounded-xl bg-base-backdrop-100 p-1 shadow-inner">

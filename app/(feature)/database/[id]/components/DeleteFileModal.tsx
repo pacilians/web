@@ -18,11 +18,11 @@ export default function DeleteFileModal({
   isOpen,
   setIsOpen,
   selectedFile,
-}: {
+}: Readonly<{
   isOpen: boolean;
   setIsOpen: Function;
   selectedFile: File | undefined;
-}) {
+}>) {
   const [cookies, setCookie, removeCookie] = useCookies();
 
   return (

@@ -21,7 +21,7 @@ import { Nasabah } from "@customTypes/types";
 // utils
 import { formatDate } from "@utils/utils";
 
-export default function Company({ nasabah }: { nasabah: Nasabah }) {
+export default function Company({ nasabah }: Readonly<{ nasabah: Nasabah }>) {
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState(nasabah);
   const [cookies] = useCookies();
@@ -52,16 +52,18 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
       name: e.target.elements[0].value,
       address: e.target.elements[1].value,
       telephone: e.target.elements[2].value,
-      expiry_date: e.target.elements[3].value,
+      expiry_date: new Date(e.target.elements[3].value).toISOString().split("T")[0],
       business_category: e.target.elements[5].value,
       service: e.target.elements[9].value,
       key_person_name: e.target.elements[12].value,
       key_person_hp: e.target.elements[13].value,
-      key_person_dob: e.target.elements[14].value,
+      key_person_dob: new Date(e.target.elements[14].value).toISOString().split("T")[0],
     };
 
+    console.table(updatedNasabah)
+
     try {
-      await updateNasabah(updatedNasabah, cookies.token);
+      await updateNasabah(updatedNasabah, updatedNasabah.id, cookies.token);
       setData(updatedNasabah);
       setIsEditing(false);
     } catch (error) {
@@ -120,14 +122,13 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
         )}
       </div>
       <div className="flex items-center gap-2 font-bold">
-        <p className="w-32 shrink-0">Expired Date: </p>
+        <p className="w-32 shrink-0">Expiration: </p>
         {!isEditing ? (
-          <span className="font-normal">{data.expiry_date}</span>
+          <span className="font-normal">{formatDate(data.expiry_date)}</span>
         ) : (
           <input
             type="date"
             className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
-            placeholder={data.expiry_date}
             defaultValue={data.expiry_date}
             required
           />
@@ -178,36 +179,7 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
       <div className="flex items-center gap-2 font-bold">
         <p className="w-32 shrink-0">Phone: </p>
         {!isEditing ? (
-          <span className="font-normal">{formatDate(data.expiry_date)}</span>
-        ) : (
-          <input
-            type="date"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
-            defaultValue={
-              new Date(data.expiry_date).toISOString().split("T")[0]
-            }
-            required
-          />
-        )}
-      </div>
-      <div className="flex items-center gap-2 font-bold">
-        <p className="w-32 shrink-0">Date of Birth: </p>
-        {!isEditing ? (
-          <span className="font-normal">{data.key_person_dob}</span>
-        ) : (
-          <input
-            type="date"
-            className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
-            placeholder={data.key_person_dob}
-            defaultValue={data.key_person_dob}
-            required
-          />
-        )}
-      </p>
-      <p className="flex items-center gap-2 font-bold">
-        Service:{" "}
-        {!isEditing ? (
-          <span className="font-normal">{nasabah.service}</span>
+          <span className="font-normal">{data.key_person_hp}</span>
         ) : (
           <input
             type="tel"
@@ -226,13 +198,11 @@ export default function Company({ nasabah }: { nasabah: Nasabah }) {
           <input
             type="date"
             className="block w-full rounded-md border-transparent bg-base-200 font-normal focus:border-base-400 focus:bg-base-300 focus:ring-0"
-            defaultValue={
-              new Date(data.key_person_dob).toISOString().split("T")[0]
-            }
+            defaultValue={data.key_person_dob}
             required
           />
         )}
-      </p>
+      </div>
       <div
         className={`absolute right-3 top-3 ${
           !isEditing ? "-translate-y-6 translate-x-6 scale-0" : ""

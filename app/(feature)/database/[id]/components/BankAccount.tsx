@@ -14,9 +14,9 @@ import { randomGradient } from "@utils/utils";
 
 export default function BankAccount({
   bankAccount,
-}: {
+}: Readonly<{
   bankAccount: BankAccount[];
-}) {
+}>) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (

@@ -16,11 +16,11 @@ export default function CategoryCombobox({
   items,
   name,
   defaultValue,
-}: {
+}: Readonly<{
   items: Category[];
   name: string;
   defaultValue?: string;
-}) {
+}>) {
   const [selected, setSelected] = useState(
     items.find((item) => item.name === defaultValue) ?? items[0],
   );

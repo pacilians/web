@@ -10,7 +10,15 @@ import { useState } from "react";
 // types
 import { BoardOfDirector } from "@customTypes/types";
 
-export default function BoardOfDirectors({ bod }: { bod: BoardOfDirector[] }) {
+// libraries
+import { useState } from "react";
+
+// types
+import { BoardOfDirector } from "@customTypes/types";
+
+export default function BoardOfDirectors({
+  bod,
+}: Readonly<{ bod: BoardOfDirector[] }>) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (

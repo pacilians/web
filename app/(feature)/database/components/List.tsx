@@ -1,8 +1,8 @@
 "use client";
 import { Metadata } from "next";
 import { Fragment, useState, useEffect } from "react";
-import Form from "../components/Form";
-import Filter from "../components/Filter";
+import Form from "./Form";
+import Filter from "./Filter";
 import Iconify from "@components/Iconify";
 import toast, { Toaster } from "react-hot-toast";
 import { iCustomer } from "../interface";

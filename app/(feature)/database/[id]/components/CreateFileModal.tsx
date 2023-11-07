@@ -13,11 +13,11 @@ export default function CreateFileModal({
   isOpen,
   setIsOpen,
   mandatory,
-}: {
+}: Readonly<{
   isOpen: boolean;
   setIsOpen: Function;
   mandatory?: boolean;
-}) {
+}>) {
   const [file, setFile] = useState(null);
   const [masterData, setMasterData] = useState({
     business: [],
