@@ -1,12 +1,14 @@
 "use client";
 
+// components
+import BniLogo from "./BniLogo";
+import Iconify from "./Iconify";
+
+// libraries
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-import BniLogo from "./BniLogo";
-import Iconify from "./Iconify";
 
 export default function Sidebar() {
   const [isButtonToggled, setIsButtonToggled] = useState(false);
@@ -129,7 +131,7 @@ export default function Sidebar() {
             href="/chatbot"
           >
             <Iconify
-              icon="octicon:dependabot-16"
+              icon="solar:face-scan-square-bold-duotone"
               className="text-2xl"
             />
             <Transition
@@ -154,7 +156,7 @@ export default function Sidebar() {
             href="/security-account"
           >
             <Iconify
-              icon="bi:bank"
+              icon="solar:shield-user-bold-duotone"
               className="text-2xl"
             />
             <Transition
@@ -180,7 +182,7 @@ export default function Sidebar() {
             href="/checklist"
           >
             <Iconify
-              icon="bi:card-checklist"
+              icon="solar:checklist-minimalistic-bold-duotone"
               className="text-2xl"
             />
             <Transition
@@ -206,7 +208,7 @@ export default function Sidebar() {
             href="/audit"
           >
             <Iconify
-              icon="ant-design:audit-outlined"
+              icon="solar:document-add-bold-duotone"
               className="text-2xl"
             />
             <Transition

@@ -11,7 +11,7 @@ export type Nasabah = {
   key_person_hp: string;
   created_at: string;
   updated_at: string | null;
-}
+};
 
 export type File = {
   id: string;
@@ -26,14 +26,14 @@ export type MasterData = {
   business: string[];
   service: string[];
   mandatory: string[];
-}
+};
 
 export type BankAccount = {
   id: string;
   id_customer: string;
   number: string;
   name: string;
-}
+};
 
 export type BoardOfDirector = {
   id: string;
@@ -43,4 +43,4 @@ export type BoardOfDirector = {
   npp: string;
   role: string;
   description: string;
-}
+};
