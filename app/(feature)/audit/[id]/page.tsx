@@ -204,8 +204,7 @@ export default function DetailAudit() {
 
   const handleUploadFile = async (file: any) => {
     const formData = new FormData();
-    console.log("FIle:", file);
-    formData.append("file", file, "a.pdf");
+    formData.append("file", file);
     setLoading(true);
 
     const postForm = fetch(
@@ -219,12 +218,11 @@ export default function DetailAudit() {
     ).then(async (response) => {
       if (response.status === 200) {
         const res = await response.json();
+        const file = res.data;
         setValidationErrors({});
         let newList = audit.map((item) => {
           if (item.id === form.id) {
-            item.file = {
-              data: file,
-            };
+            item.file = file
           }
           return item;
         });

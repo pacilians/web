@@ -80,11 +80,13 @@ export interface iBankAccount {
 }
 
 export interface iCustomer {
-  id?: null;
+  id?: any;
   name: string;
   address?: string;
   telephone?: string;
+  comment?:string;
   expiry_date: any;
+  status?:any
   business_category: string;
   service: string;
   key_person_name?: string;
