@@ -52,6 +52,22 @@ export default function Form({
   }
 
   const handleSubmit = async () => {
+
+    if(
+      form.name === "" ||
+      form.address === "" ||
+      form.telephone === "" ||
+      form.business_category === "" ||
+      form.service === "" ||
+      form.email === "" || 
+      form.key_person_name === "" ||
+      form.key_person_dob === "" ||
+      form.key_person_hp === ""
+    ){
+      toast.error("Please fill all form ...")
+      return
+    }
+
     const payload = JSON.stringify(form)
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(

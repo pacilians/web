@@ -204,7 +204,6 @@ export default function DetailAudit() {
 
   const handleUploadFile = async (file: any) => {
     const formData = new FormData();
-    console.log("FIle:", file);
     formData.append("file", file, "a.pdf");
     setLoading(true);
 
