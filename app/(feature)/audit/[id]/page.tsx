@@ -218,12 +218,11 @@ export default function DetailAudit() {
     ).then(async (response) => {
       if (response.status === 200) {
         const res = await response.json();
+        const file = res.data;
         setValidationErrors({});
         let newList = audit.map((item) => {
           if (item.id === form.id) {
-            item.file = {
-              data: file,
-            };
+            item.file = file
           }
           return item;
         });
