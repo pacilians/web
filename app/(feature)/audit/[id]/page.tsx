@@ -214,21 +214,21 @@ export default function DetailAudit() {
       {
         method: "PUT",
         body: formData,
-        redirect: 'follow'
+        redirect: "follow",
       },
     ).then(async (response) => {
       if (response.status === 200) {
         const res = await response.json();
         setValidationErrors({});
-        let newList = audit.map((item)=>{
-          if(item.id === form.id){
+        let newList = audit.map((item) => {
+          if (item.id === form.id) {
             item.file = {
-              data: file
-            }
+              data: file,
+            };
           }
-          return item
-        })
-        setAudit(newList)
+          return item;
+        });
+        setAudit(newList);
         setForm({
           id: 0,
           name: "",
@@ -246,7 +246,7 @@ export default function DetailAudit() {
 
     setTimeout(() => {
       setLoading(false);
-      setOpen({...open, file:false})
+      setOpen({ ...open, file: false });
     }, 2000);
   };
 
@@ -572,7 +572,6 @@ export default function DetailAudit() {
                         className="w-full rounded-md border bg-base-100 p-2"
                         placeholder="Enter item name"
                         onChange={(e) => {
-
                           if (!e.target.files) return;
                           const file = e.target.files[0];
                           console.log(e.target.files);
@@ -580,8 +579,7 @@ export default function DetailAudit() {
                         }}
                       />
                     </div>
-                    <div className="mt-6 flex justify-center">
-                    </div>
+                    <div className="mt-6 flex justify-center"></div>
                   </Dialog.Panel>
                 </Transition.Child>
               </div>
