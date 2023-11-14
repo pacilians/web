@@ -44,3 +44,55 @@ export type BoardOfDirector = {
   role: string;
   description: string;
 };
+
+export type Audit = {
+  id?: number;
+  name: string;
+  status: any;
+  file?: any;
+  created_at?: any;
+  file_exist?: any;
+}
+
+export type AuditEvent = {
+  id?: any;
+  name: string;
+  created_at?: any;
+  start: any;
+  end: any;
+  audit?: Audit[];
+}
+
+
+// Only Recent
+export interface iDOB {
+  name: string;
+  npp: string;
+  role: string;
+  description: string;
+  photo: null | string;
+  birth_date: any;
+}
+
+export interface iBankAccount {
+  number: string;
+  name: string;
+}
+
+export interface iCustomer {
+  id?: null;
+  name: string;
+  address?: string;
+  telephone?: string;
+  expiry_date: any;
+  business_category: string;
+  service: string;
+  key_person_name?: string;
+  key_person_dob?: string;
+  key_person_hp?: string;
+  email: string
+  board_of_director?: iDOB[];
+  bank_account?: iBankAccount[];
+}
+
+
