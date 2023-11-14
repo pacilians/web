@@ -44,3 +44,22 @@ export type BoardOfDirector = {
   role: string;
   description: string;
 };
+
+export type Audit = {
+  id?: number;
+  name: string;
+  status: any;
+  file?: any;
+  created_at?: any;
+  file_exist?: any;
+}
+
+export type AuditEvent = {
+  id?: any;
+  name: string;
+  created_at?: any;
+  start: any;
+  end: any;
+  audit?: Audit[];
+}
+
