@@ -64,6 +64,7 @@ export default function Form({
       form.key_person_dob === "" ||
       form.key_person_hp === ""
     ){
+      console.log(form);
       toast.error("Please fill all form ...")
       return
     }
@@ -85,7 +86,7 @@ export default function Form({
       if (response.status === 200 || response.status == 201) {
         const res = await response.json();
         const newCustomer = res.data.customer;
-        setCutomer([...customer, newCustomer])
+        // setCutomer([...customer, newCustomer])
         toast.success("Created!", { id: toastId });
         closeModal()
       } else {
@@ -322,6 +323,53 @@ export default function Form({
                         </div>
                         
                       </div>
+
+                      <div className="mb-4 flex flex-row gap-5">
+                 
+
+                 <div className="mr-2 flex w-1/2 flex-col">
+                   <label
+                     className="mb-2  block font-bold"
+                     htmlFor="email"
+                   >
+                     Telephone
+                   </label>
+                   <input
+                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                     id="email"
+                     type="email"
+                     value={form.telephone}
+                     onChange={(e) =>
+                       setForm({
+                         ...form,
+                         telephone: e.target.value,
+                       })
+                     }
+                   />
+                 </div>
+
+                 <div className="mr-2 flex w-1/2 flex-col">
+                   <label
+                     className="mb-2  block font-bold"
+                     htmlFor="npp"
+                   >
+                     Expiry Date
+                   </label>
+                   <input
+                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                     id="npp"
+                     type="date"
+                     value={form.expiry_date}
+                     onChange={(e) =>
+                       setForm({
+                         ...form,
+                         expiry_date: e.target.value,
+                       })
+                     }
+                   />
+                 </div>
+                 
+               </div>
 
                       {/* BOD */}
                       <div className="mt-6 flex flex-row justify-between">
