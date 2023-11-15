@@ -63,6 +63,35 @@ export type AuditEvent = {
   audit?: Audit[];
 }
 
+export type SecuritiesAccount = {
+  id?: any;
+  id_customer?: any;
+  kode_bk: any;
+  no_rekening_investor: any;
+  nama_perusahaan: any;
+  nama_awal: any;
+  nama_tengah: any;
+  nama_belakang: any;
+  ktp: any;
+  npwp: any;
+  no_paspor: any;
+  no_pendaftaran_usaha: any;
+  tanggal_pendirian: any;
+  tempat_penidiran: any;
+  tipe_investor: any;
+  jenis_kelamin: any;
+  jenis_pekerjaan: any;
+  alamat_identitas_1?: any;
+  alamat_identitas_2?: any;
+  kode_kota?: any;
+  kode_provinsi?: any;
+  kode_negara?: any;
+  no_telepon?: any;
+  no_hp?: any;
+  email?: any;
+  created_at?: any;
+  updated_at?: any | null;
+}
 
 // Only Recent
 export interface iDOB {
@@ -96,5 +125,7 @@ export interface iCustomer {
   board_of_director?: iDOB[];
   bank_account?: iBankAccount[];
 }
+
+
 
 
