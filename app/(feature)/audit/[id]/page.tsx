@@ -308,14 +308,31 @@ export default function DetailAudit() {
     [],
   );
 
+  // Conditional Access
+  let Role = cookies.role
+  let config = {
+    enableEditing: false,
+    enableRowActions: false
+  }
+
+  if(Role === "ADMIN" || Role === "AUDITOR"){
+    config.enableEditing = true
+    config.enableRowActions = true
+  }
+
+  if(Role === "HOC" || Role === "EMPLOYEE"){
+    config.enableEditing = false
+    config.enableRowActions = true
+  }
+
   const table = useMantineReactTable({
     columns,
     data: audit,
     state: { isLoading: loading },
     createDisplayMode: "row",
     editDisplayMode: "cell",
-    enableEditing: true,
-    enableRowActions: true,
+    enableEditing: config.enableEditing,
+    enableRowActions: config.enableRowActions,
     positionActionsColumn: "last",
     initialState: { showColumnFilters: true, showGlobalFilter: true },
     mantineTableBodyRowProps: ({ row, table }) => ({
