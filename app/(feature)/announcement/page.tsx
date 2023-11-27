@@ -41,7 +41,7 @@ export default function ListAnnouncement() {
       content: form.content,
     });
     const postForm = fetch(
-      "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
+      "http://127.0.0.1:8000/announcement",
       // "http://127.0.0.1:8000/user/",
       {
         method: "POST",
