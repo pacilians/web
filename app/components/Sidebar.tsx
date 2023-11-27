@@ -225,6 +225,29 @@ export default function Sidebar() {
               Audit
             </Transition>
           </Link>
+          <Link
+            className={`nav-item${pathname.startsWith("/approval-nasabah") ? "-active" : ""
+              }`}
+            href="/approval-nasabah"
+          >
+            <Iconify
+              icon="ant-design:audit-outlined"
+              className="text-2xl"
+            />
+            <Transition
+              className="line-clamp-1 text-clip"
+              as="p"
+              show={!isButtonToggled}
+              enter="transition ease-in-out duration-500 transform"
+              enterFrom="-translate-x-2 opacity-0 scale-90"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-500 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="-translate-x-2 opacity-0 scale-90"
+            >
+              Approal Nasabah
+            </Transition>
+          </Link>
           <button
             className="mt-auto flex h-12 w-full items-center justify-center rounded-full border border-base-400 active:scale-95"
             onClick={() => setIsButtonToggled(!isButtonToggled)}

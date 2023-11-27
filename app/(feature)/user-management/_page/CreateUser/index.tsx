@@ -20,6 +20,18 @@ export default function CreateUser() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    if(
+      form.name === "" || 
+      form.npp === "" ||
+      form.role === "" ||
+      form.description === "" ||
+      form.email === "" ||
+      form.customer === ""
+    ){
+      toast.error("Please fill all forms ....")
+      return
+    }
+
     const payload = JSON.stringify({
       email: form.email,
       name: form.name,
