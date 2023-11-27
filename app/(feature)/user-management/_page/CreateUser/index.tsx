@@ -40,8 +40,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      "https://bnicstdy-b41ad9b84aff.herokuapp.com/user/",
-      // "http://127.0.0.1:8000/user/",
+      "http://127.0.0.1:8000/user/",
       {
         method: "POST",
         headers: {
