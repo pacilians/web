@@ -40,7 +40,7 @@ export default function Database({ initialData }: Props) {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "https://bnicstdy-b41ad9b84aff.herokuapp.com/database",
+        "http://127.0.0.1:8000/database",
         {
           method: "GET",
           headers: {
