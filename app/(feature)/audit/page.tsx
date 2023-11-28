@@ -21,7 +21,7 @@ import { ActionIcon, Button, Flex, Text, Tooltip } from "@mantine/core";
 //   description: "",
 // };
 
-export default function ListAudit() {
+export default function Audit() {
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string | undefined>
   >({});
@@ -135,7 +135,7 @@ export default function ListAudit() {
     }, 2000);
   };
 
-  const fetchAnnouncement = async () => {
+  const fetchData = async () => {
     try {
       const response = await fetch(
         // `https://bnicstdy-b41ad9b84aff.herokuapp.com/audit/`,
@@ -218,7 +218,7 @@ export default function ListAudit() {
     };
 
   useEffect(() => {
-    fetchAnnouncement();
+    fetchData();
   }, []);
 
   const columns = useMemo<MRT_ColumnDef<AuditEvent>[]>(
@@ -313,7 +313,7 @@ export default function ListAudit() {
     ),
     onEditingRowSave: handleUpdate,
   });
-  return (
+  return (  
     <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <React.Fragment>
         <div className="mb-5">
