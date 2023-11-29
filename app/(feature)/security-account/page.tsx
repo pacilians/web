@@ -24,6 +24,39 @@ import { dummylist } from "./data";
 // };
 
 export default function SecurityACC() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [securities, setSecurities] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/security-account", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Error fetching announcement:",
+          "Network response was not ok",
+        );
+      }
+
+      const res = await response.json();
+      const dat = res.data.securitiesAccounts;
+      setSecurities(dat);
+    } catch (error) {
+      console.error("Error fetching notif:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   const columns = useMemo<MRT_ColumnDef<SecuritiesAccount>[]>(
     () => [
       {
@@ -82,7 +115,7 @@ export default function SecurityACC() {
 
   const table = useMantineReactTable({
     columns,
-    data: dummylist,
+    data: securities,
     state: { isLoading: false },
     createDisplayMode: "row",
     editDisplayMode: "row",
@@ -123,17 +156,40 @@ export default function SecurityACC() {
               />
             </ActionIcon>
           </Tooltip>
+          <Tooltip label="Convert">
+            <ActionIcon
+              color="red"
+              onClick={() => {
+                const current = table.getRow(row.id).original;
+                const textData = JSON.stringify(current);
+                const blob = new Blob([textData], { type: 'text/plain' });
+              
+                const downloadLink = document.createElement('a');
+                downloadLink.download = 'data.txt';
+                downloadLink.href = window.URL.createObjectURL(blob);
+                downloadLink.style.display = 'none';
+                document.body.appendChild(downloadLink);
+              
+                downloadLink.click();
+              }}
+            >
+              <Iconify
+                icon="lucide:text"
+                className="text-2xl"
+              />
+            </ActionIcon>
+          </Tooltip>
         </Flex>
       </>
     ),
   });
   return (
-    <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
+    <main className="grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
       <div className="mb-5">
         <button
           type="button"
           onClick={() => {
-            // setOpen({ ...open, add: true });
+            router.push(`${pathname}/create`)
           }}
           className="rounded-10 flex h-12 items-center justify-center bg-[#E55300] p-5 text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >

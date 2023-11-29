@@ -12,7 +12,7 @@
     no_paspor: string,
     no_pendaftaran_usaha: string,
     tanggal_pendirian: any,
-    tempat_penidiran: any,
+    tempat_pendirian: any,
     tipe_investor: string,
     jenis_kelamin: string,
     jenis_pekerjaan: string,
