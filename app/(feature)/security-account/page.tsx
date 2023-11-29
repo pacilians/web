@@ -162,21 +162,18 @@ export default function SecurityACC() {
               onClick={() => {
                 const current = table.getRow(row.id).original;
                 const textData = JSON.stringify(current);
-                const blob = new Blob([textData], { type: 'text/plain' });
-              
-                const downloadLink = document.createElement('a');
-                downloadLink.download = 'data.txt';
+                const blob = new Blob([textData], { type: "text/plain" });
+
+                const downloadLink = document.createElement("a");
+                downloadLink.download = "data.txt";
                 downloadLink.href = window.URL.createObjectURL(blob);
-                downloadLink.style.display = 'none';
+                downloadLink.style.display = "none";
                 document.body.appendChild(downloadLink);
-              
+
                 downloadLink.click();
               }}
             >
-              <Iconify
-                icon="lucide:text"
-                className="text-2xl"
-              />
+              <Iconify icon="lucide:text" className="text-2xl" />
             </ActionIcon>
           </Tooltip>
         </Flex>
@@ -189,7 +186,7 @@ export default function SecurityACC() {
         <button
           type="button"
           onClick={() => {
-            router.push(`${pathname}/create`)
+            router.push(`${pathname}/create`);
           }}
           className="rounded-10 flex h-12 items-center justify-center bg-[#E55300] p-5 text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
