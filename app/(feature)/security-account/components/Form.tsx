@@ -12,18 +12,18 @@ export const metadata: Metadata = {
   description: "",
 };
 
-interface iProps{
-  loader: any
-  setLoader: any
-  customer: iSecurities[],
-  setCutomer: any
+interface iProps {
+  loader: any;
+  setLoader: any;
+  customer: iSecurities[];
+  setCutomer: any;
 }
 
 export default function Form({
   loader,
   setLoader,
   customer,
-  setCutomer
+  setCutomer,
 }: iProps) {
   let [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
@@ -64,39 +64,38 @@ export default function Form({
   }
 
   const handleSubmit = async () => {
-
-    if(
-        form.id === "" ||
-        form.kode_bk === "" ||
-        form.no_rekening_investor === "" ||
-        form.nama_perusahaan === "" ||
-        form.nama_awal === "" ||
-        form.nama_tengah === "" ||
-        form.nama_belakang === "" ||
-        form.ktp === "" ||
-        form.npwp === "" ||
-        form.no_paspor === "" ||
-        form.no_pendaftaran_usaha === "" ||
-        form.tanggal_pendirian === "" ||
-        form.tempat_penidiran === "" ||
-        form.tipe_investor === "" ||
-        form.jenis_kelamin === "" ||
-        form.jenis_pekerjaan === "" ||
-        form.alamat_identitas_1 === "" ||
-        form.alamat_identitas_2 === "" ||
-        form.kode_kota === "" ||
-        form.kode_provinsi === "" ||
-        form.kode_negara === "" ||
-        form.no_telepon === "" ||
-        form.no_hp === "" ||
-        form.email === ""
-    ){
+    if (
+      form.id === "" ||
+      form.kode_bk === "" ||
+      form.no_rekening_investor === "" ||
+      form.nama_perusahaan === "" ||
+      form.nama_awal === "" ||
+      form.nama_tengah === "" ||
+      form.nama_belakang === "" ||
+      form.ktp === "" ||
+      form.npwp === "" ||
+      form.no_paspor === "" ||
+      form.no_pendaftaran_usaha === "" ||
+      form.tanggal_pendirian === "" ||
+      form.tempat_penidiran === "" ||
+      form.tipe_investor === "" ||
+      form.jenis_kelamin === "" ||
+      form.jenis_pekerjaan === "" ||
+      form.alamat_identitas_1 === "" ||
+      form.alamat_identitas_2 === "" ||
+      form.kode_kota === "" ||
+      form.kode_provinsi === "" ||
+      form.kode_negara === "" ||
+      form.no_telepon === "" ||
+      form.no_hp === "" ||
+      form.email === ""
+    ) {
       console.log(form);
-      toast.error("Please fill all form ...")
-      return
+      toast.error("Please fill all form ...");
+      return;
     }
 
-    const payload = JSON.stringify(form)
+    const payload = JSON.stringify(form);
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
       "http://127.0.0.1:8000/security-account/",
@@ -108,20 +107,22 @@ export default function Form({
         },
         body: payload,
       },
-    ).then(async (response) => {
-      if (response.status === 200 || response.status == 201) {
-        const res = await response.json();
-        const newCustomer = res.data.customer;
-        // setCutomer([...customer, newCustomer])
-        toast.success("Created!", { id: toastId });
-        closeModal()
-      } else {
-        toast.error("Failed to create an account!", { id: toastId });
-      }
-    }).catch((error) => {
-      console.log('Error', error);
-      toast.error(error.message, { id: toastId });
-    });
+    )
+      .then(async (response) => {
+        if (response.status === 200 || response.status == 201) {
+          const res = await response.json();
+          const newCustomer = res.data.customer;
+          // setCutomer([...customer, newCustomer])
+          toast.success("Created!", { id: toastId });
+          closeModal();
+        } else {
+          toast.error("Failed to create an account!", { id: toastId });
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        toast.error(error.message, { id: toastId });
+      });
   };
 
   return (
@@ -207,14 +208,17 @@ export default function Form({
                             type="text"
                             value={form.no_rekening_investor}
                             onChange={(e) =>
-                              setForm({ ...form, no_rekening_investor: e.target.value })
+                              setForm({
+                                ...form,
+                                no_rekening_investor: e.target.value,
+                              })
                             }
                           />
                         </div>
                       </div>
                       <div className="mb-4 flex flex-row gap-5">
                         <div className=" flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -231,7 +235,7 @@ export default function Form({
                           />
                         </div>
                         <div className="ml-2 flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -251,7 +255,7 @@ export default function Form({
 
                       <div className="mb-4 flex flex-row gap-5">
                         <div className=" flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -263,12 +267,15 @@ export default function Form({
                             type="text"
                             value={form.nama_belakang}
                             onChange={(e) =>
-                              setForm({ ...form, nama_belakang: e.target.value })
+                              setForm({
+                                ...form,
+                                nama_belakang: e.target.value,
+                              })
                             }
                           />
                         </div>
                         <div className="ml-2 flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -288,7 +295,7 @@ export default function Form({
 
                       <div className="mb-4 flex flex-row gap-5">
                         <div className=" flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -305,7 +312,7 @@ export default function Form({
                           />
                         </div>
                         <div className="ml-2 flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -325,7 +332,7 @@ export default function Form({
 
                       <div className="mb-4 flex flex-row gap-5">
                         <div className=" flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -337,12 +344,15 @@ export default function Form({
                             type="text"
                             value={form.no_pendaftaran_usaha}
                             onChange={(e) =>
-                              setForm({ ...form, no_pendaftaran_usaha: e.target.value })
+                              setForm({
+                                ...form,
+                                no_pendaftaran_usaha: e.target.value,
+                              })
                             }
                           />
                         </div>
                         <div className="ml-2 flex w-1/2 flex-col">
-                        <label
+                          <label
                             className="mb-2  block font-bold"
                             htmlFor="npp"
                           >
@@ -354,254 +364,267 @@ export default function Form({
                             type="text"
                             value={form.tanggal_pendirian}
                             onChange={(e) =>
-                              setForm({ ...form, tanggal_pendirian: e.target.value })
+                              setForm({
+                                ...form,
+                                tanggal_pendirian: e.target.value,
+                              })
                             }
                           />
                         </div>
                       </div>
                       <div className="mb-4 flex flex-row gap-5">
-                 
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Tempat Pendirian
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.tempat_penidiran}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                tempat_penidiran: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Tempat Pendirian
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.tempat_penidiran}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, tempat_penidiran: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Tipe Investor
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.tipe_investor}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                tipe_investor: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Tipe Investor
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.tipe_investor}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, tipe_investor: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Jenis Kelamin
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.jenis_kelamin}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                jenis_kelamin: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Jenis Kelamin
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.jenis_kelamin}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, jenis_kelamin: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Jenis Pekerjaan
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.jenis_pekerjaan}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                jenis_pekerjaan: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Jenis Pekerjaan
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.jenis_pekerjaan}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, jenis_pekerjaan: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Alamat Identitas 1
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.alamat_identitas_1}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                alamat_identitas_1: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Alamat Identitas 1
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.alamat_identitas_1}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, alamat_identitas_1: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Alamat Identitas 2
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.alamat_identitas_2}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                alamat_identitas_2: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Alamat Identitas 2
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.alamat_identitas_2}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, alamat_identitas_2: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Kode Kota
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.kode_kota}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                kode_kota: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Kode Kota
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.kode_kota}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, kode_kota: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Kode Provinsi
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.kode_provinsi}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                kode_provinsi: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Kode Provinsi
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.kode_provinsi}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, kode_provinsi: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Kode Negara
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.kode_negara}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                kode_negara: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Kode Negara
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.kode_negara}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, kode_negara: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            No. Telepon
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.no_telepon}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                no_telepon: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     No. Telepon
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.no_telepon}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, no_telepon: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            No. HP
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.no_hp}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                no_hp: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     No. HP
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.no_hp}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, no_hp: e.target.value,
-                       })
-                     }
-                   />
-                 </div>
-
-                 <div className="mr-2 flex w-1/2 flex-col">
-                   <label
-                     className="mb-2  block font-bold"
-                     htmlFor="email"
-                   >
-                     Email
-                   </label>
-                   <input
-                     className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-                     id="email"
-                     type="email"
-                     value={form.email}
-                     onChange={(e) =>
-                       setForm({
-                         ...form, email: e.target.value,
-                       })
-                     }
-                   />
-                 </div>           
-               </div>
+                        <div className="mr-2 flex w-1/2 flex-col">
+                          <label
+                            className="mb-2  block font-bold"
+                            htmlFor="email"
+                          >
+                            Email
+                          </label>
+                          <input
+                            className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
+                            id="email"
+                            type="email"
+                            value={form.email}
+                            onChange={(e) =>
+                              setForm({
+                                ...form,
+                                email: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
                     </form>
                   </main>
 
