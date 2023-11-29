@@ -35,7 +35,7 @@ export default async function Tracker() {
   const data = await getData(token)
 
   return (
-    <section className="flex w-full px-40 py-10 flex-col grow h-full">
+    <section className="flex w-full px-40 py-10 flex-col grow h-full text-base-content-200">
       <p className="text-xl font-bold">Welcome {data.detail.name}</p>
       {/* <p> {data}</p> */}
       <div className="bg-base-100 flex flex-col gap-3 p-5 rounded-3xl">
@@ -48,7 +48,7 @@ export default async function Tracker() {
         </div>
         <div className="bg-red">
 
-          <p className="whitespace-nowrap px-6 py-4 text-sm font-medium">
+          <p className="whitespace-nowrap px-6 py-4 text-sm font-medium text-base-content-200">
             Mandatory file status:
             <span className={data.mandatory_status === 0 ? 'text-red-500' : 'text-green-500'}>
               {data.mandatory_status === 0 ? ' Not Complete' : ' Complete'}
