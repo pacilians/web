@@ -54,10 +54,10 @@ export default function FileTabGroup({
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>
-          <FileList file={mandatoryFile} />
+          <FileList file={mandatoryFile} type="mandatory" />
         </Tab.Panel>
         <Tab.Panel>
-          <FileList file={additionalFile} />
+          <FileList file={additionalFile} type="additional"/>
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

@@ -42,7 +42,13 @@ const deleteFile = (id: string, name: string, token: string) => {
     });
 };
 
-export default function FileList({ file }: { file: FileNasabah[] }) {
+export default function FileList({
+  file,
+  type,
+}: {
+  file: FileNasabah[];
+  type: any;
+}) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -69,12 +75,14 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
             >
               Modified
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-sm font-medium text-base-content-300"
-            >
-              Filled
-            </th>
+            {type === "mandatory" ? (
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-sm font-medium text-base-content-300"
+              >
+                Filled
+              </th>
+            ) : null}
           </tr>
         </thead>
         <tbody>
@@ -82,7 +90,6 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
             <tr
               key={file.id}
               className="group cursor-pointer overflow-hidden odd:bg-base-200/60 even:bg-base-200/30"
-
             >
               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-base-content-200">
                 {file.name}
@@ -93,15 +100,21 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-base-content-500">
                 {file.updated_at}
               </td>
-              <td className={`whitespace-nowrap px-6 py-4 text-sm font-medium ${file.file_exist === 0 ? 'text-red-500' : 'text-green-500'}`}>
-                {file.file_exist === 0 ? 'No file' : 'Done'}
-              </td>
+
+              {type === "mandatory" ? (
+                <td
+                  className={`whitespace-nowrap px-6 py-4 text-sm font-medium ${
+                    file.file_exist === 0 ? "text-red-500" : "text-green-500"
+                  }`}
+                >
+                  {file.file_exist === 0 ? "No file" : "Done"}
+                </td>
+              ) : null}
             </tr>
           ))}
         </tbody>
       </table>
       <Toaster />
-
     </section>
   );
 }
