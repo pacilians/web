@@ -137,7 +137,7 @@ export default function SecurityACC() {
           }}
           className="rounded-10 flex h-12 items-center justify-center bg-[#E55300] p-5 text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          +
+          Add
         </button>
       </div>
 
