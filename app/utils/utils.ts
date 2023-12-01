@@ -1,3 +1,4 @@
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function randomGradient() {
@@ -35,10 +36,7 @@ export function randomGradient() {
   );
 }
 
-export function formatDate(
-  isoDateString: string | undefined,
-  time?: boolean,
-) {
+export function formatDate(isoDateString: string | undefined, time?: boolean) {
   if (!isoDateString) return "-";
 
   let date = new Date(isoDateString.slice(0, -1));
@@ -62,4 +60,8 @@ export function formatDate(
   } else {
     return datePart;
   }
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

@@ -25,7 +25,7 @@ export default function Service({ initialData }: iProps) {
   const handleAdd = async () => {
     const toastId = toast.loading("Creating...");
 
-    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/service", {
+    fetch("http://127.0.0.1:8000/master-data/service", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

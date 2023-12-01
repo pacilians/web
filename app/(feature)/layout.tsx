@@ -9,7 +9,7 @@ export default function FeatureLayout({
   return (
     <>
       <Sidebar />
-      <div className="flex grow flex-col">
+      <div className="flex overflow-x-scroll grow flex-col">
         <Navbar />
         {children}
       </div>

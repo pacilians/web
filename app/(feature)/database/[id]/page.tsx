@@ -16,6 +16,27 @@ export const metadata: Metadata = {
   description: "",
 };
 
+async function getData(id: string, token: string) {
+  const res = await fetch(
+    // `https://bnicstdy-b41ad9b84aff.herokuapp.com/database/${id}`,
+    `http://127.0.0.1:8000/database/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data.data.customer;
+}
+
 export default async function DetailNasabah({
   params,
 }: Readonly<{

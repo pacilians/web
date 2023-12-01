@@ -22,7 +22,7 @@ export default function Category({ initialData }: iProps) {
   const handleAdd = async () => {
     const toastId = toast.loading("Creating...");
 
-    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/business", {
+    fetch("http://127.0.0.1:8000/master-data/business", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

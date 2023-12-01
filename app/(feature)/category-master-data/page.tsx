@@ -11,7 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 const fetchInitialData = async () => {
   try {
     const response = await fetch(
-      "https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/",
+      "http://127.0.0.1:8000/master-data/",
       {
         method: "GET",
         headers: {

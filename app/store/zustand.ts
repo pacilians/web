@@ -2,6 +2,11 @@ import { create } from "zustand";
 
 import { Nasabah } from "@customTypes/types";
 
+interface TopNasabah {
+  company: string;
+  totalMoney: number;
+}
+
 type NasabahStore = Nasabah & {
   setNasabah: (nasabah: Nasabah) => void;
 };

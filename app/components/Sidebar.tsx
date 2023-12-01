@@ -200,6 +200,54 @@ export default function Sidebar() {
             </Transition>
           </Link>
 
+          <Link
+            className={`nav-item${pathname.startsWith("/notification") ? "-active" : ""
+              }`}
+            href="/notification"
+          >
+            <Iconify
+              icon="mingcute:notification-fill"
+              className="text-2xl"
+            />
+            <Transition
+              className="line-clamp-1 text-clip"
+              as="p"
+              show={!isButtonToggled}
+              enter="transition ease-in-out duration-500 transform"
+              enterFrom="-translate-x-2 opacity-0 scale-90"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-500 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="-translate-x-2 opacity-0 scale-90"
+            >
+              Notification
+            </Transition>
+          </Link>
+
+          <Link
+            className={`nav-item${pathname.startsWith("/asset-management") ? "-active" : ""
+              }`}
+            href="/asset-management"
+          >
+            <Iconify
+              icon="fluent:money-16-regular"
+              className="text-2xl"
+            />
+            <Transition
+              className="line-clamp-1 text-clip"
+              as="p"
+              show={!isButtonToggled}
+              enter="transition ease-in-out duration-500 transform"
+              enterFrom="-translate-x-2 opacity-0 scale-90"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-500 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="-translate-x-2 opacity-0 scale-90"
+            >
+              Asset Management
+            </Transition>
+          </Link>
+
                     
           <Link
             className={`nav-item${
@@ -223,6 +271,29 @@ export default function Sidebar() {
               leaveTo="-translate-x-2 opacity-0 scale-90"
             >
               Audit
+            </Transition>
+          </Link>
+          <Link
+            className={`nav-item${pathname.startsWith("/approval-nasabah") ? "-active" : ""
+              }`}
+            href="/approval-nasabah"
+          >
+            <Iconify
+              icon="ant-design:audit-outlined"
+              className="text-2xl"
+            />
+            <Transition
+              className="line-clamp-1 text-clip"
+              as="p"
+              show={!isButtonToggled}
+              enter="transition ease-in-out duration-500 transform"
+              enterFrom="-translate-x-2 opacity-0 scale-90"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-500 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="-translate-x-2 opacity-0 scale-90"
+            >
+              Approal Nasabah
             </Transition>
           </Link>
           <button

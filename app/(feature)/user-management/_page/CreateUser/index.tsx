@@ -20,6 +20,18 @@ export default function CreateUser() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    if(
+      form.name === "" || 
+      form.npp === "" ||
+      form.role === "" ||
+      form.description === "" ||
+      form.email === "" ||
+      form.customer === ""
+    ){
+      toast.error("Please fill all forms ....")
+      return
+    }
+
     const payload = JSON.stringify({
       email: form.email,
       name: form.name,
@@ -28,8 +40,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      "https://bnicstdy-b41ad9b84aff.herokuapp.com/user/",
-      // "http://127.0.0.1:8000/user/",
+      "http://127.0.0.1:8000/user/",
       {
         method: "POST",
         headers: {
@@ -56,7 +67,7 @@ export default function CreateUser() {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "https://bnicstdy-b41ad9b84aff.herokuapp.com/database/",
+        "http://127.0.0.1:8000/database/",
         {
           method: "GET",
           headers: {

@@ -3,8 +3,11 @@
 import BniLogo from "@components/BniLogo";
 import toast, { Toaster } from "react-hot-toast";
 import { useStoreNavbar } from "../../store/store-context";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Form() {
+  const router = useRouter();
+  const pathname = usePathname();
   const handleLogin = (e: any) => {
     e.preventDefault();
 
@@ -15,7 +18,7 @@ export default function Form() {
 
     const toastId = toast.loading("Logging in...");
 
-    fetch("https://bnicstdy-b41ad9b84aff.herokuapp.com/login", {
+    fetch("http://127.0.0.1:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +43,15 @@ export default function Form() {
         document.cookie = `token=${token}; expires=${expirationTime}`;
         document.cookie = `name=${user.name}; expires=${expirationTime}`;
         document.cookie = `role=${user.role}; expires=${expirationTime}`;
-        window.location.href = "/";
+
+        console.log(user);
+
+        if(user.role === "CUSTOMER"){
+          router.push("/tracker");
+        }else{
+          router.push("/")
+        }
+
         toast.success("Logged in successfully", { id: toastId });
       })
       .catch((error) => {
