@@ -32,20 +32,19 @@ import { useEffect, useState } from "react";
 import { cn } from "@utils/utils";
 
 export default function CreateFileModal() {
-  const [categories, setCategories] = useState([{ value: "", label: "" }]);
+  const [categories, setCategories] = useState([{ id: "", name: "" }]);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const data = (await fetchMasterData()).mandatory.map(
-        (item: { id: string, name: string }) => ({
-          value: item.id,
-          label: item.name,
+        (item: { id: string; name: string }) => ({
+          id: item.id.toString(),
+          name: item.name,
         }),
       );
       setCategories(data);
-      console.log(data);
     };
     fetchData();
   }, []);
@@ -67,13 +66,12 @@ export default function CreateFileModal() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                role="combobox"
+                aria-haspopup="listbox"
                 aria-expanded={open}
-                className="w-full justify-between"
+                className="justify-between"
               >
                 {value
-                  ? categories.find((category) => category.value === value)
-                      ?.label
+                  ? categories.find((category) => category.id === value)?.name
                   : "Select category..."}
                 <Iconify
                   icon="ph:caret-up-down-bold"
@@ -81,33 +79,28 @@ export default function CreateFileModal() {
                 />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0">
+            <PopoverContent className="p-0">
               <Command>
                 <CommandInput placeholder="Search category..." />
                 <CommandEmpty>No category found.</CommandEmpty>
                 <CommandGroup>
                   {categories.map((category) => (
                     <CommandItem
-                      key={category.value.toString()}
-                      value={category.value.toString()}
-                      onSelect={(currentValue) => {
-                        setValue(
-                          currentValue === value.toString()
-                            ? 0
-                            : parseInt(currentValue),
-                        );
+                      key={category.id}
+                      value={category.name}
+                      onSelect={() => {
+                        setValue(category.id === value ? "" : category.id);
+                        setOpen(false);
                       }}
                     >
                       <Iconify
                         icon="ph:check-bold"
                         className={cn(
                           "mr-2 text-xs",
-                          value === category.value
-                            ? "opacity-100"
-                            : "opacity-0",
+                          value === category.id ? "opacity-100" : "opacity-0",
                         )}
                       />
-                      {category.label}
+                      {category.name}
                     </CommandItem>
                   ))}
                 </CommandGroup>
