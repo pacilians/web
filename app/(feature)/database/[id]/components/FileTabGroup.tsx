@@ -107,7 +107,7 @@ export default function FileTabGroup({
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>
-          <DataTable columns={columns} data={mandatoryFile} />
+          <DataTable columns={columns} data={mandatoryFile} mandatory/>
           {/* <FileList file={mandatoryFile} /> */}
         </Tab.Panel>
         <Tab.Panel>

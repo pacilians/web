@@ -36,7 +36,8 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: Readonly<DataTableProps<TData, TValue>>) {
+  mandatory,
+}: Readonly<DataTableProps<TData, TValue> & { mandatory?: boolean }>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -69,7 +70,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <AddFileModal />
+        <AddFileModal mandatory={mandatory || false}/>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -98,8 +99,7 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   className="cursor-pointer"
-                  onClick={() => (
-
+                  onClick={() =>
                     router.push(
                       `/database/${
                         (data[row.index] as { id_customer: string; id: string })
@@ -108,7 +108,7 @@ export function DataTable<TData, TValue>({
                         (data[row.index] as { id_customer: string; id: string })
                           .id
                       }`,
-                    ))
+                    )
                   }
                 >
                   {row.getVisibleCells().map((cell) => (

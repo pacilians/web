@@ -76,7 +76,7 @@ export default function PDFViewer({ data }: any) {
 
         <div className="mx-auto flex h-full justify-center">
           <Document
-            file={data.file}
+            file={data.file.data}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
             renderMode="canvas"
