@@ -34,9 +34,9 @@ async function getData(id: string, token: string) {
 
 export default async function DetailNasabah({
   params,
-}: {
+}: Readonly<{
   params: { id: string };
-}) {
+}>) {
   const { id } = params;
   const cookieStore = cookies();
   const token = cookieStore.get("token")?.value ?? "";
