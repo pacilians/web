@@ -4,14 +4,33 @@ import Iconify from "@components/Iconify";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export default function PDFViewer({ data }: any) {
   console.log(data);
+  const bufferData = new Uint8Array(data.file.data);
+  const fileURL = URL.createObjectURL(new Blob([bufferData], { type: "pdf" }));
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1); // start on first page
   const [loading, setLoading] = useState(true);
   const [pageWidth, setPageWidth] = useState(0);
+
+  const handleDownload = () => {
+
+    const fileName = "test.pdf";
+    const fileType = "pdf";
+
+    const blob = new Blob([bufferData], { type: fileType });
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    return () => {
+      URL.revokeObjectURL(link.href);
+    };
+  };
 
   function onDocumentLoadSuccess({
     numPages: nextNumPages,
@@ -43,6 +62,8 @@ export default function PDFViewer({ data }: any) {
 
   return (
     <>
+      <button onClick={handleDownload}>Download PDF</button>
+
       <Nav pageNumber={pageNumber} numPages={numPages} />
       <div hidden={loading} className="flex h-[calc(100vh-4rem)] items-center">
         <div
@@ -76,7 +97,7 @@ export default function PDFViewer({ data }: any) {
 
         <div className="mx-auto flex h-full justify-center">
           <Document
-            file={data.file.data}
+            file={fileURL}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
             renderMode="canvas"
