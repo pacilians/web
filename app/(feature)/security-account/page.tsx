@@ -24,14 +24,22 @@ import { dummylist } from "./data";
 // };
 
 export default function SecurityACC() {
+  /**
+   * States
+   */
   const router = useRouter();
   const pathname = usePathname();
   const [cookies, setCookie, removeCookie] = useCookies();
   const [securities, setSecurities] = useState([]);
 
+
+
+  /**
+   * Functions
+   */
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/security-account", {
+      const response = await fetch(`${process.env.SERVER}/security-account`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,9 +62,13 @@ export default function SecurityACC() {
     }
   };
 
+  /**
+   * UseEffect
+   */
   useEffect(() => {
     fetchData();
   }, []);
+
   const columns = useMemo<MRT_ColumnDef<SecuritiesAccount>[]>(
     () => [
       {
