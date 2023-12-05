@@ -21,7 +21,6 @@ async function getData(token: string) {
     },
   );
 
-  console.log(res);
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }

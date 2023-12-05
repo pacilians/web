@@ -1,12 +1,16 @@
 "use client";
 
+// components
+import Iconify from "@components/Iconify";
+import { columns } from "./Columns";
+import { DataTable } from "./DataTable";
+
+// libraries
 import { useCookies } from "react-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-
-import Iconify from "@components/Iconify";
 
 type FileNasabah = {
   id: string;
@@ -46,13 +50,14 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
   const pathname = usePathname();
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  let [isOpen, setIsOpen] = useState(false);
   let [fileId, setFileId] = useState("");
   let [fileName, setFileName] = useState("");
 
   return (
     <section>
-      <table className="min-w-full overflow-hidden rounded-xl border border-base-300">
+      <DataTable columns={columns} data={file} />
+
+      {/* <table className="min-w-full overflow-hidden rounded-xl border border-base-300">
         <thead className="border-b border-base-300 bg-base-200">
           <tr>
             <th
@@ -130,9 +135,9 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
       <Toaster />
-      <Transition appear show={isOpen} as={Fragment}>
+      {/* <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-10"
@@ -206,7 +211,7 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
             </div>
           </div>
         </Dialog>
-      </Transition>
+      </Transition> */}
     </section>
   );
 }

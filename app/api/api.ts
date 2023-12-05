@@ -91,31 +91,6 @@ export async function updateNasabah(
   }
 }
 
-export async function deleteFile(id: string, name: string, token: string) {
-  const toastId = toast.loading(`Deleting ${name}...`);
-
-  fetch(`https://bnicstdy-b41ad9b84aff.herokuapp.com/database/file/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-  })
-    .then(async (response) => {
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
-      }
-      toast.success(`Deleted ${name} successfully`, { id: toastId });
-      window.location.reload();
-    })
-    .catch((error) => {
-      toast.error(`Failed to delete ${name}: ${error.message}`, {
-        id: toastId,
-      });
-    });
-}
-
 export async function fetchChecklist(token: string) {
   const res = await fetch(`${BASE_URL}/database/checklist`, {
     method: "GET",

@@ -1,8 +1,13 @@
 "use client";
 
-import { Tab } from "@headlessui/react";
+// components
+import Iconify from "@components/Iconify";
+import { Button } from "@components/button";
+import { DataTable } from "./DataTable";
 
-import FileList from "./FileList";
+// libraries
+import { Tab } from "@headlessui/react";
+import { ColumnDef } from "@tanstack/react-table";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,13 +21,62 @@ type FileNasabah = {
   type: string;
 };
 
+const columns: ColumnDef<FileNasabah>[] = [
+  {
+    accessorKey: "name",
+    header: "File name",
+  },
+  {
+    accessorKey: "created_at",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Created at
+          <Iconify icon="solar:sort-vertical-linear" className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "updated_at",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Last modified
+          <Iconify icon="solar:sort-vertical-linear" className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const file = row.original;
+
+      return (
+        <div className="flex gap-1">
+          <Button variant="outline" stopPropagation>
+            Delete file
+          </Button>
+        </div>
+      );
+    },
+  },
+];
+
 export default function FileTabGroup({
   mandatoryFile,
   additionalFile,
-}: {
+}: Readonly<{
   mandatoryFile: FileNasabah[];
   additionalFile: FileNasabah[];
-}) {
+}>) {
   return (
     <Tab.Group>
       <Tab.List className="flex gap-1 rounded-xl bg-base-backdrop-100 p-1 shadow-inner">
@@ -53,10 +107,12 @@ export default function FileTabGroup({
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>
-          <FileList file={mandatoryFile} />
+          <DataTable columns={columns} data={mandatoryFile} mandatory/>
+          {/* <FileList file={mandatoryFile} /> */}
         </Tab.Panel>
         <Tab.Panel>
-          <FileList file={additionalFile} />
+          <DataTable columns={columns} data={additionalFile} />
+          {/* <FileList file={additionalFile} /> */}
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
