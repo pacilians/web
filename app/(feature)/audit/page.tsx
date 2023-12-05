@@ -50,6 +50,11 @@ export default function Audit() {
       return;
     }
 
+    if(formEvent.end < formEvent.start){
+      toast.error("Start cannot proceed end.");
+      return;
+    }
+
     const payload = JSON.stringify({
       name: formEvent.name,
       start: formEvent.start,
