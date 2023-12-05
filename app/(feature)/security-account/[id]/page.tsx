@@ -8,10 +8,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { useCookies } from "react-cookie";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function CreateSecurityAccount() {
+export default function UpdateSecurityAccount() {
   let [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
   const router = useRouter();
+  const pathname = usePathname();
+  const path = pathname.split("/");
+  const id = path[path.length - 1];
   const [database, setDatabase] = useState([]);
   const [form, setForm] = useState<iSecurities>({
     id: null,
@@ -41,9 +44,9 @@ export default function CreateSecurityAccount() {
     email: "",
   });
 
-  const fetchData = async () => {
+  const fetchCompany = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/database", {
+      const response = await fetch(`http://127.0.0.1:8000/database`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -66,8 +69,34 @@ export default function CreateSecurityAccount() {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/security-account/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Error fetching announcement:",
+          "Network response was not ok",
+        );
+      }
+
+      const res = await response.json();
+      const dat = res.data.securitiesAccount;
+      setForm(dat);
+    } catch (error) {
+      console.error("Error fetching notif:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    fetchCompany()
   }, []);
 
   const handleSubmit = async () => {
@@ -102,12 +131,17 @@ export default function CreateSecurityAccount() {
       return;
     }
 
-    const payload = JSON.stringify(form);
-    const toastId = toast.loading("Creating...");
+
+    let load = {
+      ...form,
+      id: undefined,
+    }
+    const payload = JSON.stringify(load);
+    const toastId = toast.loading("Updating...");
     const createCustomerRequest = fetch(
-      "http://127.0.0.1:8000/security-account/",
+      `http://127.0.0.1:8000/security-account/${id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: cookies.token,
@@ -119,7 +153,7 @@ export default function CreateSecurityAccount() {
         if (response.status === 200 || response.status == 201) {
           const res = await response.json();
           // setCutomer([...customer, newCustomer])
-          toast.success("Created!", { id: toastId });
+          toast.success("Updated!", { id: toastId });
           router.push("/security-account");
         } else {
           toast.error("Failed to create an account!", { id: toastId });
@@ -135,55 +169,23 @@ export default function CreateSecurityAccount() {
     <main className="w-full grow rounded-tl-3xl bg-base-backdrop-200 p-10">
       {/* <div className="rounded-lg bg-[#D9D9D9] px-5 py-5"> */}
       <h2 className="text-center text-xl font-bold">
-        Create Securities Account
+        {form.nama_perusahaan} Securities Account
       </h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-row gap-5">
           <div className="mr-2 flex w-1/2 flex-col">
             <label className="mb-2  block font-bold" htmlFor="npp">
-              ID Customer *
+            Customer
             </label>
-            {/* <input
+            <input
               className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
               id="npp"
               required
               type="text"
               value={form.id_customer}
-              onChange={(e) =>
-                setForm({ ...form, id_customer: e.target.value })
-              }
-            /> */}
-
-            <select
-              className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
-              id="role"
-              onChange={(e: any) => {
-                const id = e.target.value;
-                const comp: any = database.filter(
-                  (ctx: any) => ctx.id === id,
-                )[0];
-                console.log(comp);
-                setForm({
-                  ...form,
-                  id_customer: id,
-                  nama_perusahaan: comp.name,
-                });
-              }}
-            >
-              <option key="" value=""></option>
-              {database.map((ctx: any, key) => (
-                <option onClick={() => {}} key={key} value={ctx.id}>
-                  {ctx.name}
-                </option>
-              ))}
-              {/* <option value=""></option>
-              <option value="ADMIN">Admin</option>
-              <option value="EMPLOYEE">Employee</option>
-              <option value="AUDITOR">Auditor</option>
-              <option value="CUSTOMER">Customer</option>
-              <option value="HOC">Head of Custody</option> */}
-            </select>
+              disabled
+            />
           </div>
           <div className="mr-2 flex w-1/2 flex-col">
             <label className="mb-2  block font-bold" htmlFor="npp">
@@ -585,7 +587,7 @@ export default function CreateSecurityAccount() {
         }}
         className="rounded-10 flex h-12 items-center justify-center bg-[#E55300] p-5 text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
-        Submit Securities Account
+        Update Securities Account
       </button>
       <Toaster />
     </main>
