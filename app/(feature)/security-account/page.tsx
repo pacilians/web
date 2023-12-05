@@ -9,14 +9,29 @@ import { useCookies } from "react-cookie";
 import toast, { Toaster } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  MantineReactTable,
-  useMantineReactTable,
-  MRT_TableOptions,
-  type MRT_ColumnDef,
-} from "mantine-react-table";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@components/table";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { Input } from "@components/input";
 import Iconify from "@components/Iconify";
 import { ActionIcon, Button, Flex, Text, Tooltip } from "@mantine/core";
 import { dummylist } from "./data";
+import { iSecurities } from "./interface";
 
 // export const metadata: Metadata = {
 //   title: "Security Account | BNI Custody System",
@@ -24,14 +39,24 @@ import { dummylist } from "./data";
 // };
 
 export default function SecurityACC() {
+  /**
+   * States
+   */
   const router = useRouter();
   const pathname = usePathname();
   const [cookies, setCookie, removeCookie] = useCookies();
   const [securities, setSecurities] = useState([]);
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
 
+  /**
+   * Functions
+   */
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/security-account", {
+      const response = await fetch(`http://bnicustody.site:8000/security-account`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,131 +79,139 @@ export default function SecurityACC() {
     }
   };
 
+  const handleDelete = async (data: any) => {
+    const postForm = fetch(
+      `http://bnicustody.site:8000/security-account/${data.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.token,
+        },
+      },
+    ).then(async (response) => {
+      if (response.status === 200) {
+        const curr = securities.filter((ctx: any) => ctx.id != data.id);
+        setSecurities(curr);
+        // Success
+      } else {
+        throw new Error("Failed Marked");
+      }
+    });
+    toast.promise(postForm, {
+      loading: "Deleting security account",
+      success: "Deleted securities account",
+      error: "Failed delete securities acccount",
+    });
+  };
+
+  /**
+   * UseEffect
+   */
   useEffect(() => {
     fetchData();
   }, []);
-  const columns = useMemo<MRT_ColumnDef<SecuritiesAccount>[]>(
-    () => [
-      {
-        header: "Kode BK",
-        accessorKey: "kode_bk",
-      },
-      {
-        header: "No Rekening",
-        accessorKey: "no_rekening_investor",
-        enableEditing: false,
-      },
-      {
-        header: "Nama Perusahaan",
-        accessorKey: "nama_perusahaan",
-        enableEditing: false,
-      },
-      {
-        header: "Kode BK",
-        accessorKey: "kode_bk",
-      },
-      {
-        header: "KTP",
-        accessorKey: "ktp",
-      },
-      {
-        header: "NPWP",
-        accessorKey: "npwp",
-      },
-      {
-        header: "No Paspor",
-        accessorKey: "no_paspor",
-      },
-      {
-        header: "No Pendaftaran Usaha",
-        accessorKey: "no_pendaftaran_usaha",
-      },
-      {
-        header: "Tanggal Pendirian",
-        accessorKey: "tanggal_pendirian",
-      },
-      {
-        header: "Tempat Pendirian",
-        accessorKey: "tempat_penidiran",
-      },
-      {
-        header: "Tipe Investor",
-        accessorKey: "tipe_investor",
-      },
-      {
-        header: "Jenis Kelamin",
-        accessorKey: "jenis_kelamin",
-      },
-    ],
-    [],
-  );
 
-  const table = useMantineReactTable({
-    columns,
-    data: securities,
-    state: { isLoading: false },
-    createDisplayMode: "row",
-    editDisplayMode: "row",
-    enableEditing: true,
-    enableRowActions: true,
-    positionActionsColumn: "last",
-    initialState: { showColumnFilters: true, showGlobalFilter: true },
-    mantineTableBodyRowProps: ({ row, table }) => ({
-      onDoubleClick: (event) => {
-        const current = table.getRow(row.id).original;
-        // router.push(`${pathname}/${current.id}`);
-      },
-      sx: {
-        cursor: "pointer", //you might want to change the cursor too when adding an onClick
-      },
-    }),
-    renderRowActions: ({ row, table }) => (
-      <>
-        <Flex gap="md">
-          <Tooltip label="Edit">
-            <ActionIcon onClick={() => table.setEditingRow(row)}>
-              <Iconify
-                icon="material-symbols-light:edit-outline"
-                className="text-2xl"
-              />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label="Delete">
-            <ActionIcon
-              color="red"
+  const columns: ColumnDef<iSecurities>[] = [
+    {
+      header: "Action",
+      cell: ({ row }) => {
+        const current = row.original;
+        return (
+          <div className="flex flex-row gap-4">
+            <div
+              className="cursor-pointer"
               onClick={() => {
-                const current = table.getRow(row.id).original;
+                router.push(`${pathname}/${current.id}`);
               }}
             >
-              <Iconify
-                icon="material-symbols-light:delete-outline"
-                className="text-2xl"
-              />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label="Convert">
-            <ActionIcon
-              color="red"
+              <Iconify icon="system-uicons:write" className="text-2xl" />
+            </div>
+            <div
+              className="cursor-pointer"
               onClick={() => {
-                const current = table.getRow(row.id).original;
+                handleDelete(current);
+              }}
+            >
+              <Iconify icon="material-symbols:delete" className="text-2xl" />
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                console.log(current);
                 const textData = JSON.stringify(current);
                 const blob = new Blob([textData], { type: "text/plain" });
-
                 const downloadLink = document.createElement("a");
                 downloadLink.download = "data.txt";
                 downloadLink.href = window.URL.createObjectURL(blob);
                 downloadLink.style.display = "none";
                 document.body.appendChild(downloadLink);
-
                 downloadLink.click();
               }}
             >
-              <Iconify icon="lucide:text" className="text-2xl" />
-            </ActionIcon>
-          </Tooltip>
-        </Flex>
-      </>
-    ),
+              <Iconify icon="fluent-mdl2:generate" className="text-2xl" />
+            </div>
+          </div>
+        );
+      },
+    },
+    { accessorKey: "kode_bk", header: "Kode BK" },
+    { accessorKey: "no_rekening_investor", header: "No Rekening Investor" },
+    { accessorKey: "nama_perusahaan", header: "Nama Perusahaan" },
+    { accessorKey: "nama_awal", header: "Nama Awal" },
+    { accessorKey: "nama_tengah", header: "Nama Tengah" },
+    { accessorKey: "nama_belakang", header: "Nama Belakang" },
+    { accessorKey: "ktp", header: "KTP" },
+    { accessorKey: "npwp", header: "NPWP" },
+    { accessorKey: "no_paspor", header: "No Paspor" },
+    { accessorKey: "no_pendaftaran_usaha", header: "No Pendaftaran Usaha" },
+    { accessorKey: "tanggal_pendirian", header: "Tanggal Pendirian" },
+    { accessorKey: "tempat_pendirian", header: "Tempat Pendirian" },
+    { accessorKey: "tipe_investor", header: "Tipe Investor" },
+    { accessorKey: "jenis_kelamin", header: "Jenis Kelamin" },
+    { accessorKey: "jenis_pekerjaan", header: "Jenis Pekerjaan" },
+    { accessorKey: "alamat_identitas_1", header: "Alamat Identitas 1" },
+    { accessorKey: "alamat_identitas_2", header: "Alamat Identitas 2" },
+    { accessorKey: "kode_kota", header: "Kode Kota" },
+    { accessorKey: "kode_provinsi", header: "Kode Provinsi" },
+    { accessorKey: "kode_negara", header: "Kode Negara" },
+    { accessorKey: "no_telepon", header: "No Telepon" },
+    { accessorKey: "no_hp", header: "No HP" },
+    { accessorKey: "email", header: "Email" },
+
+    {
+      accessorKey: "created_at",
+      // header: "Created At",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Created At
+            <Iconify
+              icon="solar:sort-vertical-linear"
+              className="ml-2 h-4 w-4"
+            />
+          </Button>
+        );
+      },
+    },
+  ];
+
+  const table = useReactTable({
+    data: securities,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+    },
   });
   return (
     <main className="grow rounded-tl-3xl bg-base-backdrop-200 p-10 shadow-2xl">
@@ -195,7 +228,93 @@ export default function SecurityACC() {
       </div>
 
       <React.Fragment>
-        <MantineReactTable table={table} />
+        <div>
+          <div className="flex items-center py-4">
+            <Input
+              placeholder="Filter Security Account"
+              value={
+                (table
+                  .getColumn("no_rekening_investor")
+                  ?.getFilterValue() as string) ?? ""
+              }
+              onChange={(event) =>
+                table
+                  .getColumn("no_rekening_investor")
+                  ?.setFilterValue(event.target.value)
+              }
+              className="max-w-sm"
+            />
+          </div>
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <TableHead key={header.id}>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                        </TableHead>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="flex items-center justify-end space-x-2 py-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </Button>
+          </div>
+          <Toaster />
+        </div>
       </React.Fragment>
     </main>
   );

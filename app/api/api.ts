@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 // types
 import { Nasabah } from "@customTypes/types";
 
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "http://bnicustody.site:8000";
 
 export async function fetchMasterData() {
   try {

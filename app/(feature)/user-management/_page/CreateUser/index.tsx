@@ -25,8 +25,7 @@ export default function CreateUser() {
       form.npp === "" ||
       form.role === "" ||
       form.description === "" ||
-      form.email === "" ||
-      form.customer === ""
+      form.email === "" 
     ){
       toast.error("Please fill all forms ....")
       return
@@ -40,7 +39,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      "http://127.0.0.1:8000/user/",
+      "http://bnicustody.site:8000/user/",
       {
         method: "POST",
         headers: {
@@ -67,7 +66,7 @@ export default function CreateUser() {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/database/",
+        "http://bnicustody.site:8000/database/",
         {
           method: "GET",
           headers: {

@@ -41,7 +41,7 @@ export default function Form({
     no_paspor: "",
     no_pendaftaran_usaha: "",
     tanggal_pendirian: "",
-    tempat_penidiran: "",
+    tempat_pendirian: "",
     tipe_investor: "",
     jenis_kelamin: "",
     jenis_pekerjaan: "",
@@ -77,7 +77,7 @@ export default function Form({
       form.no_paspor === "" ||
       form.no_pendaftaran_usaha === "" ||
       form.tanggal_pendirian === "" ||
-      form.tempat_penidiran === "" ||
+      form.tempat_pendirian === "" ||
       form.tipe_investor === "" ||
       form.jenis_kelamin === "" ||
       form.jenis_pekerjaan === "" ||
@@ -98,7 +98,7 @@ export default function Form({
     const payload = JSON.stringify(form);
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
-      "http://127.0.0.1:8000/security-account/",
+      `http://bnicustody.site:8000/security-account/`,
       {
         method: "POST",
         headers: {
@@ -384,11 +384,11 @@ export default function Form({
                             className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
                             id="email"
                             type="email"
-                            value={form.tempat_penidiran}
+                            value={form.tempat_pendirian}
                             onChange={(e) =>
                               setForm({
                                 ...form,
-                                tempat_penidiran: e.target.value,
+                                tempat_pendirian: e.target.value,
                               })
                             }
                           />

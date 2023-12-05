@@ -2,7 +2,7 @@
 
 // components
 import Iconify from "@components/Iconify";
-import { columns } from "./Columns";
+// import { columns } from "./Columns";
 import { DataTable } from "./DataTable";
 
 // libraries
@@ -55,7 +55,7 @@ export default function FileList({ file }: { file: FileNasabah[] }) {
 
   return (
     <section>
-      <DataTable columns={columns} data={file} />
+      {/* <DataTable columns={columns} data={file} /> */}
 
       {/* <table className="min-w-full overflow-hidden rounded-xl border border-base-300">
         <thead className="border-b border-base-300 bg-base-200">

@@ -24,6 +24,5 @@
     no_telepon: string,
     no_hp: string,
     email: string,
-
   }
   
