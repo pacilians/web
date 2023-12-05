@@ -133,10 +133,21 @@ export function DataTable() {
     },
     {
       accessorKey: "created_at",
-      header: "Created At",
+      // header: "Created At",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Created At
+            <Iconify icon="solar:sort-vertical-linear" className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
     },
     {
-      
+
       accessorKey: "read_by",
       header: "Reader",
       cell: ({ row }) => {
@@ -160,7 +171,7 @@ export function DataTable() {
         return (
           <div
             className="cursor-pointer"
-            onClick={()=>{handleMarkRead(current)}}
+            onClick={() => { handleMarkRead(current) }}
           >
             <Iconify icon="circum:read" className="text-2xl" />
           </div>
@@ -207,9 +218,9 @@ export function DataTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                     </TableHead>
                   );
                 })}

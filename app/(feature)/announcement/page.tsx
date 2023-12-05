@@ -76,7 +76,7 @@ export default function ListAnnouncement() {
   const fetchAnnouncement = async () => {
     try {
       const response = await fetch(
-        `https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement`,
+        `http://127.0.0.1:8000/announcement`,
         {
           method: "GET",
           headers: {

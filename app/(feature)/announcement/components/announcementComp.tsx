@@ -37,7 +37,7 @@ export default function AnnouncementComp({
   const handleDeleteAnnouncement = async () => {
     try {
       const response = await fetch(
-        `https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement/${id}`,
+        `http://127.0.0.1:8000/announcement/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -71,7 +71,7 @@ export default function AnnouncementComp({
   const handlePinAnnouncement = async () => {
     try {
       const response = await fetch(
-        `https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement/pin/${id}`,
+        `http://127.0.0.1:8000/announcement/pin/${id}`,
         {
           method: "PUT",
           headers: {
