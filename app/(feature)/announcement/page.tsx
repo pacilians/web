@@ -41,8 +41,8 @@ export default function ListAnnouncement() {
       content: form.content,
     });
     const postForm = fetch(
-      "http://127.0.0.1:8000/announcement",
-      // "http://127.0.0.1:8000/user/",
+      "http://bnicustody.site:8000/announcement",
+      // "http://bnicustody.site:8000/user/",
       {
         method: "POST",
         headers: {
@@ -76,7 +76,7 @@ export default function ListAnnouncement() {
   const fetchAnnouncement = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/announcement`,
+        `http://bnicustody.site:8000/announcement`,
         {
           method: "GET",
           headers: {

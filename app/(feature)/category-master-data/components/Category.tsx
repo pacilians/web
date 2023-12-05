@@ -22,7 +22,7 @@ export default function Category({ initialData }: iProps) {
   const handleAdd = async () => {
     const toastId = toast.loading("Creating...");
 
-    fetch("http://127.0.0.1:8000/master-data/business", {
+    fetch("http://bnicustody.site:8000/master-data/business", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

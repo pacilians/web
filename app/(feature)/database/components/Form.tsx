@@ -73,7 +73,7 @@ export default function Form({
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
       // "https://bnicstdy-b41ad9b84aff.herokuapp.com/database",
-      "http://127.0.0.1:8000/database/",
+      "http://bnicustody.site:8000/database/",
       {
         method: "POST",
         headers: {

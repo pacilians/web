@@ -98,7 +98,7 @@ export default function Form({
     const payload = JSON.stringify(form);
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
-      `${process.env.SERVER}/security-account/`,
+      `http://bnicustody.site:8000/security-account/`,
       {
         method: "POST",
         headers: {
