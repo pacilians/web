@@ -15,30 +15,10 @@ export type TopTenNasabah = {
 export const columns: ColumnDef<TopTenNasabah>[] = [
   {
     accessorKey: "company",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Company
-          <Iconify icon="solar:sort-vertical-linear" className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: "Company"
   },
   {
     accessorKey: "AUC",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          AUC
-          <Iconify icon="solar:sort-vertical-linear" className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: "AUC",
   },
 ];
