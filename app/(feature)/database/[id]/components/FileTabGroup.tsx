@@ -18,6 +18,7 @@ export type FileNasabah = {
   id: string;
   id_customer: string;
   name: string;
+  exist: number;
   created_at: string;
   updated_at: string;
   type: string;
@@ -63,7 +64,7 @@ const columns: ColumnDef<FileNasabah>[] = [
 
       return (
         <div className="flex gap-1">
-          <DeleteFileModal file={file}/>
+          <DeleteFileModal file={file} />
         </div>
       );
     },
@@ -77,7 +78,14 @@ export default function FileTabGroup({
   mandatoryFile: FileNasabah[];
   additionalFile: FileNasabah[];
 }>) {
-  
+  console.log(mandatoryFile);
+  const filteredMandatoryFile = mandatoryFile.filter(
+    (file) => file.exist === 1,
+  );
+  const filteredAdditionalFile = additionalFile.filter(
+    (file) => file.exist === 1,
+  );
+
   return (
     <Tab.Group>
       <Tab.List className="flex gap-1 rounded-xl bg-base-backdrop-100 p-1 shadow-inner">
@@ -108,11 +116,11 @@ export default function FileTabGroup({
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>
-          <DataTable columns={columns} data={mandatoryFile} mandatory/>
+          <DataTable columns={columns} data={filteredMandatoryFile} mandatory />
           {/* <FileList file={mandatoryFile} /> */}
         </Tab.Panel>
         <Tab.Panel>
-          <DataTable columns={columns} data={additionalFile} />
+          <DataTable columns={columns} data={filteredAdditionalFile} />
           {/* <FileList file={additionalFile} /> */}
         </Tab.Panel>
       </Tab.Panels>
