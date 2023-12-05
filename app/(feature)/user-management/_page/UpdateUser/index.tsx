@@ -34,8 +34,8 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      `${process.env.SERVER}/user/${id}`,
-      // "http://127.0.0.1:8000/user/",
+      `http://bnicustody.site:8000/user/${id}`,
+      // "http://bnicustody.site:8000/user/",
       {
         method: "PUT",
         headers: {

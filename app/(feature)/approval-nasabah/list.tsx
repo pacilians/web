@@ -42,7 +42,7 @@ export default function ListApproval() {
    */
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/database/approval/`, {
+      const response = await fetch(`http://bnicustody.site:8000/database/approval/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export default function ListApproval() {
 
     const postForm = fetch(
       // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      `http://127.0.0.1:8000/database/approval/${selected.id}`,
+      `http://bnicustody.site:8000/database/approval/${selected.id}`,
       {
         method: "PUT",
         headers: {
@@ -130,7 +130,7 @@ export default function ListApproval() {
 
     const postForm = fetch(
       // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      `http://127.0.0.1:8000/database/approval/${selected.id}`,
+      `http://bnicustody.site:8000/database/approval/${selected.id}`,
       {
         method: "PUT",
         headers: {

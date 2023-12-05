@@ -28,7 +28,7 @@ export default function MandatoryFile({ initialData }: iProps) {
   const handleAdd = async () => {
     const toastId = toast.loading("Creating...");
 
-    fetch("http://127.0.0.1:8000/master-data/mandatory", {
+    fetch("http://bnicustody.site:8000/master-data/mandatory", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

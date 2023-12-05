@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 async function getData(token: string) {
   const res = await fetch(
-    `${process.env.SERVER}/database`,
+    `http://bnicustody.site:8000/database`,
     {
       method: "GET",
       headers: {

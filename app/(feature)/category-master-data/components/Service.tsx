@@ -25,7 +25,7 @@ export default function Service({ initialData }: iProps) {
   const handleAdd = async () => {
     const toastId = toast.loading("Creating...");
 
-    fetch("http://127.0.0.1:8000/master-data/service", {
+    fetch("http://bnicustody.site:8000/master-data/service", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

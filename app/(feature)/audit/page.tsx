@@ -64,7 +64,7 @@ export default function Audit() {
 
     const postForm = fetch(
       // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      "http://127.0.0.1:8000/audit/event",
+      "http://bnicustody.site:8000/audit/event",
       {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ export default function Audit() {
     setLoad(true);
     const postForm = fetch(
       // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      `http://127.0.0.1:8000/audit/event/${formEvent.id}`,
+      `http://bnicustody.site:8000/audit/event/${formEvent.id}`,
       {
         method: "DELETE",
         headers: {
@@ -144,7 +144,7 @@ export default function Audit() {
     try {
       const response = await fetch(
         // `https://bnicstdy-b41ad9b84aff.herokuapp.com/audit/`,
-        "http://127.0.0.1:8000/audit/",
+        "http://bnicustody.site:8000/audit/",
         {
           method: "GET",
           headers: {
@@ -182,7 +182,7 @@ export default function Audit() {
 
       const postForm = fetch(
         // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-        `http://127.0.0.1:8000/audit/event/${current.id}`,
+        `http://bnicustody.site:8000/audit/event/${current.id}`,
         {
           method: "PUT",
           headers: {

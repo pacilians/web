@@ -53,7 +53,7 @@ export function DataTable() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/notification", {
+      const response = await fetch("http://bnicustody.site:8000/notification", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export function DataTable() {
 
   const handleMarkRead = async (item: any) => {
     const postForm = fetch(
-      `http://127.0.0.1:8000/notification/${item.id}/mark-read`,
+      `http://bnicustody.site:8000/notification/${item.id}/mark-read`,
       {
         method: "PUT",
         headers: {

@@ -43,7 +43,7 @@ export default function CreateSecurityAccount() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/database", {
+      const response = await fetch("http://bnicustody.site:8000/database", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function CreateSecurityAccount() {
     const payload = JSON.stringify(form);
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
-      "http://127.0.0.1:8000/security-account/",
+      "http://bnicustody.site:8000/security-account/",
       {
         method: "POST",
         headers: {
