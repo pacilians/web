@@ -39,6 +39,7 @@ export default function CreateFileModal({ mandatory }: { mandatory: boolean }) {
   const [categories, setCategories] = useState([{ id: "", name: "" }]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [file, setFile] = useState<File>(null!);
   const [cookies, setCookie, removeCookie] = useCookies();
   const segments = usePathname().split("/");
 
@@ -121,15 +122,10 @@ export default function CreateFileModal({ mandatory }: { mandatory: boolean }) {
               </Popover>
             )}
             <FileUploader
-              handleChange={(file: File) =>
-                createFile(
-                  segments[segments.length - 1],
-                  cookies.token,
-                  file,
-                  categories.find((category) => category.id === value)!.name,
-                  mandatory ? "MANDATORY" : "ADDITIONAL",
-                )
-              }
+              handleChange={(file: File) => {
+                console.log(file);
+                setFile(file);
+              }}
               name="file"
               required
               types={["pdf"]}
@@ -141,7 +137,21 @@ export default function CreateFileModal({ mandatory }: { mandatory: boolean }) {
             <div className="grid grid-cols-4 items-center gap-4"></div>
           </div>
           <DialogFooter>
-            <Button type="submit">Upload</Button>
+            <Button
+              onClick={() => {
+                createFile(
+                  segments[segments.length - 1],
+                  cookies.token,
+                  file,
+                  mandatory
+                    ? categories.find((category) => category.id === value)!.name
+                    : file.name,
+                  mandatory ? "MANDATORY" : "ADDITIONAL",
+                );
+              }}
+            >
+              Upload
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

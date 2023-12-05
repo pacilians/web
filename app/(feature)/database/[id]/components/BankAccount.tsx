@@ -2,34 +2,41 @@
 
 // components
 import Iconify from "@components/Iconify";
-import { Popover } from "@headlessui/react";
 
 // libraries
 import { useState } from "react";
 
 // types
-import { BoardOfDirector } from "@customTypes/types";
+import type { BankAccount } from "@customTypes/types";
 
-export default function BoardOfDirectors({
-  bod,
-}: Readonly<{ bod: BoardOfDirector[] }>) {
+// utils
+import { randomGradient } from "@utils/utils";
+
+export default function BankAccount({
+  bankAccount,
+}: Readonly<{
+  bankAccount: BankAccount[];
+}>) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="group relative flex basis-1/2 flex-col gap-2 rounded-xl border border-base-300 bg-base-200/40 p-5 text-base-content-400">
+    <div className="group relative flex basis-1/2 flex-col gap-4 overflow-y-auto rounded-xl border border-base-300 bg-base-200/40 px-5 pt-5 text-base-content-400">
       <h3 className="text-xl font-semibold text-base-content-200">
-        Board of Directors
+        Bank Account
       </h3>
-      {bod.map((person) => (
-        <div className="mb-2 flex flex-col" key={person.id}>
-          <p className="font-bold">
-            Name: <span className="font-normal">{person.name}</span>
-          </p>
-          <p className="font-bold">
-            Role: <span className="font-normal">{person.role}</span>
-          </p>
-        </div>
-      ))}
+      <div className="relative -mx-5 flex h-10 grow snap-y snap-mandatory flex-col gap-3 overflow-y-scroll overscroll-contain rounded-lg pb-5 pl-5 pr-1 text-slate-800">
+        {bankAccount.map((account) => (
+          <div
+            className={`flex aspect-[2/1] w-full shrink-0 snap-start flex-col justify-end gap-4 rounded-lg px-4 py-5 ${randomGradient()} shadow-xl`}
+            key={account.id}
+          >
+            <p className="font-mono text-2xl mix-blend-color-burn">
+              {account.number}
+            </p>
+            <p className="mix-blend-color-burn">{account.name}</p>
+          </div>
+        ))}
+      </div>
       <div
         className={`absolute right-3 top-3 ${
           !isEditing ? "-translate-y-6 translate-x-6 scale-0" : ""

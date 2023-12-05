@@ -4,6 +4,7 @@
 import Iconify from "@components/Iconify";
 import { Button } from "@components/button";
 import { DataTable } from "./DataTable";
+import DeleteFileModal from "./DeleteFileModal";
 
 // libraries
 import { Tab } from "@headlessui/react";
@@ -13,8 +14,9 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-type FileNasabah = {
+export type FileNasabah = {
   id: string;
+  id_customer: string;
   name: string;
   created_at: string;
   updated_at: string;
@@ -61,9 +63,7 @@ const columns: ColumnDef<FileNasabah>[] = [
 
       return (
         <div className="flex gap-1">
-          <Button variant="outline" stopPropagation>
-            Delete file
-          </Button>
+          <DeleteFileModal file={file}/>
         </div>
       );
     },
@@ -77,6 +77,7 @@ export default function FileTabGroup({
   mandatoryFile: FileNasabah[];
   additionalFile: FileNasabah[];
 }>) {
+  
   return (
     <Tab.Group>
       <Tab.List className="flex gap-1 rounded-xl bg-base-backdrop-100 p-1 shadow-inner">

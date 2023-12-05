@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <AddFileModal mandatory={mandatory || false}/>
+        <AddFileModal mandatory={mandatory ?? false}/>
       </div>
       <div className="rounded-md border">
         <Table>
