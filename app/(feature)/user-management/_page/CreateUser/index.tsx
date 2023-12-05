@@ -25,8 +25,7 @@ export default function CreateUser() {
       form.npp === "" ||
       form.role === "" ||
       form.description === "" ||
-      form.email === "" ||
-      form.customer === ""
+      form.email === "" 
     ){
       toast.error("Please fill all forms ....")
       return

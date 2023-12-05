@@ -48,6 +48,8 @@ export default function Form() {
 
         if(user.role === "CUSTOMER"){
           router.push("/tracker");
+        }else if(user.role === "AUDITOR"){
+          router.push("/audit")
         }else{
           router.push("/")
         }
