@@ -36,13 +36,18 @@ export default function ListAnnouncement() {
     setIsOpen(false);
   }
   const handleSubmit = async () => {
+    if (!form.title || !form.content) {
+      // Jika field belum terisi, tampilkan pesan atau lakukan sesuatu yang sesuai
+      alert("Please fill in all fields.");
+      return;
+    }
     const payload = JSON.stringify({
       title: form.title,
       content: form.content,
     });
     const postForm = fetch(
-      "http://127.0.0.1:8000/announcement",
-      // "http://127.0.0.1:8000/user/",
+      "http://bnicustody.site:8000/announcement",
+      // "http://bnicustody.site:8000/user/",
       {
         method: "POST",
         headers: {
@@ -76,7 +81,7 @@ export default function ListAnnouncement() {
   const fetchAnnouncement = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/announcement`,
+        `http://bnicustody.site:8000/announcement`,
         {
           method: "GET",
           headers: {
@@ -121,8 +126,8 @@ export default function ListAnnouncement() {
             announcement={announcement}
             setAnnouncement={setAnnouncement}
             created_at={data.created_at}
-            // load={load}
-            // setLoad={setLoad}
+          // load={load}
+          // setLoad={setLoad}
           />
         ))}
         {announcement.unpinned.map((data: any, key: any) => (
@@ -135,14 +140,14 @@ export default function ListAnnouncement() {
             announcement={announcement}
             setAnnouncement={setAnnouncement}
             created_at={data.created_at}
-            // load={load}
-            // setLoad={setLoad}
+          // load={load}
+          // setLoad={setLoad}
           />
         ))}
       </div>
 
       <>
-        <div className="absolute bottom-5 right-5">
+        <div className="fixed bottom-5 right-5">
           <button
             type="button"
             onClick={openModal}
