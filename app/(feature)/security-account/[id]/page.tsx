@@ -46,7 +46,7 @@ export default function UpdateSecurityAccount() {
 
   const fetchCompany = async () => {
     try {
-      const response = await fetch(`${process.env.SERVER}/database`, {
+      const response = await fetch(`http://bnicustody.site:8000/database`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export default function UpdateSecurityAccount() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${process.env.SERVER}/security-account/${id}`, {
+      const response = await fetch(`http://bnicustody.site:8000/security-account/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -139,7 +139,7 @@ export default function UpdateSecurityAccount() {
     const payload = JSON.stringify(load);
     const toastId = toast.loading("Updating...");
     const createCustomerRequest = fetch(
-      `${process.env.SERVER}/security-account/${id}`,
+      `http://bnicustody.site:8000/security-account/${id}`,
       {
         method: "PUT",
         headers: {

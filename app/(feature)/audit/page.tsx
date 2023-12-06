@@ -63,7 +63,7 @@ export default function Audit() {
     setLoad(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/audit/event`,
+      `http://bnicustody.site:8000/audit/event`,
       {
         method: "POST",
         headers: {
@@ -103,7 +103,7 @@ export default function Audit() {
   const handleDelete = async () => {
     setLoad(true);
     const postForm = fetch(
-      `${process.env.SERVER}/audit/event/${formEvent.id}`,
+      `http://bnicustody.site:8000/audit/event/${formEvent.id}`,
       {
         method: "DELETE",
         headers: {
@@ -141,7 +141,7 @@ export default function Audit() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${process.env.SERVER}/audit/`,
+        `http://bnicustody.site:8000/audit/`,
         {
           method: "GET",
           headers: {
@@ -178,7 +178,7 @@ export default function Audit() {
       setLoad(true);
 
       const postForm = fetch(
-        `${process.env.SERVER}/audit/event/${current.id}`,
+        `http://bnicustody.site:8000/audit/event/${current.id}`,
         {
           method: "PUT",
           headers: {

@@ -18,7 +18,7 @@ export default function Form() {
 
     const toastId = toast.loading("Logging in...");
 
-    fetch(`${process.env.SERVER}/login`, {
+    fetch(`http://bnicustody.site:8000/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

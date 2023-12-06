@@ -26,7 +26,7 @@ export default function ListUser() {
   const fetchUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.SERVER}/user/${id}`,
+        `http://bnicustody.site:8000/user/${id}`,
         {
           method: "GET",
           headers: {
@@ -54,7 +54,7 @@ export default function ListUser() {
    
     try {
       const response = await fetch(
-        `${process.env.SERVER}/user/${id}`,
+        `http://bnicustody.site:8000/user/${id}`,
         {
           method: "DELETE",
           headers: {

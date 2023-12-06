@@ -20,7 +20,7 @@ type FileNasabah = {
 const deleteFile = (id: string, name: string, token: string) => {
   const toastId = toast.loading(`Deleting ${name}...`);
 
-  fetch(`${process.env.SERVER}/database/file/${id}`, {
+  fetch(`http://bnicustody.site:8000/database/file/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

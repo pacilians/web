@@ -14,7 +14,7 @@ export default function ListUser() {
   const fetchUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.SERVER}/user/`,
+        `http://bnicustody.site:8000/user/`,
         {
           method: "GET",
           headers: {

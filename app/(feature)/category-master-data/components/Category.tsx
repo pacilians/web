@@ -27,7 +27,7 @@ export default function Category({ initialData }: iProps) {
 
     const toastId = toast.loading("Creating...");
 
-    fetch(`${process.env.SERVER}/master-data/business`, {
+    fetch(`http://bnicustody.site:8000/master-data/business`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function Category({ initialData }: iProps) {
     const toastId = toast.loading("Deleting...");
     const selected = await selectedData;
     fetch(
-      `${process.env.SERVER}/master-data/business/${selected.id}`,
+      `http://bnicustody.site:8000/master-data/business/${selected.id}`,
       {
         method: "DELETE",
         headers: {

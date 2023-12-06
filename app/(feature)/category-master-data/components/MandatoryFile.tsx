@@ -34,7 +34,7 @@ export default function MandatoryFile({ initialData }: iProps) {
 
     const toastId = toast.loading("Creating...");
 
-    fetch(`${process.env.SERVER}/master-data/mandatory`, {
+    fetch(`http://bnicustody.site:8000/master-data/mandatory`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export default function MandatoryFile({ initialData }: iProps) {
     const toastId = toast.loading("Deleting...");
     const selected = await selectedData;
     fetch(
-      `${process.env.SERVER}/master-data/mandatory/${selected.id}`,
+      `http://bnicustody.site:8000/master-data/mandatory/${selected.id}`,
       {
         method: "DELETE",
         headers: {
@@ -94,7 +94,7 @@ export default function MandatoryFile({ initialData }: iProps) {
     const toastId = toast.loading("updating...");
     const selected = await selectedData;
     fetch(
-      `${process.env.SERVER}/master-data/mandatory/${selected.id}`,
+      `http://bnicustody.site:8000/master-data/mandatory/${selected.id}`,
       {
         method: "PUT",
         headers: {

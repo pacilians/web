@@ -39,7 +39,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      `${process.env.SERVER}/user/`,
+      `http://bnicustody.site:8000/user/`,
       {
         method: "POST",
         headers: {
@@ -66,7 +66,7 @@ export default function CreateUser() {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        `${process.env.SERVER}/database/`,
+        `http://bnicustody.site:8000/database/`,
         {
           method: "GET",
           headers: {

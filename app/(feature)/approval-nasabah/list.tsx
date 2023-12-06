@@ -42,7 +42,7 @@ export default function ListApproval() {
    */
   const fetchData = async () => {
     try {
-      const response = await fetch(`${process.env.SERVER}/database/approval/`, {
+      const response = await fetch(`http://bnicustody.site:8000/database/approval/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function ListApproval() {
     setLoading(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/database/approval/${selected.id}`,
+      `http://bnicustody.site:8000/database/approval/${selected.id}`,
       {
         method: "PUT",
         headers: {
@@ -128,7 +128,7 @@ export default function ListApproval() {
     setLoading(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/database/approval/${selected.id}`,
+      `http://bnicustody.site:8000/database/approval/${selected.id}`,
       {
         method: "PUT",
         headers: {

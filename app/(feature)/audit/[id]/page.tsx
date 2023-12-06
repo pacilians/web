@@ -53,7 +53,7 @@ export default function DetailAudit() {
   const handleFetch = async () => {
     try {
       const response = await fetch(
-        `${process.env.SERVER}/audit/event/${id}`,
+        `http://bnicustody.site:8000/audit/event/${id}`,
         {
           method: "GET",
           headers: {
@@ -90,7 +90,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/audit/item`,
+      `http://bnicustody.site:8000/audit/item`,
       {
         method: "POST",
         headers: {
@@ -132,7 +132,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/audit/item/status/${id}`,
+      `http://bnicustody.site:8000/audit/item/status/${id}`,
       {
         method: "PUT",
         headers: {
@@ -165,7 +165,7 @@ export default function DetailAudit() {
   const handleDelete = async () => {
     setLoading(true);
     const postForm = fetch(
-      `${process.env.SERVER}/audit/item/${form.id}`,
+      `http://bnicustody.site:8000/audit/item/${form.id}`,
       {
         method: "DELETE",
         headers: {
@@ -204,7 +204,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      `${process.env.SERVER}/audit/item/file/${form.id}`,
+      `http://bnicustody.site:8000/audit/item/file/${form.id}`,
       {
         method: "PUT",
         body: formData,
