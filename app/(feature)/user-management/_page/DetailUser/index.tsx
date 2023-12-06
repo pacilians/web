@@ -26,7 +26,7 @@ export default function ListUser() {
   const fetchUser = async () => {
     try {
       const response = await fetch(
-        `http://bnicustody.site:8000/user/${id}`,
+        `${process.env.SERVER}/user/${id}`,
         {
           method: "GET",
           headers: {
@@ -51,9 +51,10 @@ export default function ListUser() {
   };
 
   const handleDeleteUser = async () => {
+   
     try {
       const response = await fetch(
-        `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
+        `${process.env.SERVER}/user/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -62,14 +63,16 @@ export default function ListUser() {
           },
         },
       );
-
+      toast.loading('Deleting user')
       if (!response.ok) {
         console.error("Error fetching user:", "Network response was not ok");
       }
 
       router.push(`/user-management`);
+      toast.success('User has been deleted')
     } catch (error) {
       console.error("Error fetching user:", error);
+      toast.error('User failed to delete')
     }
   };
 
@@ -143,7 +146,7 @@ export default function ListUser() {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col">
+      {/* <div className="mt-8 flex flex-col">
         <h1 className="mb-2 text-2xl font-bold">Log Activity</h1>
         <div className="flex flex-col gap-3">
           <div className="flex flex-row rounded-lg border p-3 shadow-lg">
@@ -196,8 +199,8 @@ export default function ListUser() {
             </div>
           </div>
         </div>
-      </div>
-      <input type="text" className="hidden" readOnly />
+      </div> */}
+      {/* <input type="text" className="hidden" readOnly /> */}
       <Toaster/>
     </div>
   );

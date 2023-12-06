@@ -20,7 +20,7 @@ type FileNasabah = {
 const deleteFile = (id: string, name: string, token: string) => {
   const toastId = toast.loading(`Deleting ${name}...`);
 
-  fetch(`https://bnicstdy-b41ad9b84aff.herokuapp.com/database/file/${id}`, {
+  fetch(`${process.env.SERVER}/database/file/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

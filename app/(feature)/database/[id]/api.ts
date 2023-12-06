@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-const BASE_URL = "http://bnicustody.site:8000";
+const BASE_URL = `${process.env.SERVER}`;
 
 export async function fetchFile(id: string, token: string) {
   const res = await fetch(`${BASE_URL}/database/file/${id}`, {

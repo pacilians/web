@@ -13,8 +13,7 @@ export const metadata: Metadata = {
 
 async function getData(id: string, token: string) {
   const res = await fetch(
-    // `https://bnicstdy-b41ad9b84aff.herokuapp.com/database/${id}`,
-    `http://bnicustody.site:8000/database/${id}`,
+    `${process.env.SERVER}/database/${id}`,
     {
       method: "GET",
       headers: {

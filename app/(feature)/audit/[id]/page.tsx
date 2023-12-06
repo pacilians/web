@@ -53,8 +53,7 @@ export default function DetailAudit() {
   const handleFetch = async () => {
     try {
       const response = await fetch(
-        // `https://bnicstdy-b41ad9b84aff.herokuapp.com/audit/`,
-        `http://bnicustody.site:8000/audit/event/${id}`,
+        `${process.env.SERVER}/audit/event/${id}`,
         {
           method: "GET",
           headers: {
@@ -91,8 +90,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      "http://bnicustody.site:8000/audit/item",
+      `${process.env.SERVER}/audit/item`,
       {
         method: "POST",
         headers: {
@@ -134,8 +132,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      `http://bnicustody.site:8000/audit/item/status/${id}`,
+      `${process.env.SERVER}/audit/item/status/${id}`,
       {
         method: "PUT",
         headers: {
@@ -168,8 +165,7 @@ export default function DetailAudit() {
   const handleDelete = async () => {
     setLoading(true);
     const postForm = fetch(
-      // "https://bnicstdy-b41ad9b84aff.herokuapp.com/announcement",
-      `http://bnicustody.site:8000/audit/item/${form.id}`,
+      `${process.env.SERVER}/audit/item/${form.id}`,
       {
         method: "DELETE",
         headers: {
@@ -208,8 +204,7 @@ export default function DetailAudit() {
     setLoading(true);
 
     const postForm = fetch(
-      // "https://bnicstdy-b41ad9b84aff.herokuapp.com/audit/item/status/${id}",
-      `http://bnicustody.site:8000/audit/item/file/${form.id}`,
+      `${process.env.SERVER}/audit/item/file/${form.id}`,
       {
         method: "PUT",
         body: formData,
@@ -652,7 +647,7 @@ export default function DetailAudit() {
                           handleDelete();
                         }}
                       >
-                        Delete Event
+                        Delete Item
                       </button>
                     </div>
                   </Dialog.Panel>

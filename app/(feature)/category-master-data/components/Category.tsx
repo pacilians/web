@@ -20,9 +20,14 @@ export default function Category({ initialData }: iProps) {
   });
 
   const handleAdd = async () => {
+    if (form === "") {
+      toast.error("Please fill the field");
+      return;
+    }
+
     const toastId = toast.loading("Creating...");
 
-    fetch("http://bnicustody.site:8000/master-data/business", {
+    fetch(`${process.env.SERVER}/master-data/business`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +58,7 @@ export default function Category({ initialData }: iProps) {
     const toastId = toast.loading("Deleting...");
     const selected = await selectedData;
     fetch(
-      `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/business/${selected.id}`,
+      `${process.env.SERVER}/master-data/business/${selected.id}`,
       {
         method: "DELETE",
         headers: {

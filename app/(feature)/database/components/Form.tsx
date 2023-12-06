@@ -72,8 +72,7 @@ export default function Form({
     const payload = JSON.stringify(form)
     const toastId = toast.loading("Creating...");
     const createCustomerRequest = fetch(
-      // "https://bnicstdy-b41ad9b84aff.herokuapp.com/database",
-      "http://bnicustody.site:8000/database/",
+      `${process.env.SERVER}/database/`,
       {
         method: "POST",
         headers: {

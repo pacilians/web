@@ -23,9 +23,14 @@ export default function Service({ initialData }: iProps) {
   });
 
   const handleAdd = async () => {
+    if (form === "") {
+      toast.error("Please fill the field");
+      return;
+    }
+
     const toastId = toast.loading("Creating...");
 
-    fetch("http://bnicustody.site:8000/master-data/service", {
+    fetch(`${process.env.SERVER}/master-data/service`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +61,7 @@ export default function Service({ initialData }: iProps) {
     const toastId = toast.loading("Deleting...");
     const selected = await selectedData;
     fetch(
-      `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/service/${selected.id}`,
+      `${process.env.SERVER}/master-data/service/${selected.id}`,
       {
         method: "DELETE",
         headers: {

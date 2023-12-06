@@ -34,8 +34,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      `http://bnicustody.site:8000/user/${id}`,
-      // "http://bnicustody.site:8000/user/",
+      `${process.env.SERVER}/user/${id}`,
       {
         method: "PUT",
         headers: {
@@ -53,16 +52,16 @@ export default function CreateUser() {
     });
 
     toast.promise(createUserRequest, {
-      loading: "Creating user...",
-      success: "User has been created",
-      error: "Failed creating user",
+      loading: "Updating user...",
+      success: "User has been updated",
+      error: "Failed updating user",
     });
   };
 
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "https://bnicstdy-b41ad9b84aff.herokuapp.com/database/",
+        `${process.env.SERVER}/database/`,
         {
           method: "GET",
           headers: {
@@ -91,7 +90,7 @@ export default function CreateUser() {
   const fetchUser = async () => {
     try {
       const response = await fetch(
-        `https://bnicstdy-b41ad9b84aff.herokuapp.com/user/${id}`,
+        `${process.env.SERVER}/user/${id}`,
         {
           method: "GET",
           headers: {

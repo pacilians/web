@@ -40,7 +40,7 @@ export default function Database({ initialData }: Props) {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "http://bnicustody.site:8000/database",
+        `${process.env.SERVER}/database`,
         {
           method: "GET",
           headers: {

@@ -46,8 +46,8 @@ export default function ListAnnouncement() {
       content: form.content,
     });
     const postForm = fetch(
-      "http://bnicustody.site:8000/announcement",
-      // "http://bnicustody.site:8000/user/",
+      `${process.env.SERVER}/announcement`,
+      // "${process.env.SERVER}/user/",
       {
         method: "POST",
         headers: {
@@ -81,7 +81,7 @@ export default function ListAnnouncement() {
   const fetchAnnouncement = async () => {
     try {
       const response = await fetch(
-        `http://bnicustody.site:8000/announcement`,
+        `${process.env.SERVER}/announcement`,
         {
           method: "GET",
           headers: {

@@ -56,7 +56,7 @@ export default function SecurityACC() {
    */
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://bnicustody.site:8000/security-account`, {
+      const response = await fetch(`${process.env.SERVER}/security-account`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export default function SecurityACC() {
 
   const handleDelete = async (data: any) => {
     const postForm = fetch(
-      `http://bnicustody.site:8000/security-account/${data.id}`,
+      `${process.env.SERVER}/security-account/${data.id}`,
       {
         method: "DELETE",
         headers: {

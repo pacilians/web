@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { iListMandatoryFile, iMandatoryFile } from "../interface";
 import toast, { Toaster } from "react-hot-toast";
+import { json } from "stream/consumers";
 
 interface iProps {
   initialData: iListMandatoryFile;
@@ -26,9 +27,14 @@ export default function MandatoryFile({ initialData }: iProps) {
    */
 
   const handleAdd = async () => {
+    if (form === "") {
+      toast.error("Please fill the field");
+      return;
+    }
+
     const toastId = toast.loading("Creating...");
 
-    fetch("http://bnicustody.site:8000/master-data/mandatory", {
+    fetch(`${process.env.SERVER}/master-data/mandatory`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +66,7 @@ export default function MandatoryFile({ initialData }: iProps) {
     const toastId = toast.loading("Deleting...");
     const selected = await selectedData;
     fetch(
-      `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/mandatory/${selected.id}`,
+      `${process.env.SERVER}/master-data/mandatory/${selected.id}`,
       {
         method: "DELETE",
         headers: {
@@ -85,30 +91,34 @@ export default function MandatoryFile({ initialData }: iProps) {
   };
 
   const handleEdit = async () => {
-    // const toastId = toast.loading("Deleting...");
-    // const selected = await selectedData;
-    // fetch(
-    //   `https://bnicstdy-b41ad9b84aff.herokuapp.com/master-data/mandatory/${selected.id}`,
-    //   {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   },
-    // )
-    //   .then(async (response) => {
-    //     if (!response.ok) {
-    //       const error = await response.json();
-    //       toast.error("Failed delete mandatory", { id: toastId });
-    //     }
-    //     toast.success("Success delete mandatory", { id: toastId });
-    //     let now = data.filter((ctx) => ctx.id !== selected.id);
-    //     setData(now);
-    //     setModal({ ...modal, delete: false });
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error.message, { id: toastId });
-    //   });
+    const toastId = toast.loading("updating...");
+    const selected = await selectedData;
+    fetch(
+      `${process.env.SERVER}/master-data/mandatory/${selected.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name : form})
+      },
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          const error = await response.json();
+          toast.error("Failed update mandatory", { id: toastId });
+        }
+        toast.success("Success udpate mandatory", { id: toastId });
+        let update = selectedData
+        update.name = form
+        let now = data.filter((ctx) => ctx.id !== selected.id);
+        setData([...now, update]);
+        setForm("")
+        setModal({ ...modal, edit: false });
+      })
+      .catch((error) => {
+        toast.error(error.message, { id: toastId });
+      });
   };
 
   return (
@@ -302,7 +312,7 @@ export default function MandatoryFile({ initialData }: iProps) {
                       className="inline-flex basis-1/2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setModal({ ...modal, edit: false });
-                        window.alert("Berhasil mengubah mandatory file!");
+                        handleEdit()
                       }}
                     >
                       Done

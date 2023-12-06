@@ -37,7 +37,7 @@ export default function AnnouncementComp({
   const handleDeleteAnnouncement = async () => {
     try {
       const response = await fetch(
-        `http://bnicustody.site:8000/announcement/${id}`,
+        `${process.env.SERVER}/announcement/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -71,7 +71,7 @@ export default function AnnouncementComp({
   const handlePinAnnouncement = async () => {
     try {
       const response = await fetch(
-        `http://bnicustody.site:8000/announcement/pin/${id}`,
+        `${process.env.SERVER}/announcement/pin/${id}`,
         {
           method: "PUT",
           headers: {

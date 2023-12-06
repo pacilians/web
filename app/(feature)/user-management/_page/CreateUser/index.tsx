@@ -39,7 +39,7 @@ export default function CreateUser() {
       description: form.description,
     });
     const createUserRequest = fetch(
-      "http://bnicustody.site:8000/user/",
+      `${process.env.SERVER}/user/`,
       {
         method: "POST",
         headers: {
@@ -66,7 +66,7 @@ export default function CreateUser() {
   const fetchCustomer = async () => {
     try {
       const response = await fetch(
-        "http://bnicustody.site:8000/database/",
+        `${process.env.SERVER}/database/`,
         {
           method: "GET",
           headers: {
@@ -101,7 +101,7 @@ export default function CreateUser() {
       <form onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col">
           <label className="mb-2 block font-bold" htmlFor="name">
-            Name
+            Name *
           </label>
           <input
             className="focus:shadow-outline appearance-none rounded border bg-transparent px-3 py-2 leading-tight shadow focus:outline-none"
@@ -114,7 +114,7 @@ export default function CreateUser() {
         <div className="mb-4 flex flex-row">
           <div className="mr-2 flex w-1/2 flex-col">
             <label className="mb-2  block font-bold" htmlFor="npp">
-              npp
+              npp *
             </label>
             <input
               className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
@@ -126,7 +126,7 @@ export default function CreateUser() {
           </div>
           <div className="ml-2 flex w-1/2 flex-col">
             <label className="mb-2  block font-bold" htmlFor="role">
-              Role
+              Role *
             </label>
             <select
               className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"
@@ -145,7 +145,7 @@ export default function CreateUser() {
         </div>
         <div className="mb-4 flex flex-col">
           <label className="mb-2  block font-bold" htmlFor="desc">
-            Description
+            Description *
           </label>
           <input
             className="focus:shadow-outline h-20 appearance-none rounded border bg-transparent  px-2 py-1 leading-tight shadow focus:outline-none"
@@ -158,7 +158,7 @@ export default function CreateUser() {
         <div className="mb-4 flex flex-row">
           <div className="mr-2 flex w-full flex-col">
             <label className="mb-2  block font-bold" htmlFor="email">
-              Email
+              Email *
             </label>
             <input
               className="focus:shadow-outline appearance-none rounded border bg-transparent px-3  py-2 leading-tight shadow focus:outline-none"

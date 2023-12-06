@@ -11,7 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 const fetchInitialData = async () => {
   try {
     const response = await fetch(
-      "http://bnicustody.site:8000/master-data/",
+      `${process.env.SERVER}/master-data/`,
       {
         method: "GET",
         headers: {
